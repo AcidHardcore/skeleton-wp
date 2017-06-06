@@ -1,11 +1,15 @@
-//@font-face {
-//  font-family: 'PragmaticaLight';
-//  src: url('../fonts/PragmaticaLight.eot');
-//  src: url('../fonts/PragmaticaLight.woff2') format('woff2'),
-//  url('../fonts/PragmaticaLight.woff') format('woff'),
-//  url('../fonts/PragmaticaLight.ttf') format('truetype'),
-//  url('../fonts/PragmaticaLight.svg#/PragmaticaLight') format('svg'),
-//  url('../fonts/PragmaticaLight.eot?#iefix') format('embedded-opentype');
-//  font-weight: normal;
-//  font-style: normal;
-//}
+@font-face {
+  font-family: 'Web font';       /* название одно */
+  src: url('../fonts/webfont8321.woff'); /* разные файлы */
+  src: url('../fonts/webfont8321.woff2'); /* разные файлы */
+  font-weight: 400;              /* разная плотность */
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Web font';       /* название одно */
+  src: url('../fonts/webfont___1.woff'); /* разные файлы */
+  src: url('../fonts/webfont___1.woff2'); /* разные файлы */
+  font-weight: 700;              /* разная плотность */
+  font-style: normal;
+}

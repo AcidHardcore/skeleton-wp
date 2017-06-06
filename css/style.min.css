@@ -4,6 +4,26 @@
  * Не пишите сюда ничего вручную, все такие правки будут потеряны.
  * Читайте ./README.md для понимания.
  */
+@font-face {
+  font-family: 'Web font';
+  /* название одно */
+  src: url("../fonts/webfont8321.woff");
+  /* разные файлы */
+  src: url("../fonts/webfont8321.woff2");
+  /* разные файлы */
+  font-weight: 400;
+  /* разная плотность */
+  font-style: normal; }
+@font-face {
+  font-family: 'Web font';
+  /* название одно */
+  src: url("../fonts/webfont___1.woff");
+  /* разные файлы */
+  src: url("../fonts/webfont___1.woff2");
+  /* разные файлы */
+  font-weight: 700;
+  /* разная плотность */
+  font-style: normal; }
 /*! normalize.css v5.0.0 | MIT License | github.com/necolas/normalize.css */
 html {
   font-family: sans-serif;
