@@ -37,7 +37,7 @@ $sidebar_pos = get_theme_mod( 'understrap_sidebar_position' );
 					<?php /* Start the Loop */ ?>
 
 					<?php while ( have_posts() ) : the_post(); ?>
-            
+
 						<?php
 
 						/*

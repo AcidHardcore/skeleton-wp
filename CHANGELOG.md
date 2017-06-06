@@ -1,4 +1,32 @@
-            
+
+            - ** Release 0.6.1 May 18th 2017 **
+               - Replacing some older BS3 markup - Thx @typeplus and @Kostas Vrouvas
+               - Add basic error handling for `gulp-plumber` - thx @L422Y
+               - Correcting woo commerce customer login markup
+               - Replacing cssnano with minify-css
+               - Fix deprecated product accessor for WooCommerce 3.0 - Thx @willgorham
+               - Declare woocommerce support - Thx @typeplus
+               - Adding norwegian translation files - Thx @joakimhellum
+               - Adding info for GitHub updater plugin
+               - Fixing imagemin task
+               - Specify correct post templates for jetpack infinite scroll - Thx @typeplus
+               - Streamline 404.php and aligning with other page templates
+               - Adding gulp-sequence
+
+
+            - ** Release 0.6.0 (skipping 0.5.8 and 0.5.9 ) Apr. 21th 2017 **
+               - Adding WooCommerce 3.0.0 support - Big thx @typeplus
+               - Add npm-debug.log to .gitignore file - thx @OussamaElgoumri
+               - Adding swedish translation files
+               - Fixing problems if both forms (login and register) are present
+               - Adding image optimization task to gulpfile - thx @VesterDe
+               - Removing old and unused BS4 Alpha 5 variables
+               - Include call to jQuery into if block - hx @wingertjp
+               - phpcs fixes - thx @typeplus
+               - Fixing col-1 problem on my account WooCommerce page
+               - Updating Font Awesome imports
+
+
             - ** Release 0.5.7  Feb. 13th 2017 **
                - Fixing WooCommerce base layout by reverting custom woocommerce integration and switch back to default integration
                - Adding /js/ folder to watcher task excluding theme.js and theme.min.js

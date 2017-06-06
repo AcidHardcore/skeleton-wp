@@ -1,4 +1,4 @@
-$( document ).ready(function() {
+(function( $ ) {
 
   var t0;
 
@@ -25,4 +25,4 @@ $( document ).ready(function() {
     }
   }
 
-});
+})(jQuery);

@@ -4070,36 +4070,6 @@ a.text-gray-dark:focus, a.text-gray-dark:hover {
   display: none !important; }
 .visible-print-inline-block {
   display: none !important; }
-.temp-icon-left-arrow {
-  background-image: url(../img/sprite-08136982818275336.png);
-  background-position: 0px 0px;
-  width: 32px;
-  height: 32px; }
-.temp-icon-right-arrow {
-  background-image: url(../img/sprite-08136982818275336.png);
-  background-position: -36px 0px;
-  width: 32px;
-  height: 32px; }
-.logo {
-  display: block;
-  white-space: nowrap; }
-.to-top {
-  position: fixed;
-  right: 1rem;
-  bottom: 1rem;
-  z-index: 1;
-  width: 4rem;
-  height: 4rem;
-  border-radius: 50%;
-  background-color: #000;
-  color: transparent;
-  font: 0/0 a;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 17 11' width='17' height='11'%3E%3Cpath fill='%23fff' d='M.202 1.97L1.956.204A.61.61 0 0 1 2.43 0a.61.61 0 0 1 .47.204L8.5 5.84 14.1.204A.61.61 0 0 1 14.57 0a.61.61 0 0 1 .474.204l1.754 1.766a.618.618 0 0 1 .202.473.62.62 0 0 1-.202.476l-7.826 7.875A.61.61 0 0 1 8.5 11a.61.61 0 0 1-.472-.204L.202 2.92A.618.618 0 0 1 0 2.444c0-.203.067-.34.202-.475z'/%3E%3C/svg%3E");
-  background-repeat: no-repeat;
-  background-position: center;
-  transform: rotate(180deg); }
-.js .to-top {
-    display: none; }
 /*
 * Use existing Bootstrap 4 classes and
 * variables to extend - override CF7 style
@@ -4211,6 +4181,36 @@ h1.navbar-brand a {
   color: inherit; }
 h1.navbar-brand a:hover {
   text-decoration: none; }
+.temp-icon-left-arrow {
+  background-image: url(../img/sprite-08136982818275336.png);
+  background-position: 0px 0px;
+  width: 32px;
+  height: 32px; }
+.temp-icon-right-arrow {
+  background-image: url(../img/sprite-08136982818275336.png);
+  background-position: -36px 0px;
+  width: 32px;
+  height: 32px; }
+.logo {
+  display: block;
+  white-space: nowrap; }
+.to-top {
+  position: fixed;
+  right: 1rem;
+  bottom: 1rem;
+  z-index: 1;
+  width: 4rem;
+  height: 4rem;
+  border-radius: 50%;
+  background-color: #000;
+  color: transparent;
+  font: 0/0 a;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 17 11' width='17' height='11'%3E%3Cpath fill='%23fff' d='M.202 1.97L1.956.204A.61.61 0 0 1 2.43 0a.61.61 0 0 1 .47.204L8.5 5.84 14.1.204A.61.61 0 0 1 14.57 0a.61.61 0 0 1 .474.204l1.754 1.766a.618.618 0 0 1 .202.473.62.62 0 0 1-.202.476l-7.826 7.875A.61.61 0 0 1 8.5 11a.61.61 0 0 1-.472-.204L.202 2.92A.618.618 0 0 1 0 2.444c0-.203.067-.34.202-.475z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: center;
+  transform: rotate(180deg); }
+.js .to-top {
+    display: none; }
 @media (min-width: 576px){
   .container{
     padding-right: 15px;

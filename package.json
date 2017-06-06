@@ -57,27 +57,22 @@
       "./node_modules/bootstrap/scss/tooltip.scss",
       "./node_modules/bootstrap/scss/popover.scss",
       "./node_modules/bootstrap/scss/carousel.scss",
-      "./node_modules/bootstrap/scss/utilities"
-    ],
-    "addCssAfter": [
+      "./node_modules/bootstrap/scss/utilities",
       "./src/scss/contact-form7.scss",
       "./src/scss/understrap.scss"
     ],
+    "addCssAfter": [],
     "singleCompiled": [],
     "addJsBefore": [
-      "./node_modules/jquery/dist/jquery.min.js",
-      "./node_modules/svg4everybody/dist/svg4everybody.js"
-    ],
-    "addJsAfter": [
+      "./node_modules/svg4everybody/dist/svg4everybody.js",
       "./node_modules/tether/dist/js/tether.min.js",
-      "./node_modules/bootstrap/dist/js/bootstrap.min.js",
-      "./src/js/global-script.js"
+      "./node_modules/bootstrap/dist/js/bootstrap.min.js"
     ],
+    "addJsAfter": [],
     "addImages": [
       "./src/img/*.{jpg,jpeg,gif,png,svg,ico}"
     ],
     "copiedCss": [
-      "./node_modules/tether/dist/css/tether.min",
       "./node_modules/font-awesome/css/font-awesome.min.css"
     ],
     "copiedJs": [],
@@ -101,18 +96,19 @@
     "*.{html,md}": "yaspeller"
   },
   "devDependencies": {
-    "gulp-csscomb": "*",
-    "sass-inline-image": "*",
     "autoprefixer": "^6.7.7",
+    "bootstrap": "^4.0.0-alpha.6",
     "browser-sync": "^2.18.8",
     "const": "^1.0.0",
     "cross-env": "^3.2.4",
     "css-mqpacker": "^5.0.1",
     "del": "^2.2.2",
+    "font-awesome": "^4.7.0",
     "gulp": "^3.9.1",
     "gulp-cheerio": "^0.6.2",
     "gulp-cleancss": "^0.2.2",
     "gulp-concat": "^2.6.1",
+    "gulp-csscomb": "*",
     "gulp-debug": "^3.1.0",
     "gulp-file-include": "^1.0.0",
     "gulp-gh-pages": "^0.5.4",
@@ -141,12 +137,12 @@
     "merge-stream": "^1.0.1",
     "postcss-import": "^9.1.0",
     "postcss-inline-svg": "^2.3.0",
+    "sass-inline-image": "*",
     "stylelint": "^7.9.0",
     "svg4everybody": "^2.1.7",
-    "vinyl-buffer": "^1.0.0",
-    "yaspeller": "^3.1.0",
+    "tether": "^1.4.0",
     "undescores-for-npm": "^1.0.0",
-    "font-awesome": "^4.7.0",
-    "bootstrap": "^4.0.0-alpha.6"
+    "vinyl-buffer": "^1.0.0",
+    "yaspeller": "^3.1.0"
   }
 }
