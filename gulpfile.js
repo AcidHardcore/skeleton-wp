@@ -349,7 +349,7 @@ gulp.task('img:opt', function (callback) {
 gulp.task('build', function (callback) {
   gulpSequence(
  //   'clean',
-    ['sprite:svg', 'sprite:png'],
+ //   ['sprite:svg', 'sprite:png'],
     ['style', 'style:single', 'js', 'copy:css', 'copy:img', 'copy:js', 'copy:fonts'],
    // 'html',
     callback
@@ -423,6 +423,7 @@ gulp.task('watch:img', ['copy:img'], reload);
 gulp.task('watch:copied:js', ['copy:js'], reload);
 gulp.task('watch:fonts', ['copy:fonts'], reload);
 // gulp.task('watch:html', ['html'], reload);
+gulp.task('watch:html', reload);
 gulp.task('watch:php', reload);
 gulp.task('watch:js', ['js'], reload);
 gulp.task('watch:sprite:svg', ['sprite:svg'], reload);
