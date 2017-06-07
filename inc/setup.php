@@ -86,7 +86,12 @@ if ( ! function_exists( 'understrap_setup' ) ) :
 		) ) );
 
 		// Set up the Wordpress Theme logo feature.
-		add_theme_support( 'custom-logo' );
+		add_theme_support( 'custom-logo', [
+			'width' => 90,
+			'height' => 90,
+			'flex-width' => true, //There is can change width of the logo in admin page
+			'flex-height' => true, //There is can change height of the logo in admin page
+		] );
 
 		// Check and setup theme default settings.
 		setup_theme_default_settings();
