@@ -17,12 +17,14 @@
       "page-header": [],
       "page-footer": [],
       "logo": [],
-      "to-top": []
+      "to-top": [],
+      "masonry": [],
+      "ripple": []
     },
     "addCssBefore": [
+      "./src/scss/custom.scss",
       "./node_modules/bootstrap/scss/variables.scss",
       "./node_modules/bootstrap/scss/mixins.scss",
-      "./src/scss/custom.scss",
       "./src/scss/mixins.scss",
       "./src/scss/fonts.scss",
       "./node_modules/bootstrap/scss/normalize.scss",

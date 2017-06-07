@@ -4,9 +4,9 @@
  * Читайте ./README.md для понимания.
  */
 
+@import './src/scss/custom.scss';
 @import './node_modules/bootstrap/scss/variables.scss';
 @import './node_modules/bootstrap/scss/mixins.scss';
-@import './src/scss/custom.scss';
 @import './src/scss/mixins.scss';
 @import './src/scss/fonts.scss';
 @import './node_modules/bootstrap/scss/normalize.scss';
@@ -51,3 +51,5 @@
 @import './src/blocks/page-footer/page-footer.scss';
 @import './src/blocks/logo/logo.scss';
 @import './src/blocks/to-top/to-top.scss';
+@import './src/blocks/masonry/masonry.scss';
+@import './src/blocks/ripple/ripple.scss';
