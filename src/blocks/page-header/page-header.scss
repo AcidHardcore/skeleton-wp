@@ -1,4 +1,10 @@
 .page-header {
 
+  & .container {
+    @include media-breakpoint-only(xs) {
+      width: 100%;
+    }
+
+  }
 
 }
