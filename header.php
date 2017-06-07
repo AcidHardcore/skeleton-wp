@@ -79,4 +79,12 @@ $container = get_theme_mod( 'understrap_container_type' );
 
 		</nav><!-- .site-navigation -->
 
+	  <?php if ( get_header_image() ) : ?>
+        <figure class="figure">
+          <a href="<?php echo esc_url( home_url( '/' ) ); ?>" rel="home">
+            <img class="img-fluid" src="<?php header_image(); ?>" width="<?php echo esc_attr( get_custom_header()->width ); ?>" height="<?php echo esc_attr( get_custom_header()->height ); ?>" alt="header image">
+          </a>
+        </figure><!-- .header-image -->
+	  <?php endif; // End header image check. ?>
+
 	</div><!-- .wrapper-navbar end -->

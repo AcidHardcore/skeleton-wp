@@ -75,3 +75,7 @@ require get_template_directory() . '/inc/editor.php';
  * Load Font functions.
  */
 require get_template_directory() . '/inc/fonts.php';
+/**
+ * Custom Header Underscore.
+ */
+require get_template_directory() . '/inc/custom-header.php';
