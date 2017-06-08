@@ -70,7 +70,7 @@ class WP_Bootstrap_Navwalker extends Walker_Nav_Menu {
 		} else {
 			$class_names = $value = '';
 			$classes     = empty( $item->classes ) ? array() : (array) $item->classes;
-			$classes[]   = 'nav-item menu-item-' . $item->ID;
+			$classes[]   = 'nav-item page-header__item menu-item-' . $item->ID;
 			$class_names = join( ' ', apply_filters( 'nav_menu_css_class', array_filter( $classes ), $item, $args ) );
 			/*
 			if ( $args->has_children )
@@ -110,7 +110,7 @@ class WP_Bootstrap_Navwalker extends Walker_Nav_Menu {
 				$atts['class']       = 'nav-link dropdown-toggle';
 			} else {
 				$atts['href']  = ! empty( $item->url ) ? $item->url : '';
-				$atts['class'] = 'nav-link ripple-effect';
+				$atts['class'] = 'nav-link page-header__link ripple-effect';
 			}
 			$atts       = apply_filters( 'nav_menu_link_attributes', $atts, $item, $args );
 			$attributes = '';

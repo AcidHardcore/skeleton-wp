@@ -4211,11 +4211,9 @@ h1.navbar-brand a:hover {
   background-position: -36px 0px;
   width: 32px;
   height: 32px; }
-.logo {
-  display: block;
-  white-space: nowrap;
-  -ms-flex: 1 0 auto;
-      flex: 1 0 auto; }
+.page-header__collapse {
+  -ms-flex-pack: end;
+      justify-content: flex-end; }
 .to-top {
   position: fixed;
   right: 1rem;
@@ -6544,7 +6542,7 @@ h1.navbar-brand a:hover {
     padding-left: 0; }
   .hidden-xs-down{
     display: none !important; }
-  .page-header .container{
+  .page-header__container{
     width: 100%; } }
 @media (max-width: 767px){
   .navbar-toggleable-sm .navbar-nav .dropdown-menu{

@@ -1,9 +1,28 @@
 .page-header {
 
-  & .container {
+  &__container {
     @include media-breakpoint-only(xs) {
       width: 100%;
     }
+  }
+
+  &__toggler {
+
+  }
+
+  &__collapse {
+    justify-content: flex-end;
+  }
+
+  &__list {
+
+  }
+
+  &__item {
+
+  }
+
+  &__link {
 
   }
 
