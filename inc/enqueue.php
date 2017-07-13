@@ -12,8 +12,10 @@ if ( ! function_exists( 'understrap_scripts' ) ) {
 	function understrap_scripts() {
 		// Get the theme data.
 		$the_theme = wp_get_theme();
-		// Enqueue Google Fonts: Source Sans Pro and PT Serif
-		wp_enqueue_style( 'understrap-fonts', understrap_fonts_url() );
+		if ( function_exists( 'understrap_fonts_url' ) ) {
+			// Enqueue Google Fonts: Source Sans Pro and PT Serif
+			wp_enqueue_style( 'understrap-fonts', understrap_fonts_url() );
+		}
 		//main css file
 		wp_enqueue_style( 'understrap-styles', get_stylesheet_directory_uri() . '/css/style.min.css', array(), $the_theme->get( 'Version' ) );
 		//font-awesome css
