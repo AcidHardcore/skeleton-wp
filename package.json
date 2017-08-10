@@ -19,7 +19,9 @@
       "logo": [],
       "to-top": [],
       "masonry": [],
-      "ripple": []
+      "ripple": [],
+      "slider": [],
+      "lightbox": []
     },
     "addCssBefore": [
       "./src/scss/custom.scss",

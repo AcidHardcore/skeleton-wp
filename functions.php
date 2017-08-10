@@ -79,3 +79,7 @@ require get_template_directory() . '/inc/editor.php';
  * Custom Header Underscore.
  */
 require get_template_directory() . '/inc/custom-header.php';
+/**
+ * Flickity.
+ */
+require get_template_directory() . '/inc/flickity.php';

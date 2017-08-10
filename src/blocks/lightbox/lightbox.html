@@ -1,0 +1,40 @@
+<!--DEV
+
+Для использования этого файла как шаблона:
+
+@ @include('blocks/map/map.html')
+
+(Нужно убрать пробел между символами @)
+Подробнее: https://www.npmjs.com/package/gulp-file-include
+
+-->
+
+<section class="map">
+  <?php if ( wp_get_attachment_image_src( 1437, 'latest-book' ) ) {
+					$img = wp_get_attachment_image_src( 1437, 'latest-book' );
+					$imgFull = wp_get_attachment_image_src( 1437, 'full' );
+					 ?>
+  <a class="map__item" data-rel=”lightbox” href="<?php echo $imgFull[0]; ?>">
+    <img src="<?php echo $img[0]; ?>"  alt="<?php echo get_post_meta(1437, '_wp_attachment_image_alt', true); ?>" class="map_img">
+  </a>
+  <?php } ?>
+  <?php if ( wp_get_attachment_image_src( 1438, 'latest-book' ) ) {
+		            $img = wp_get_attachment_image_src( 1438, 'latest-book' );
+		            $imgFull = wp_get_attachment_image_src( 1438, 'full' );
+		             ?>
+  <a class="map__item" data-rel=”lightbox” href="<?php echo $imgFull[0]; ?>">
+    <img src="<?php echo $img[0]; ?>" alt="<?php echo get_post_meta(1438, '_wp_attachment_image_alt', true); ?>" class="map_img">
+  </a>
+  <?php } ?>
+  <?php if ( wp_get_attachment_image_src( 1447, 'latest-book' ) ) {
+		            $img = wp_get_attachment_image_src( 1447, 'latest-book' );
+	              $imgFull = wp_get_attachment_image_src( 1447, 'full' );
+		             ?>
+  <a class="map__item" data-rel=”lightbox” href="<?php echo $imgFull[0]; ?>">
+    <img src="<?php echo $img[0]; ?>" alt="<?php echo get_post_meta(1447, '_wp_attachment_image_alt', true); ?>" class="map_img">
+  </a>
+  <?php } ?>
+</section>
+
+
+
