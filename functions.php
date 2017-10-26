@@ -48,7 +48,7 @@ require get_template_directory() . '/inc/extras.php';
 require get_template_directory() . '/inc/customizer.php';
 
 /**
- * Customizer additions.
+ * Custom Comments file.
  */
 require get_template_directory() . '/inc/custom-comments.php';
 
@@ -79,7 +79,30 @@ require get_template_directory() . '/inc/editor.php';
  * Custom Header Underscore.
  */
 require get_template_directory() . '/inc/custom-header.php';
+
+
 /**
- * Flickity.
+ *
+ * CLEANING
+ *
  */
-require get_template_directory() . '/inc/flickity.php';
+
+/** Remove amoji.
+ */
+require get_template_directory() . '/inc/amoji.php';
+/**
+ * Remove rest-api.
+ */
+require get_template_directory() . '/inc/rest-api.php';
+/**
+ * Remove xml-rpc.
+ */
+require get_template_directory() . '/inc/xml-rpc.php';
+/**
+ * Remove pingback, canonical, meta generator, wlwmanifest, EditURI, shortlink, prev, next, RSS, feed, profile from head
+ */
+require get_template_directory() . '/inc/remove-other.php';
+/**
+ * Remove recentcomments
+ */
+require get_template_directory() . '/inc/recentcomments.php';

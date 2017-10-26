@@ -14,12 +14,10 @@ $container = get_theme_mod( 'understrap_container_type' );
 <head>
 	<meta charset="<?php bloginfo( 'charset' ); ?>">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 	<meta name="mobile-web-app-capable" content="yes">
 	<meta name="apple-mobile-web-app-capable" content="yes">
 	<meta name="apple-mobile-web-app-title" content="<?php bloginfo( 'name' ); ?> - <?php bloginfo( 'description' ); ?>">
-	<link rel="profile" href="http://gmpg.org/xfn/11">
-	<link rel="pingback" href="<?php bloginfo( 'pingback_url' ); ?>">
 	<?php wp_head(); ?>
 </head>
 
@@ -33,7 +31,7 @@ $container = get_theme_mod( 'understrap_container_type' );
 		<a class="skip-link screen-reader-text sr-only" href="#content"><?php esc_html_e( 'Skip to content',
 		'understrap' ); ?></a>
 
-		<nav class="navbar navbar-toggleable-md  navbar-inverse bg-inverse page-header">
+    <nav class="navbar navbar-expand-md navbar-dark bg-dark page-header">
 
 		<?php if ( 'container' == $container ) : ?>
 			<div class="container page-header__container">
@@ -79,12 +77,14 @@ $container = get_theme_mod( 'understrap_container_type' );
 
 		</nav><!-- .site-navigation -->
 
-	  <?php if ( get_header_image() && is_front_page()) : ?>
-        <figure class="figure">
-          <a href="<?php echo esc_url( home_url( '/' ) ); ?>" rel="home">
-            <img class="img-fluid" src="<?php header_image(); ?>" width="<?php echo esc_attr( get_custom_header()->width ); ?>" height="<?php echo esc_attr( get_custom_header()->height ); ?>" alt="header image">
-          </a>
-        </figure><!-- .header-image -->
-	  <?php endif; // End header image check. ?>
+    <!--	  --><?php //if ( get_header_image() && is_front_page()) : ?>
+    <!--        <figure class="figure">-->
+    <!--          <a href="--><?php //echo esc_url( home_url( '/' ) ); ?><!--" rel="home">-->
+    <!--            <img class="img-fluid" src="--><?php //header_image(); ?><!--" width="-->
+	  <?php //echo esc_attr( get_custom_header()->width ); ?><!--" height="-->
+	  <?php //echo esc_attr( get_custom_header()->height ); ?><!--" alt="header image">-->
+    <!--          </a>-->
+    <!--        </figure><!-- .header-image -->
+    <!--	  --><?php //endif; // End header image check. ?>
 
 	</div><!-- .wrapper-navbar end -->
