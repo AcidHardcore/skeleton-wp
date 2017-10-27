@@ -1,0 +1,1 @@
+http://idangero.us/swiper/api/
