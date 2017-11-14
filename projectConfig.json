@@ -30,7 +30,7 @@
     "./node_modules/popper.js/dist/umd/popper-utils.js",
     "./node_modules/popper.js/dist/umd/popper.js",
     "./node_modules/bootstrap/dist/js/bootstrap.min.js",
-    "./node_modules/swiper/dist/js/swiper.min.js",
+    "./node_modules/swiper/dist/js/swiper.min.js"
   ],
   "addJsAfter": [],
   "addImages": [
