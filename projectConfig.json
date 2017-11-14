@@ -1,0 +1,50 @@
+{
+  "blocks": {
+    "sprite-svg": [],
+    "sprite-png": [
+      "__demo"
+    ],
+    "page-header": [],
+    "page-footer": [],
+    "logo": [],
+    "to-top": [],
+    "ripple": [],
+    "slider": [],
+    "lightbox": [],
+    "btn": []
+  },
+  "addCssBefore": [
+    "./src/scss/custom.scss",
+    "./src/scss/bootstrap.scss",
+    "./src/scss/mixins.scss",
+    "./src/scss/fonts.scss",
+    "./src/scss/contact-form7.scss",
+    "./src/scss/understrap.scss",
+    "/../../node_modules/swiper/dist/css/swiper.min.css"
+  ],
+  "addCssAfter": [],
+  "singleCompiled": [],
+  "addJsBefore": [
+    "./node_modules/jquery/dist/jquery.min.js",
+    "./node_modules/svg4everybody/dist/svg4everybody.js",
+    "./node_modules/popper.js/dist/umd/popper-utils.js",
+    "./node_modules/popper.js/dist/umd/popper.js",
+    "./node_modules/bootstrap/dist/js/bootstrap.min.js",
+    "./node_modules/swiper/dist/js/swiper.min.js",
+  ],
+  "addJsAfter": [],
+  "addImages": [
+    "./src/img/*.{jpg,jpeg,gif,png,svg,ico}"
+  ],
+  "copiedCss": [
+    "./node_modules/font-awesome/css/font-awesome.min.css"
+  ],
+  "copiedJs": [
+    "./src/js/customizer.js"
+  ],
+  "dirs": {
+    "srcPath": "./src/",
+    "buildPath": "./",
+    "blocksDirName": "blocks"
+  }
+}
