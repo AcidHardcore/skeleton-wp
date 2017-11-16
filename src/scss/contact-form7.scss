@@ -64,7 +64,7 @@
     color: theme-color("danger");
   }
 
-  // validation errors ourput bottom of form
+  // validation errors output bottom of form
   .wpcf7-validation-errors {
     @extend .form-control;
     color: theme-color("danger");
