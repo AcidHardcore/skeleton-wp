@@ -11,7 +11,8 @@
     "ripple": [],
     "slider": [],
     "lightbox": [],
-    "btn": []
+    "btn": [],
+    "main-nav": []
   },
   "addCssBefore": [
     "./src/scss/custom.scss",

@@ -8,44 +8,32 @@
  */
 
 $the_theme = wp_get_theme();
-$container = get_theme_mod( 'understrap_container_type' );
+$container = get_theme_mod('understrap_container_type');
 ?>
 
-<?php get_sidebar( 'footerfull' ); ?>
+<?php get_sidebar('footerfull'); ?>
 
 <div class="wrapper" id="wrapper-footer">
 
-  <div class="<?php echo esc_attr( $container ); ?>">
 
-		<div class="row">
+    <footer class="page-footer">
 
-			<div class="col-md-12">
+        <?php if ('container' == $container) : ?>
+        <div class="page-footer__container">
+            <?php endif; ?>
 
-				<footer class="site-footer" id="colophon">
+            <div class="page-footer__site-info">
+                <?php printf( // WPCS: XSS ok.
+                /* translators:*/
+                    esc_html__('Vitalii Ivanychko © 2107.', 'understrap')); ?>
+            </div><!-- .site-info -->
 
-					<div class="site-info">
+            <?php if ('container' == $container) : ?>
+        </div><!-- .container -->
+    <?php endif; ?>
 
-							<a href="<?php  echo esc_url( __( 'http://wordpress.org/','understrap' ) ); ?>"><?php printf( 
-							/* translators:*/
-							esc_html__( 'Proudly powered by %s', 'understrap' ),'WordPress' ); ?></a>
-								<span class="sep"> | </span>
-					
-							<?php printf( // WPCS: XSS ok.
-							/* translators:*/
-								esc_html__( 'Theme: %1$s by %2$s.', 'understrap' ), $the_theme->get( 'Name' ),  '<a href="'.esc_url( __('http://understrap.com', 'understrap')).'">understrap.com</a>' ); ?> 
-				
-							(<?php printf( // WPCS: XSS ok.
-							/* translators:*/
-								esc_html__( 'Version: %1$s', 'understrap' ), $the_theme->get( 'Version' ) ); ?>)
-					</div><!-- .site-info -->
+    </footer><!-- #footer -->
 
-				</footer><!-- #colophon -->
-
-			</div><!--col end -->
-
-		</div><!-- row end -->
-
-	</div><!-- container end -->
 
 </div><!-- wrapper end -->
 
