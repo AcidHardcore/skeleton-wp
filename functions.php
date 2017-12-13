@@ -80,8 +80,14 @@ require get_template_directory() . '/inc/editor.php';
  * Custom Header Underscore.
  */
 require get_template_directory() . '/inc/custom-header.php';
-
-
+/**
+ * Disable wpautop.
+ */
+require get_template_directory() . '/inc/disable-wpautop.php';
+/**
+ * Optimisation
+ */
+require get_template_directory() . '/inc/optimisation.php';
 /**
  *
  * CLEANING

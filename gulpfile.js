@@ -389,7 +389,7 @@ gulp.task('serve', ['build'], function () {
         // startPath: 'index.html',
         open: false,
         port: 3000,
-        proxy: 'vit'
+        proxy: 'skeleton-wp'
     });
     // Слежение за стилями
     gulp.watch([
