@@ -4,6 +4,11 @@
  *
  * https://sheensay.ru/?p=2044
  */
+
+if ( ! defined( 'ABSPATH' ) ) {
+	exit; // Exit if accessed directly
+}
+
 // Удаляем код meta name="generator"
 remove_action( 'wp_head', 'wp_generator' );
 

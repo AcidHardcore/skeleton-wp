@@ -5,6 +5,10 @@
  * https://sheensay.ru/?p=2044
  */
 
+if ( ! defined( 'ABSPATH' ) ) {
+	exit; // Exit if accessed directly
+}
+
 // Отключаем WP-API версий 1.x
 add_filter( 'json_enabled', '__return_false' );
 add_filter( 'json_jsonp_enabled', '__return_false' );

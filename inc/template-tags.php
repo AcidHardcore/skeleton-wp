@@ -7,6 +7,10 @@
  * @package understrap
  */
 
+if ( ! defined( 'ABSPATH' ) ) {
+	exit; // Exit if accessed directly
+}
+
 if ( ! function_exists( 'understrap_posted_on' ) ) :
 /**
  * Prints HTML with meta information for the current post-date/time and author.

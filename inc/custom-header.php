@@ -5,6 +5,10 @@
  * @package understrap
  */
 
+if ( ! defined( 'ABSPATH' ) ) {
+	exit; // Exit if accessed directly
+}
+
 function understrap_custom_header_setup() {
 
 	/**

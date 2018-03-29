@@ -5,6 +5,10 @@
  * @package understrap
  */
 
+if ( ! defined( 'ABSPATH' ) ) {
+	exit; // Exit if accessed directly
+}
+
 if ( ! function_exists( 'no_generator' ) ) {
 	/**
 	 * Removes the generator tag with WP version numbers. Hackers will use this to find weak and old WP installs

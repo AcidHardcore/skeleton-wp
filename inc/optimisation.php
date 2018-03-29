@@ -1,4 +1,9 @@
 <?php
+
+if ( ! defined( 'ABSPATH' ) ) {
+	exit; // Exit if accessed directly
+}
+
 //Move scripts form head to footer
 function remove_head_scripts() {
   remove_action('wp_head', 'wp_print_scripts');

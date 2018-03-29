@@ -114,6 +114,6 @@ require get_template_directory() . '/inc/xml-rpc.php';
  */
 require get_template_directory() . '/inc/remove-other.php';
 /**
- * Remove recentcomments
+ * Remove recentcomments css
  */
 require get_template_directory() . '/inc/recentcomments.php';

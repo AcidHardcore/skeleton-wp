@@ -4,6 +4,11 @@
  *
  * @package understrap
  */
+
+if ( ! defined( 'ABSPATH' ) ) {
+	exit; // Exit if accessed directly
+}
+
 add_action( 'after_setup_theme', 'woocommerce_support' );
 if ( ! function_exists( 'woocommerce_support' ) ) {
 	/**

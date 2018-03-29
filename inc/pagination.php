@@ -10,6 +10,10 @@
  * Credits to http://www.wpbeginner.com/wp-themes/how-to-add-numeric-pagination-in-your-wordpress-theme/
  */
 
+if ( ! defined( 'ABSPATH' ) ) {
+	exit; // Exit if accessed directly
+}
+
 if ( ! function_exists( 'understrap_pagination' ) ) :
 	function understrap_pagination($query = NULL) {
 //		if ( is_singular() ) {

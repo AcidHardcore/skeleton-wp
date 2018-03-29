@@ -6,6 +6,10 @@
  *
  */
 
+if ( ! defined( 'ABSPATH' ) ) {
+	exit; // Exit if accessed directly
+}
+
 if ( ! function_exists( 'setup_theme_default_settings' ) ) :
 	function setup_theme_default_settings() {
 

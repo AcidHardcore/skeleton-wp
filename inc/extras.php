@@ -7,6 +7,10 @@
  * @package understrap
  */
 
+if ( ! defined( 'ABSPATH' ) ) {
+	exit; // Exit if accessed directly
+}
+
 if ( ! function_exists( 'understrap_body_classes' ) ) {
 	/**
 	 * Adds custom classes to the array of body classes.

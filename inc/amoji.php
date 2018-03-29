@@ -8,6 +8,11 @@
  *
  *  https://sheensay.ru/?p=2044
  */
+
+if ( ! defined( 'ABSPATH' ) ) {
+	exit; // Exit if accessed directly
+}
+
 add_action( 'init', 'sheensay_disable_emojis' );
 
 function sheensay_disable_emojis() {
