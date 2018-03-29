@@ -6,6 +6,14 @@
  */
 
 /**
+ * Carbon fields
+ */
+add_action( 'carbon_fields_register_fields', 'skeletonwp_register_custom_fields' );
+function skeletonwp_register_custom_fields() {
+	require get_template_directory() . '/inc/custom-field-options/metabox.php';
+	require get_template_directory() . '/inc/custom-field-options/theme-optons.php';
+}
+/**
  * Theme setup and custom theme supports.
  */
 require get_template_directory() . '/inc/setup.php';
