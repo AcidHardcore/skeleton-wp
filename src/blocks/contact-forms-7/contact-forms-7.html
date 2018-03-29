@@ -1,0 +1,30 @@
+<!--DEV
+
+Для использования этого файла как шаблона:
+
+@ @include('blocks/contact-forms-7/contact-forms-7.html')
+
+(Нужно убрать пробел между символами @)
+Подробнее: https://www.npmjs.com/package/gulp-file-include
+
+
+
+<div class="contact-forms-7">content</div>
+
+-->
+<label class="field-text">
+    <span class="field-text__name">Name</span>
+    [text your-name class:field-text__input placeholder "Enter your name"]
+</label>
+<label class="field-text">
+    <span class="field-text__name">Email or Skype</span>
+    [email* your-email class:field-text__input placeholder "Enter your email or skype"]
+</label>
+<label class="field-text">
+    <span class="field-text__name">Your message</span>
+    [textarea your-message class:field-text__input placeholder "Enter your message"]
+</label>
+[honeypot check]
+<div class="field-actions">
+    [submit class:btn class:ripple-effect-hover "Send"]
+</div>

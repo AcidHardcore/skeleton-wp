@@ -1,7 +1,7 @@
 (function () {
-    let mySwiper = new Swiper ('.swiper-container', {
+    let HeroSlider = new Swiper ('.swiper-container', {
         // Optional parameters
-        direction: 'vertical',
+        // direction: 'vertical',
         loop: true,
 
         // If we need pagination

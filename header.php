@@ -37,34 +37,34 @@ $container = get_theme_mod( 'skeletonwp_container_type' );
     <header class="page-header">
 
 		<?php if ( 'container' == $container ) : ?>
-<!--      <div class="page-header__container">-->
-      <div class="container">
+      <div class="page-header__container">
+        <!--      <div class="container">-->
 		  <?php endif; ?>
 
+        <!-- Your site title as branding in the menu -->
+		  <?php if ( ! has_custom_logo() ) { ?>
+
+	  <?php if ( is_front_page() && is_home() ) : ?>
+
+        <h1 class="logo"><a rel="home" href="<?php echo esc_url( home_url( '/' ) ); ?>"
+                            title="<?php echo esc_attr( get_bloginfo( 'name', 'display' ) ); ?>"><?php bloginfo( 'name' ); ?></a>
+        </h1>
+
+	  <?php else : ?>
+
+        <a class="logo" rel="home" href="<?php echo esc_url( home_url( '/' ) ); ?>"
+           title="<?php echo esc_attr( get_bloginfo( 'name', 'display' ) ); ?>"><?php bloginfo( 'name' ); ?></a>
+
+	  <?php endif; ?>
+
+
+		  <?php } else {
+			  the_custom_logo();
+		  } ?><!-- end custom logo -->
+        <!-- The WordPress Menu goes here -->
         <nav id="main-nav" class="main-nav" role="navigation">
           <button id="main-nav-toggler" class="main-nav__toggler  burger"><span></span></button>
-          <!-- Your site title as branding in the menu -->
-			<?php if ( ! has_custom_logo() ) { ?>
 
-		<?php if ( is_front_page() && is_home() ) : ?>
-
-          <h1 class="logo"><a rel="home" href="<?php echo esc_url( home_url( '/' ) ); ?>"
-                              title="<?php echo esc_attr( get_bloginfo( 'name', 'display' ) ); ?>"><?php bloginfo( 'name' ); ?></a>
-          </h1>
-
-		<?php else : ?>
-
-          <a class="logo" rel="home" href="<?php echo esc_url( home_url( '/' ) ); ?>"
-             title="<?php echo esc_attr( get_bloginfo( 'name', 'display' ) ); ?>"><?php bloginfo( 'name' ); ?></a>
-
-		<?php endif; ?>
-
-
-			<?php } else {
-				the_custom_logo();
-			} ?><!-- end custom logo -->
-
-          <!-- The WordPress Menu goes here -->
 			<?php wp_nav_menu( array(
 				'theme_location' => 'primary',
 				'container'      => false,

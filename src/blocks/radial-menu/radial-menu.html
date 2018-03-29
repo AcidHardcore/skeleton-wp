@@ -1,0 +1,82 @@
+<!--DEV
+
+Для использования этого файла как шаблона:
+
+@ @include('blocks/radial-menu/radial-menu.html')
+
+(Нужно убрать пробел между символами @)
+Подробнее: https://www.npmjs.com/package/gulp-file-include
+
+
+
+<div class="radial-menu">content</div>
+
+-->
+<nav class="radial-menu">
+  <div class="radial-menu__round">
+    <span class="radial-menu__letter radial-menu__char1">C</span>
+    <span class="radial-menu__letter radial-menu__char2">O</span>
+    <span class="radial-menu__letter radial-menu__char3">N</span>
+    <span class="radial-menu__letter radial-menu__char4">T</span>
+    <span class="radial-menu__letter radial-menu__char5">A</span>
+    <span class="radial-menu__letter radial-menu__char6">C</span>
+    <span class="radial-menu__letter radial-menu__char7">T</span>
+    <span class="radial-menu__letter radial-menu__char8"> </span>
+    <span class="radial-menu__letter radial-menu__char9">M</span>
+    <span class="radial-menu__letter radial-menu__char10">E</span>
+  </div>
+  <button class="btn btn--trigger">
+    <span class="btn__line">CONTACT ME</span>
+  </button>
+
+  <div class="radial-menu__icons">
+    <div class="radial-menu__rotater">
+      <a href="<?php echo esc_url('https://vk.com/id164168774') ?>"
+         class="radial-menu__link" itemprop="url">
+        <i class="fa fa-vk"></i>
+      </a>
+    </div>
+    <div class="radial-menu__rotater">
+      <a href="<?php echo esc_url('https://www.facebook.com/people/Vitaliy-Ivanichko/100003117566882') ?>"
+         class="radial-menu__link" itemprop="url">
+        <i class="fa fa-facebook"></i>
+      </a>
+    </div>
+    <div class="radial-menu__rotater">
+      <a href="<?php echo esc_url('https://t.me/Acidhardcore') ?>"
+         class="radial-menu__link" itemprop="url">
+        <i class="fa fa-telegram"></i>
+      </a>
+    </div>
+    <div class="radial-menu__rotater">
+      <a href="<?php echo esc_url('https://twitter.com/vivanichko') ?>"
+         class="radial-menu__link" itemprop="url">
+        <i class="fa fa-twitter"></i>
+      </a>
+    </div>
+    <div class="radial-menu__rotater">
+      <a href="<?php echo esc_url('mailto:ivanichko@gmail.com') ?>"
+         class="radial-menu__link" itemprop="url">
+        <span hidden itemprop="email">ivanichko@gmail.com</span>
+        <i class="fa fa-envelope"></i>
+      </a>
+    </div>
+    <div class="radial-menu__rotater">
+      <a href="<?php echo esc_url('https://www.linkedin.com/in/vitalii-ivanichko-84196286/') ?>"
+         class="radial-menu__link" itemprop="url">
+        <i class="fa fa-linkedin"></i>
+      </a>
+    </div>
+    <div class="radial-menu__rotater">
+      <a href="<?php echo esc_url('https://github.com/AcidHardcore') ?>"
+         class="radial-menu__link" itemprop="url">
+        <i class="fa fa-github"></i>
+      </a>
+    </div>
+    <div class="radial-menu__rotater">
+      <a href="skype:xlnightlx" class="radial-menu__link" itemprop="url">
+        <i class="fa fa-skype"></i>
+      </a>
+    </div>
+  </div>
+</nav>

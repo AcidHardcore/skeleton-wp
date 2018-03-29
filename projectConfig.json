@@ -12,16 +12,25 @@
     "slider": [],
     "lightbox": [],
     "btn": [],
-    "main-nav": []
+    "main-nav": [],
+    "radial-menu": [],
+    "scrollmagic": [],
+    "form": [],
+    "field-actions": [],
+    "field-text": ["--error"],
+    "burger": [],
+    "close": [],
+    "modal": [],
+    "contact-forms-7": []
   },
   "addCssBefore": [
     "./src/scss/custom.scss",
     "./src/scss/bootstrap.scss",
     "./src/scss/mixins.scss",
     "./src/scss/fonts.scss",
-    "./src/scss/contact-form7.scss",
     "./src/scss/skeletonwp.scss",
-    "/../../node_modules/swiper/dist/css/swiper.min.css"
+    "/../../node_modules/swiper/dist/css/swiper.min.css",
+    "/../../node_modules/font-awesome/css/font-awesome.min.css"
   ],
   "addCssAfter": [],
   "singleCompiled": [],
@@ -31,15 +40,18 @@
     "./node_modules/popper.js/dist/umd/popper-utils.js",
     "./node_modules/popper.js/dist/umd/popper.js",
     "./node_modules/bootstrap/dist/js/bootstrap.min.js",
-    "./node_modules/swiper/dist/js/swiper.min.js"
+    "./node_modules/swiper/dist/js/swiper.min.js",
+    "./node_modules/gsap/TweenMax.js",
+    "./node_modules/gsap/TimelineMax.js",
+    "./node_modules/scrollmagic/scrollmagic/minified/ScrollMagic.min.js",
+    "./node_modules/scrollmagic/scrollmagic/minified/plugins/animation.gsap.min.js",
+    "./node_modules/scrollmagic/scrollmagic/minified/plugins/debug.addIndicators.min.js"
   ],
   "addJsAfter": [],
   "addImages": [
     "./src/img/*.{jpg,jpeg,gif,png,svg,ico}"
   ],
-  "copiedCss": [
-    "./node_modules/font-awesome/css/font-awesome.min.css"
-  ],
+  "copiedCss": [],
   "copiedJs": [
     "./src/js/customizer.js"
   ],

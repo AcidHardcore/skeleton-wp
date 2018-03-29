@@ -1,0 +1,14 @@
+// В этом файле должны быть стили для БЭМ-блока scrollMagic, его элементов, 
+// модификаторов, псевдоселекторов, псевдоэлементов, @media-условий...
+// Очередность: http://nicothin.github.io/idiomatic-pre-CSS/#priority
+
+.scrollmagic {
+
+  $block-name:                &; // #{$block-name}__element
+
+  position: relative;
+  z-index: 20;
+
+
+}
+

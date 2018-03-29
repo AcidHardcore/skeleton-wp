@@ -1,3 +1,13 @@
+// В этом файле должны быть стили для БЭМ-блока contact-forms-7, его элементов, 
+// модификаторов, псевдоселекторов, псевдоэлементов, @media-условий...
+// Очередность: http://nicothin.github.io/idiomatic-pre-CSS/#priority
+
+.contact-forms-7 {
+
+  $block-name:                &; // #{$block-name}__element
+
+}
+
 /*
 * Use existing Bootstrap 4 classes and
 * variables to extend - override CF7 style
@@ -15,8 +25,8 @@
 // keep a max width in case it is just the form and nothing else
 // we do not want a form spanning whole page
 .wpcf7 {
-  max-width: 600px;
-  margin: 0 auto !important;
+  max-width: 100%;
+  //margin: 0 auto !important;
 
   // all inputs except radios and checkboxes inherit from form-control
   input[type=text],
@@ -37,12 +47,12 @@
   input[type=submit],
   select,
   textarea {
-    @extend .form-control;
+    //@extend .form-control;
   }
 
   // submit button, inherit .btn and .btn-outline-primary classes.
   input[type=submit] {
-    @extend .btn;
+    //@extend .btn;
     //@extend .btn-outline-primary;
   }
 
@@ -50,12 +60,12 @@
 
     // set paragraphs to behave like divs with class .form-group
     p {
-      @extend .form-group;
+      //@extend .form-group;
     }
 
     // let labels be 100%
     label {
-      width: 100%;
+      //width: 100%;
     }
   }
 
@@ -64,10 +74,30 @@
     color: theme-color("danger");
   }
 
-  // validation errors output bottom of form
+  // validation errors ourput bottom of form
   .wpcf7-validation-errors {
-    @extend .form-control;
+    //@extend .form-control;
     color: theme-color("danger");
     border: 1px solid $gray-200;
+    margin-top: 0;
+    margin-left: 0;
+    margin-right: 0;
+  }
+
+  & .wpcf7-response-output {
+    margin-top: 0;
+    margin-left: 0;
+    margin-right: 0;
+  }
+
+  & .btn {
+    @include fluid-type(320px, 2560px, 16px, 25px);
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
+    padding: $spacer $spacer * 3;
+    background-color: desaturate($primary, 30%);
+    color: #fff;
   }
 }
+

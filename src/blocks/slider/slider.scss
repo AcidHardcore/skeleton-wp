@@ -1,39 +1,18 @@
 // В этом файле должны быть стили только для БЭМ-блока slider, его элементов, 
 // модификаторов, псевдоселекторов, псевдоэлементов, @media-условий...
 // Не пишите здесь другие селекторы.
-.page-template-first-page {
 
   .slider {
-    max-width: 1000px;
-    max-height: 500px;
-    margin-right: auto;
-    margin-left: auto;
 
-    &__container {
-      padding-bottom: 50%;
-    }
-
-
-    &__cell {
-      width: 100%;
-      height: 100%;
-    }
-
-    &__link {
+    & .swiper-container {
 
     }
 
-    .flickity-viewport {
-      position: absolute;
-      width: 100%;
+    & .swiper-slide {
+
     }
+
 
   }
-
-  .flickity-page-dots .dot.is-selected {
-    background-color: #ff0000;
-  }
-
-}
 
 

@@ -25,7 +25,7 @@ if ( ! function_exists( 'skeletonwp_scripts' ) ) {
 		//font-awesome css
 		wp_enqueue_style( 'skeletonwp-font-awesome', get_stylesheet_directory_uri() . '/css/font-awesome.min.css', array(), $the_theme->get( 'Version' ) );
 		//jquery of WordPress 1.12
-		//wp_enqueue_script( 'jquery' );
+//		wp_enqueue_script( 'jquery' );
 		wp_deregister_script( 'jquery' );
 		//main js file
 		wp_enqueue_script( 'skeletonwp-scripts', get_template_directory_uri() . '/js/script.min.js', array(), $the_theme->get( 'Version' ), true );

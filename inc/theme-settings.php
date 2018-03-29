@@ -10,8 +10,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly
 }
 
-if ( ! function_exists( 'setup_theme_default_settings' ) ) :
-	function setup_theme_default_settings() {
+if ( ! function_exists( 'skeletonwp_setup_theme_default_settings' ) ) :
+	function skeletonwp_setup_theme_default_settings() {
 
 		// check if settings are set, if not set defaults.
 		// Caution: DO NOT check existence using === always check with == .

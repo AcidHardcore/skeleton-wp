@@ -9,36 +9,25 @@
 
 <?php if ( is_active_sidebar( 'hero' ) ) : ?>
 
-	<!-- ******************* The Hero Widget Area ******************* -->
+  <!-- ******************* The Hero Widget Area ******************* -->
 
-		<div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
+    <section class="slider">
+    <div class="swiper-container">
+<!--      Additional required wrapper-->
+      <div class="swiper-wrapper">
+<!--        Slides-->
+		  <?php dynamic_sidebar( 'hero' ); ?>
+      </div>
+<!--      If we need pagination-->
+      <div class="swiper-pagination"></div>
 
-			<div class="carousel-inner" role="listbox">
+<!--      If we need navigation buttons-->
+      <div class="swiper-button-prev"></div>
+      <div class="swiper-button-next"></div>
 
-			<?php dynamic_sidebar( 'hero' ); ?>
-
-			</div>
-
-			 <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
-			    
-			    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-			    
-			    <span class="sr-only"><?php esc_html_e( 'Previous', 'skeletonwp' ); ?></span>
-			 
-			 </a>
-			 
-			 <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
-			    
-			    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-			    
-			    <span class="sr-only"><?php esc_html_e( 'Next', 'skeletonwp' ); ?></span>
-			  
-			</a>
-
-		</div><!-- .carousel -->
-
-<script>
-jQuery( ".carousel-item" ).first().addClass( "active" );
-</script>
+<!--      If we need scrollbar-->
+<!--      <div class="swiper-scrollbar"></div>-->
+    </div>
+  </section>
 
 <?php endif; ?>
