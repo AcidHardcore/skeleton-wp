@@ -98,12 +98,13 @@ if ( ! function_exists( 'skeletonwp_setup' ) ) :
 		] );
 
 		// Check and setup theme default settings.
-		setup_theme_default_settings();
+		skeletonwp_setup_theme_default_settings();
+
 	}
 endif; // skeletonwp_setup.
 add_action( 'after_setup_theme', 'skeletonwp_setup' );
 
-if ( ! function_exists( 'custom_excerpt_more' ) ) {
+if ( ! function_exists( 'skeletonwp_custom_excerpt_more' ) ) {
 	/**
 	 * Removes the ... from the excerpt read more link
 	 *
@@ -111,13 +112,13 @@ if ( ! function_exists( 'custom_excerpt_more' ) ) {
 	 *
 	 * @return string
 	 */
-	function custom_excerpt_more( $more ) {
+	function skeletonwp_custom_excerpt_more( $more ) {
 		return '';
 	}
 }
-add_filter( 'excerpt_more', 'custom_excerpt_more' );
+add_filter( 'excerpt_more', 'skeletonwp_custom_excerpt_more' );
 
-if ( ! function_exists( 'all_excerpts_get_more_link' ) ) {
+if ( ! function_exists( 'skeletonwp_all_excerpts_get_more_link' ) ) {
 	/**
 	 * Adds a custom read more link to all excerpts, manually or automatically generated
 	 *
@@ -125,10 +126,10 @@ if ( ! function_exists( 'all_excerpts_get_more_link' ) ) {
 	 *
 	 * @return string
 	 */
-	function all_excerpts_get_more_link( $post_excerpt ) {
+	function skeletonwp_all_excerpts_get_more_link( $post_excerpt ) {
 
-		return $post_excerpt . '<div><a class="btn btn-secondary skeletonwp-read-more-link" href="' . get_permalink( get_the_ID() ) . '">' . __( 'Read More...',
-		'skeletonwp' ) . '</a></div>';
+		return $post_excerpt . ' [...]<p><a class="btn btn-secondary skeletonwp-read-more-link" href="' . esc_url( get_permalink( get_the_ID() )) . '">' . __( 'Read More...',
+		'skeletonwp' ) . '</a></p>';
 	}
 }
-add_filter( 'wp_trim_excerpt', 'all_excerpts_get_more_link' );
+add_filter( 'wp_trim_excerpt', 'skeletonwp_all_excerpts_get_more_link' );

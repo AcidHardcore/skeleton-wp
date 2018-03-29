@@ -12,10 +12,10 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Registers an editor stylesheet for the theme.
  */
-function wpdocs_theme_add_editor_styles() {
-  add_editor_style( 'css/custom-editor-style.css' );
+function skeletonwp_wpdocs_theme_add_editor_styles() {
+  add_editor_style( 'css/custom-editor-style.min.css' );
 }
-add_action( 'admin_init', 'wpdocs_theme_add_editor_styles' );
+add_action( 'admin_init', 'skeletonwp_wpdocs_theme_add_editor_styles' );
 
 // Add TinyMCE style formats.
 add_filter( 'mce_buttons_2', 'skeletonwp_tiny_mce_style_formats' );

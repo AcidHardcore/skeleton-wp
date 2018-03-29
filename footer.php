@@ -11,29 +11,41 @@ $the_theme = wp_get_theme();
 $container = get_theme_mod('skeletonwp_container_type');
 ?>
 
-<?php get_sidebar('footerfull'); ?>
+<?php get_sidebar( 'footerfull' ); ?>
 
 <div class="wrapper" id="wrapper-footer">
 
+	<div class="<?php echo esc_attr( $container ); ?>">
 
-    <footer class="page-footer">
+		<div class="row">
 
-        <?php if ('container' == $container) : ?>
-        <div class="page-footer__container">
-            <?php endif; ?>
+			<div class="col-md-12">
 
-            <div class="page-footer__site-info">
-                <?php printf( // WPCS: XSS ok.
-                /* translators:*/
-                    esc_html__('Vitalii Ivanychko © 2107.', 'skeletonwp')); ?>
-            </div><!-- .site-info -->
+				<footer class="site-footer" id="colophon">
 
-            <?php if ('container' == $container) : ?>
-        </div><!-- .container -->
-    <?php endif; ?>
+					<div class="site-info">
 
-    </footer><!-- #footer -->
+							<a href="<?php  echo esc_url( __( 'http://wordpress.org/','understrap' ) ); ?>"><?php printf(
+							/* translators:*/
+							esc_html__( 'Proudly powered by %s', 'skeletonwp' ),'WordPress' ); ?></a>
+								<span class="sep"> | </span>
 
+							<?php printf( // WPCS: XSS ok.
+							/* translators:*/
+								esc_html__( 'Theme: %1$s by %2$s.', 'skeletonwp' ), $the_theme->get( 'Name' ),  '<a href="'.esc_url( __('http://vit.makeevka.com', 'skeletonwp')).'">vit.makeevka.com</a>' ); ?>
+
+							(<?php printf( // WPCS: XSS ok.
+							/* translators:*/
+								esc_html__( 'Version: %1$s', 'skeletonwp' ), $the_theme->get( 'Version' ) ); ?>)
+					</div><!-- .site-info -->
+
+				</footer><!-- #colophon -->
+
+			</div><!--col end -->
+
+		</div><!-- row end -->
+
+	</div><!-- container end -->
 
 </div><!-- wrapper end -->
 

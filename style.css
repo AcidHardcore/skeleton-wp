@@ -7,11 +7,11 @@ Description: Combination of Automattic´s _s theme, Bootstrap 4 and NTH-start-pr
 That downloads everything and moves it in place so that you can recompile your CSS and JS files;
 A developer version (with Gulp/node and Sass sources) is available on gitHub: https://github.com/holger1411/skeletonwp
 A child theme is available on Github, too: https://github.com/holger1411/skeletonwp-child;
-Version: 0.6.5
+Version: 0.8.1
 License: GNU General Public License v2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
-Text Domain: skeleton-wp
-Tags:
+Text Domain: skeletonwp
+Tags: one-column, custom-menu, featured-images, theme-options, translation-ready
 
 This theme, like WordPress, is licensed under the GPL.
 skeletonwp is based on Underscores http://underscores.me/, (C) 2012-2016 Automattic, Inc.

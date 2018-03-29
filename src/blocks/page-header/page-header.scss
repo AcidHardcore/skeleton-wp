@@ -1,9 +1,7 @@
 .page-header {
 
   &__container {
-    @include media-breakpoint-only(xs) {
-      width: 100%;
-    }
+
   }
 
   &__toggler {

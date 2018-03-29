@@ -44,17 +44,31 @@ if ( ! function_exists( 'skeletonwp_theme_customize_register' ) ) {
 			'priority'    => 160,
 		) );
 
+		 //select sanitization function
+        function skeletonwp_theme_slug_sanitize_select( $input, $setting ){
+
+            //input must be a slug: lowercase alphanumeric characters, dashes and underscores are allowed only
+            $input = sanitize_key($input);
+
+            //get the list of possible select options
+            $choices = $setting->manager->get_control( $setting->id )->choices;
+
+            //return input if valid or return default option
+            return ( array_key_exists( $input, $choices ) ? $input : $setting->default );
+
+        }
+
 		$wp_customize->add_setting( 'skeletonwp_container_type', array(
 			'default'           => 'container',
 			'type'              => 'theme_mod',
-			'sanitize_callback' => 'esc_textarea',
+			'sanitize_callback' => 'skeletonwp_theme_slug_sanitize_select',
 			'capability'        => 'edit_theme_options',
 		) );
 
 		$wp_customize->add_control(
 			new WP_Customize_Control(
 				$wp_customize,
-				'container_type', array(
+				'skeletonwp_container_type', array(
 					'label'       => __( 'Container Width', 'skeletonwp' ),
 					'description' => __( "Choose between Bootstrap's container and container-fluid", 'skeletonwp' ),
 					'section'     => 'skeletonwp_theme_layout_options',
@@ -71,7 +85,7 @@ if ( ! function_exists( 'skeletonwp_theme_customize_register' ) ) {
 		$wp_customize->add_setting( 'skeletonwp_sidebar_position', array(
 			'default'           => 'right',
 			'type'              => 'theme_mod',
-			'sanitize_callback' => 'esc_textarea',
+			'sanitize_callback' => 'sanitize_text_field',
 			'capability'        => 'edit_theme_options',
 		) );
 
@@ -85,6 +99,7 @@ if ( ! function_exists( 'skeletonwp_theme_customize_register' ) ) {
 					'section'     => 'skeletonwp_theme_layout_options',
 					'settings'    => 'skeletonwp_sidebar_position',
 					'type'        => 'select',
+					'sanitize_callback' => 'skeletonwp_theme_slug_sanitize_select',
 					'choices'     => array(
 						'right' => __( 'Right sidebar', 'skeletonwp' ),
 						'left'  => __( 'Left sidebar', 'skeletonwp' ),

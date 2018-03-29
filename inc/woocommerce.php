@@ -4,30 +4,60 @@
  *
  * @package skeletonwp
  */
-
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly
 }
 
-add_action( 'after_setup_theme', 'woocommerce_support' );
-if ( ! function_exists( 'woocommerce_support' ) ) {
+add_action( 'after_setup_theme', 'skeletonwp_woocommerce_support' );
+if ( ! function_exists( 'skeletonwp_woocommerce_support' ) ) {
 	/**
 	 * Declares WooCommerce theme support.
 	 */
-	function woocommerce_support() {
+	function skeletonwp_woocommerce_support() {
 		add_theme_support( 'woocommerce' );
 		
 		// Add New Woocommerce 3.0.0 Product Gallery support
 		add_theme_support( 'wc-product-gallery-lightbox' );
 		add_theme_support( 'wc-product-gallery-zoom' );
-
-		// Gallery slider needs Flexslider - https://woocommerce.com/flexslider/
-		//add_theme_support( 'wc-product-gallery-slider' );
+		add_theme_support( 'wc-product-gallery-slider' );
 
 		// hook in and customizer form fields.
-		add_filter( 'woocommerce_form_field_args', 'wc_form_field_args', 10, 3 );
+		add_filter( 'woocommerce_form_field_args', 'skeletonwp_wc_form_field_args', 10, 3 );
 	}
 }
+
+/**
+* First unhook the WooCommerce wrappers
+*/
+remove_action( 'woocommerce_before_main_content', 'woocommerce_output_content_wrapper', 10);
+remove_action( 'woocommerce_after_main_content', 'woocommerce_output_content_wrapper_end', 10);
+
+/**
+* Then hook in your own functions to display the wrappers your theme requires
+*/
+add_action('woocommerce_before_main_content', 'skeletonwp_woocommerce_wrapper_start', 10);
+add_action('woocommerce_after_main_content', 'skeletonwp_woocommerce_wrapper_end', 10);
+if ( ! function_exists( 'skeletonwp_woocommerce_wrapper_start' ) ) {
+	function skeletonwp_woocommerce_wrapper_start() {
+		$container   = get_theme_mod( 'skeletonwp_container_type' );
+		echo '<div class="wrapper" id="woocommerce-wrapper">';
+	  echo '<div class="' . esc_attr( $container ) . '" id="content" tabindex="-1">';
+		echo '<div class="row">';
+		get_template_part( 'global-templates/left-sidebar-check' );
+		echo '<main class="site-main" id="main">';
+	}
+}
+if ( ! function_exists( 'skeletonwp_woocommerce_wrapper_end' ) ) {
+function skeletonwp_woocommerce_wrapper_end() {
+	echo '</main><!-- #main -->';
+	echo '</div><!-- #primary -->';
+	get_template_part( 'global-templates/right-sidebar-check' );
+  echo '</div><!-- .row -->';
+	echo '</div><!-- Container end -->';
+	echo '</div><!-- Wrapper end -->';
+	}
+}
+
 /**
  * Filter hook function monkey patching form classes
  * Author: Adriano Monecchi http://stackoverflow.com/a/36724593/307826
@@ -38,7 +68,7 @@ if ( ! function_exists( 'woocommerce_support' ) ) {
  *
  * @return mixed
  */
-function wc_form_field_args( $args, $key, $value = null ) {
+function skeletonwp_wc_form_field_args( $args, $key, $value = null ) {
 	// Start field type switch case.
 	switch ( $args['type'] ) {
 		/* Targets all select input type elements, except the country and state select input types */
@@ -103,5 +133,15 @@ function wc_form_field_args( $args, $key, $value = null ) {
 			$args['label_class'] = array( 'control-label' );
 			break;
 	} // end switch ($args).
+	return $args;
+}
+
+
+/**
+* Change loop add-to-cart button class to Bootstrap
+*/
+add_filter( 'woocommerce_loop_add_to_cart_args', 'skeletonwp_woocommerce_add_to_cart_args', 10, 2 );
+function skeletonwp_woocommerce_add_to_cart_args( $args, $product ) {
+	$args['class'] = str_replace('button','btn btn-outline-primary', 'button');
 	return $args;
 }

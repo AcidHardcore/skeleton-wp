@@ -13,8 +13,8 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Count number of widgets in a sidebar
  * Used to add classes to widget areas so widgets can be displayed one, two, three or four per row
  */
-if ( ! function_exists( 'slbd_count_widgets' ) ) {
-	function slbd_count_widgets( $sidebar_id ) {
+if ( ! function_exists( 'skeletonwp_slbd_count_widgets' ) ) {
+	function skeletonwp_slbd_count_widgets( $sidebar_id ) {
 		// If loading from front page, consult $_wp_sidebars_widgets rather than options
 		// to see if wp_convert_widget_settings() has made manipulations in memory.
 		global $_wp_sidebars_widgets;
@@ -42,7 +42,7 @@ if ( ! function_exists( 'slbd_count_widgets' ) ) {
 			elseif ( 1 == $widget_count ) :
 				// If just on widget is active
 				$widget_classes .= ' col-md-12';
-			endif; 
+			endif;
 			return $widget_classes;
 		endif;
 	}
@@ -87,9 +87,9 @@ if ( ! function_exists( 'skeletonwp_widgets_init' ) ) {
 			'name'          => __( 'Hero Static', 'skeletonwp' ),
 			'id'            => 'statichero',
 			'description'   => 'Static Hero widget. no slider functionallity',
-		    'before_widget'  => '<div id="%1$s" class="static-hero-widget %2$s '. slbd_count_widgets( 'statichero' ) .'">', 
-		    'after_widget'   => '</div><!-- .static-hero-widget -->', 
-		    'before_title'   => '<h3 class="widget-title">', 
+		    'before_widget'  => '<div id="%1$s" class="static-hero-widget %2$s '. skeletonwp_slbd_count_widgets( 'statichero' ) .'">',
+		    'after_widget'   => '</div><!-- .static-hero-widget -->',
+		    'before_title'   => '<h3 class="widget-title">',
 		    'after_title'    => '</h3>',
 		) );
 
@@ -97,10 +97,10 @@ if ( ! function_exists( 'skeletonwp_widgets_init' ) ) {
 			'name'          => __( 'Footer Full', 'skeletonwp' ),
 			'id'            => 'footerfull',
 			'description'   => 'Widget area below main content and above footer',
-		    'before_widget'  => '<div id="%1$s" class="footer-widget %2$s '. slbd_count_widgets( 'footerfull' ) .'">', 
-		    'after_widget'   => '</div><!-- .footer-widget -->', 
-		    'before_title'   => '<h3 class="widget-title">', 
-		    'after_title'    => '</h3>', 
+		    'before_widget'  => '<div id="%1$s" class="footer-widget %2$s '. skeletonwp_slbd_count_widgets( 'footerfull' ) .'">',
+		    'after_widget'   => '</div><!-- .footer-widget -->',
+		    'before_title'   => '<h3 class="widget-title">',
+		    'after_title'    => '</h3>',
 		) );
 
 	}

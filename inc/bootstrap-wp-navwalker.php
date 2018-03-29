@@ -11,6 +11,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
+if (! class_exists ( 'skeletonwp_WP_Bootstrap_Navwalker' )) :
+
 /**
  * Class WP_Bootstrap_Navwalker
  * GitHub URI: https://github.com/twittem/wp-bootstrap-navwalker
@@ -21,7 +23,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * License: GPL-2.0+
  * License URI: http://www.gnu.org/licenses/gpl-2.0.txt
  */
-class WP_Bootstrap_Navwalker extends Walker_Nav_Menu {
+class skeletonwp_WP_Bootstrap_Navwalker extends Walker_Nav_Menu {
 	/**
 	 * The starting level of the menu.
 	 *
@@ -60,9 +62,9 @@ class WP_Bootstrap_Navwalker extends Walker_Nav_Menu {
 		 * a 0 if the strings are equal.
 		 */
 		if ( strcasecmp( $item->attr_title, 'divider' ) == 0 && $depth === 1 ) {
-			$output .= $indent . '<li class="divider" role="presentation">';
+			$output .= $indent . '<li class="dropdown-divider" role="presentation">';
 		} else if ( strcasecmp( $item->title, 'divider' ) == 0 && $depth === 1 ) {
-			$output .= $indent . '<li class="divider" role="presentation">';
+			$output .= $indent . '<li class="dropdown-divider" role="presentation">';
 		} else if ( strcasecmp( $item->attr_title, 'dropdown-header' ) == 0 && $depth === 1 ) {
 			$output .= $indent . '<li class="dropdown-header" role="presentation">' . esc_html( $item->title );
 		} else if ( strcasecmp( $item->attr_title, 'disabled' ) == 0 ) {
@@ -70,7 +72,7 @@ class WP_Bootstrap_Navwalker extends Walker_Nav_Menu {
 		} else {
 			$class_names = $value = '';
 			$classes     = empty( $item->classes ) ? array() : (array) $item->classes;
-			$classes[]   = 'nav-item page-header__item menu-item-' . $item->ID;
+			$classes[]   = 'nav-item menu-item-' . $item->ID;
 			$class_names = join( ' ', apply_filters( 'nav_menu_css_class', array_filter( $classes ), $item, $args ) );
 			/*
 			if ( $args->has_children )
@@ -110,7 +112,7 @@ class WP_Bootstrap_Navwalker extends Walker_Nav_Menu {
 				$atts['class']       = 'nav-link dropdown-toggle';
 			} else {
 				$atts['href']  = ! empty( $item->url ) ? $item->url : '';
-				$atts['class'] = 'nav-link page-header__link ripple-effect';
+				$atts['class'] = 'nav-link';
 			}
 			$atts       = apply_filters( 'nav_menu_link_attributes', $atts, $item, $args );
 			$attributes = '';
@@ -210,3 +212,5 @@ class WP_Bootstrap_Navwalker extends Walker_Nav_Menu {
 		}
 	}
 }
+
+endif; /* End if class exists */

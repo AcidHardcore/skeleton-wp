@@ -26,9 +26,9 @@ if ( post_password_required() ) {
 
 		<h2 class="comments-title">
 
-		<?php
+			<?php
 				$comments_number = get_comments_number();
-				if ( 1 === $comments_number ) {
+				if ( 1 === (int)$comments_number ) {
 					printf(
 						/* translators: %s: post title */
 						esc_html_x( 'One thought on &ldquo;%s&rdquo;', 'comments title', 'skeletonwp' ),

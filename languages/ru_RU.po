@@ -287,12 +287,12 @@ msgid "Edit"
 msgstr "Редактировать"
 
 #. Name of the theme
-msgid "skeletonwp"
-msgstr "skeletonwp"
+msgid "UnderStrap"
+msgstr "UnderStrap"
 
 #. Theme URI of the theme
-msgid "http://skeletonwp.com"
-msgstr "http://skeletonwp.com"
+msgid "http://understrap.com"
+msgstr "http://understrap.com"
 
 #. Description of the theme
 msgid ""
