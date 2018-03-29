@@ -4,12 +4,12 @@
  *
  * Learn more: https://codex.wordpress.org/Author_Templates
  *
- * @package understrap
+ * @package skeletonwp
  */
 
 get_header();
-$container   = get_theme_mod( 'understrap_container_type' );
-$sidebar_pos = get_theme_mod( 'understrap_sidebar_position' );
+$container   = get_theme_mod( 'skeletonwp_container_type' );
+$sidebar_pos = get_theme_mod( 'skeletonwp_sidebar_position' );
 ?>
 
 
@@ -31,7 +31,7 @@ $sidebar_pos = get_theme_mod( 'understrap_sidebar_position' );
 						$author_name ) : get_userdata( intval( $author ) );
 					?>
 
-					<h1><?php esc_html_e( 'About:', 'understrap' ); ?><?php echo esc_html( $curauth->nickname ); ?></h1>
+					<h1><?php esc_html_e( 'About:', 'skeletonwp' ); ?><?php echo esc_html( $curauth->nickname ); ?></h1>
 
 					<?php if ( ! empty( $curauth->ID ) ) : ?>
 						<?php echo get_avatar( $curauth->ID ); ?>
@@ -39,19 +39,19 @@ $sidebar_pos = get_theme_mod( 'understrap_sidebar_position' );
 
 					<dl>
 						<?php if ( ! empty( $curauth->user_url ) ) : ?>
-							<dt><?php esc_html_e( 'Website', 'understrap' ); ?></dt>
+							<dt><?php esc_html_e( 'Website', 'skeletonwp' ); ?></dt>
 							<dd>
                 <a href="<?php echo esc_url( $curauth->user_url ); ?>"><?php echo esc_html( $curauth->user_url ); ?></a>
 							</dd>
 						<?php endif; ?>
 
 						<?php if ( ! empty( $curauth->user_description ) ) : ?>
-							<dt><?php esc_html_e( 'Profile', 'understrap' ); ?></dt>
+							<dt><?php esc_html_e( 'Profile', 'skeletonwp' ); ?></dt>
 							<dd><?php echo esc_html( $curauth->user_description ); ?></dd>
 						<?php endif; ?>
 					</dl>
 
-					<h2><?php esc_html_e( 'Posts by', 'understrap' ); ?> <?php echo esc_html( $curauth->nickname ); ?>
+					<h2><?php esc_html_e( 'Posts by', 'skeletonwp' ); ?> <?php echo esc_html( $curauth->nickname ); ?>
 						:</h2>
 
 				</header><!-- .page-header -->
@@ -65,8 +65,8 @@ $sidebar_pos = get_theme_mod( 'understrap_sidebar_position' );
 								<a rel="bookmark" href="<?php the_permalink() ?>"
 								   title="Permanent Link: <?php the_title(); ?>">
 									<?php the_title(); ?></a>,
-								<?php understrap_posted_on(); ?> <?php esc_html_e( 'in',
-								'understrap' ); ?> <?php the_category( '&' ); ?>
+								<?php skeletonwp_posted_on(); ?> <?php esc_html_e( 'in',
+								'skeletonwp' ); ?> <?php the_category( '&' ); ?>
 							</li>
 						<?php endwhile; ?>
 
@@ -83,7 +83,7 @@ $sidebar_pos = get_theme_mod( 'understrap_sidebar_position' );
 			</main><!-- #main -->
 
 			<!-- The pagination component -->
-			<?php understrap_pagination(); ?>
+			<?php skeletonwp_pagination(); ?>
 
 		</div><!-- #primary -->
 

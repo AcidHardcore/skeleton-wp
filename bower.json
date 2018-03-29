@@ -1,11 +1,11 @@
 {
-  "name": "understrap",
+  "name": "skeletonwp",
   "version": "0.6.1",
-  "homepage": "http://understrap.com",
+  "homepage": "http://skeletonwp.com",
   "authors": [
     "Holger Koenemann <office@holgerkoenemann.de>"
   ],
-  "description": "UnderStrap is a Bootstrap and underscores based WordPress theme framework.",
+  "description": "skeletonwp is a Bootstrap and underscores based WordPress theme framework.",
   "moduleType": "globals",
   "main": [
     "sass/theme.scss"
@@ -25,7 +25,7 @@
   ],
   "dependencies": {
   },
-  "_source": "https://github.com/holger1411/understrap.git",
+  "_source": "https://github.com/holger1411/skeletonwp.git",
   "_target": "~0.6.1",
-  "_originalSource": "understrap"
+  "_originalSource": "skeletonwp"
 }

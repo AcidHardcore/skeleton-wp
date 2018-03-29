@@ -1,8 +1,8 @@
 <?php
 /**
- * Understrap functions and definitions
+ * skeletonwp functions and definitions
  *
- * @package understrap
+ * @package skeletonwp
  */
 
 /**
@@ -91,7 +91,7 @@ require get_template_directory() . '/inc/optimisation.php';
 /**
  * Help functions
  */
-require get_template_directory() . '/inc/helper.php';
+require get_template_directory() . '/inc/helpers.php';
 /**
  *
  * CLEANING

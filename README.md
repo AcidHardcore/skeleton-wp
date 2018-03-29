@@ -1,9 +1,9 @@
-Travis build: [![Build Status](https://travis-ci.org/holger1411/understrap.svg?branch=master)](https://travis-ci.org/holger1411/understrap) | Start talking: [![Gitter](https://img.shields.io/gitter/room/holger1411/understrap.svg?maxAge=2592000?style=flat-square)](https://gitter.im/holger1411/understrap)
+Travis build: [![Build Status](https://travis-ci.org/holger1411/skeletonwp.svg?branch=master)](https://travis-ci.org/holger1411/skeletonwp) | Start talking: [![Gitter](https://img.shields.io/gitter/room/holger1411/skeletonwp.svg?maxAge=2592000?style=flat-square)](https://gitter.im/holger1411/skeletonwp)
 
 
-# UnderStrap WordPress Theme Framework + NTH-start-project
+# skeletonwp WordPress Theme Framework + NTH-start-project
 
-Website: [https://understrap.com](https://understrap.com)
+Website: [https://skeletonwp.com](https://skeletonwp.com)
 Website: [https://github.com/nicothin/NTH-start-project](https://github.com/nicothin/NTH-start-project)
 
 
@@ -16,6 +16,6 @@ Website: [https://github.com/nicothin/NTH-start-project](https://github.com/nico
 - Jetpack ready.
 - WooCommerce support.
 - Contact Form 7 support.
-- [Child Theme](https://github.com/holger1411/understrap-child) ready.
+- [Child Theme](https://github.com/holger1411/skeletonwp-child) ready.
 - Translation ready.
 

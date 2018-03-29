@@ -5,8 +5,8 @@ Author: Vitalii Ivanychko
 Author URI: https://github.com/AcidHardcore/
 Description: Combination of Automattic´s _s theme, Bootstrap 4 and NTH-start-project. Made as a solid starting point for your next theme project and WordPress website. Use it as starter theme or as a parent theme. It is up to you. Including Font Awesome support, built-in widget slider and much more you need for basic websites.
 That downloads everything and moves it in place so that you can recompile your CSS and JS files;
-A developer version (with Gulp/node and Sass sources) is available on gitHub: https://github.com/holger1411/understrap
-A child theme is available on Github, too: https://github.com/holger1411/understrap-child;
+A developer version (with Gulp/node and Sass sources) is available on gitHub: https://github.com/holger1411/skeletonwp
+A child theme is available on Github, too: https://github.com/holger1411/skeletonwp-child;
 Version: 0.6.5
 License: GNU General Public License v2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -14,7 +14,7 @@ Text Domain: skeleton-wp
 Tags:
 
 This theme, like WordPress, is licensed under the GPL.
-UnderStrap is based on Underscores http://underscores.me/, (C) 2012-2016 Automattic, Inc.
+skeletonwp is based on Underscores http://underscores.me/, (C) 2012-2016 Automattic, Inc.
 
 Resource Licenses:
 Font Awesome: http://fontawesome.io/license (Font: SIL OFL 1.1, CSS: MIT License)

@@ -4,7 +4,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly
 }
 
-function understrap_fonts_url() {
+function skeletonwp_fonts_url() {
 $fonts_url = '';
 
 /**
@@ -12,8 +12,8 @@ $fonts_url = '';
 * supported by Source Sans Pro and PT Serif, translate this to 'off'. Do not translate
 * into your own language.
 */
-$source_sans_pro = _x( 'on', 'Source Sans Pro font: on or off', 'understrap' );
-$pt_serif = _x( 'on', 'PT Serif font: on or off', 'understrap' );
+$source_sans_pro = _x( 'on', 'Source Sans Pro font: on or off', 'skeletonwp' );
+$pt_serif = _x( 'on', 'PT Serif font: on or off', 'skeletonwp' );
 
 $font_families = array();
 
@@ -48,8 +48,8 @@ return esc_url_raw( $fonts_url );
  * @param string $relation_type  The relation type the URLs are printed.
  * @return array $urls           URLs to print for resource hints.
  */
-function understrap_resource_hints( $urls, $relation_type ) {
-	if ( wp_style_is( 'understrap-fonts', 'queue' ) && 'preconnect' === $relation_type ) {
+function skeletonwp_resource_hints( $urls, $relation_type ) {
+	if ( wp_style_is( 'skeletonwp-fonts', 'queue' ) && 'preconnect' === $relation_type ) {
 		$urls[] = array(
 			'href' => 'https://fonts.gstatic.com',
 			'crossorigin',
@@ -58,4 +58,4 @@ function understrap_resource_hints( $urls, $relation_type ) {
 
 	return $urls;
 }
-add_filter( 'wp_resource_hints', 'understrap_resource_hints', 10, 2 );
+add_filter( 'wp_resource_hints', 'skeletonwp_resource_hints', 10, 2 );

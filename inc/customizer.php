@@ -1,8 +1,8 @@
 <?php
 /**
- * Understrap Theme Customizer
+ * skeletonwp Theme Customizer
  *
- * @package understrap
+ * @package skeletonwp
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -14,37 +14,37 @@ if ( ! defined( 'ABSPATH' ) ) {
  *
  * @param WP_Customize_Manager $wp_customize Theme Customizer object.
  */
-if ( ! function_exists( 'understrap_customize_register' ) ) {
+if ( ! function_exists( 'skeletonwp_customize_register' ) ) {
 	/**
 	 * Register basic customizer support.
 	 *
 	 * @param object $wp_customize Customizer reference.
 	 */
-	function understrap_customize_register( $wp_customize ) {
+	function skeletonwp_customize_register( $wp_customize ) {
 		$wp_customize->get_setting( 'blogname' )->transport         = 'postMessage';
 		$wp_customize->get_setting( 'blogdescription' )->transport  = 'postMessage';
 		$wp_customize->get_setting( 'header_textcolor' )->transport = 'postMessage';
 	}
 }
-add_action( 'customize_register', 'understrap_customize_register' );
+add_action( 'customize_register', 'skeletonwp_customize_register' );
 
-if ( ! function_exists( 'understrap_theme_customize_register' ) ) {
+if ( ! function_exists( 'skeletonwp_theme_customize_register' ) ) {
 	/**
 	 * Register individual settings through customizer's API.
 	 *
 	 * @param WP_Customize_Manager $wp_customize Customizer reference.
 	 */
-	function understrap_theme_customize_register( $wp_customize ) {
+	function skeletonwp_theme_customize_register( $wp_customize ) {
 
 		// Theme layout settings.
-		$wp_customize->add_section( 'understrap_theme_layout_options', array(
-			'title'       => __( 'Theme Layout Settings', 'understrap' ),
+		$wp_customize->add_section( 'skeletonwp_theme_layout_options', array(
+			'title'       => __( 'Theme Layout Settings', 'skeletonwp' ),
 			'capability'  => 'edit_theme_options',
-			'description' => __( 'Container width and sidebar defaults', 'understrap' ),
+			'description' => __( 'Container width and sidebar defaults', 'skeletonwp' ),
 			'priority'    => 160,
 		) );
 
-		$wp_customize->add_setting( 'understrap_container_type', array(
+		$wp_customize->add_setting( 'skeletonwp_container_type', array(
 			'default'           => 'container',
 			'type'              => 'theme_mod',
 			'sanitize_callback' => 'esc_textarea',
@@ -55,20 +55,20 @@ if ( ! function_exists( 'understrap_theme_customize_register' ) ) {
 			new WP_Customize_Control(
 				$wp_customize,
 				'container_type', array(
-					'label'       => __( 'Container Width', 'understrap' ),
-					'description' => __( "Choose between Bootstrap's container and container-fluid", 'understrap' ),
-					'section'     => 'understrap_theme_layout_options',
-					'settings'    => 'understrap_container_type',
+					'label'       => __( 'Container Width', 'skeletonwp' ),
+					'description' => __( "Choose between Bootstrap's container and container-fluid", 'skeletonwp' ),
+					'section'     => 'skeletonwp_theme_layout_options',
+					'settings'    => 'skeletonwp_container_type',
 					'type'        => 'select',
 					'choices'     => array(
-						'container'       => __( 'Fixed width container', 'understrap' ),
-						'container-fluid' => __( 'Full width container', 'understrap' ),
+						'container'       => __( 'Fixed width container', 'skeletonwp' ),
+						'container-fluid' => __( 'Full width container', 'skeletonwp' ),
 					),
 					'priority'    => '10',
 				)
 			) );
 
-		$wp_customize->add_setting( 'understrap_sidebar_position', array(
+		$wp_customize->add_setting( 'skeletonwp_sidebar_position', array(
 			'default'           => 'right',
 			'type'              => 'theme_mod',
 			'sanitize_callback' => 'esc_textarea',
@@ -78,36 +78,36 @@ if ( ! function_exists( 'understrap_theme_customize_register' ) ) {
 		$wp_customize->add_control(
 			new WP_Customize_Control(
 				$wp_customize,
-				'understrap_sidebar_position', array(
-					'label'       => __( 'Sidebar Positioning', 'understrap' ),
+				'skeletonwp_sidebar_position', array(
+					'label'       => __( 'Sidebar Positioning', 'skeletonwp' ),
 					'description' => __( "Set sidebar's default position. Can either be: right, left, both or none. Note: this can be overridden on individual pages.",
-					'understrap' ),
-					'section'     => 'understrap_theme_layout_options',
-					'settings'    => 'understrap_sidebar_position',
+					'skeletonwp' ),
+					'section'     => 'skeletonwp_theme_layout_options',
+					'settings'    => 'skeletonwp_sidebar_position',
 					'type'        => 'select',
 					'choices'     => array(
-						'right' => __( 'Right sidebar', 'understrap' ),
-						'left'  => __( 'Left sidebar', 'understrap' ),
-						'both'  => __( 'Left & Right sidebars', 'understrap' ),
-						'none'  => __( 'No sidebar', 'understrap' ),
+						'right' => __( 'Right sidebar', 'skeletonwp' ),
+						'left'  => __( 'Left sidebar', 'skeletonwp' ),
+						'both'  => __( 'Left & Right sidebars', 'skeletonwp' ),
+						'none'  => __( 'No sidebar', 'skeletonwp' ),
 					),
 					'priority'    => '20',
 				)
 			) );
 	}
-} // endif function_exists( 'understrap_theme_customize_register' ).
-add_action( 'customize_register', 'understrap_theme_customize_register' );
+} // endif function_exists( 'skeletonwp_theme_customize_register' ).
+add_action( 'customize_register', 'skeletonwp_theme_customize_register' );
 
 /**
  * Binds JS handlers to make Theme Customizer preview reload changes asynchronously.
  */
-if ( ! function_exists( 'understrap_customize_preview_js' ) ) {
+if ( ! function_exists( 'skeletonwp_customize_preview_js' ) ) {
 	/**
 	 * Setup JS integration for live previewing.
 	 */
-	function understrap_customize_preview_js() {
-		wp_enqueue_script( 'understrap_customizer', get_template_directory_uri() . '/js/customizer.js',
+	function skeletonwp_customize_preview_js() {
+		wp_enqueue_script( 'skeletonwp_customizer', get_template_directory_uri() . '/js/customizer.js',
 			array( 'customize-preview' ), '20130508', true );
 	}
 }
-add_action( 'customize_preview_init', 'understrap_customize_preview_js' );
+add_action( 'customize_preview_init', 'skeletonwp_customize_preview_js' );

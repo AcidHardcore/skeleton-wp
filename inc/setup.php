@@ -2,7 +2,7 @@
 /**
  * Theme basic setup.
  *
- * @package understrap
+ * @package skeletonwp
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -16,7 +16,7 @@ if ( ! isset( $content_width ) ) {
 	$content_width = 640; /* pixels */
 }
 
-if ( ! function_exists( 'understrap_setup' ) ) :
+if ( ! function_exists( 'skeletonwp_setup' ) ) :
 	/**
 	 * Sets up theme defaults and registers support for various WordPress features.
 	 *
@@ -24,14 +24,14 @@ if ( ! function_exists( 'understrap_setup' ) ) :
 	 * runs before the init hook. The init hook is too late for some features, such
 	 * as indicating support for post thumbnails.
 	 */
-	function understrap_setup() {
+	function skeletonwp_setup() {
 		/*
 		 * Make theme available for translation.
 		 * Translations can be filed in the /languages/ directory.
-		 * If you're building a theme based on understrap, use a find and replace
-		 * to change 'understrap' to the name of your theme in all the template files
+		 * If you're building a theme based on skeletonwp, use a find and replace
+		 * to change 'skeletonwp' to the name of your theme in all the template files
 		 */
-		load_theme_textdomain( 'understrap', get_template_directory() . '/languages' );
+		load_theme_textdomain( 'skeletonwp', get_template_directory() . '/languages' );
 
 		// Add default posts and comments RSS feed links to head.
 		add_theme_support( 'automatic-feed-links' );
@@ -46,7 +46,7 @@ if ( ! function_exists( 'understrap_setup' ) ) :
 
 		// This theme uses wp_nav_menu() in one location.
 		register_nav_menus( array(
-			'primary' => __( 'Primary Menu', 'understrap' ),
+			'primary' => __( 'Primary Menu', 'skeletonwp' ),
 		) );
 
 		/*
@@ -84,7 +84,7 @@ if ( ! function_exists( 'understrap_setup' ) ) :
 		) );
 
 		// Set up the WordPress core custom background feature.
-		add_theme_support( 'custom-background', apply_filters( 'understrap_custom_background_args', array(
+		add_theme_support( 'custom-background', apply_filters( 'skeletonwp_custom_background_args', array(
 			'default-color' => 'ffffff',
 			'default-image' => '',
 		) ) );
@@ -100,8 +100,8 @@ if ( ! function_exists( 'understrap_setup' ) ) :
 		// Check and setup theme default settings.
 		setup_theme_default_settings();
 	}
-endif; // understrap_setup.
-add_action( 'after_setup_theme', 'understrap_setup' );
+endif; // skeletonwp_setup.
+add_action( 'after_setup_theme', 'skeletonwp_setup' );
 
 if ( ! function_exists( 'custom_excerpt_more' ) ) {
 	/**
@@ -127,8 +127,8 @@ if ( ! function_exists( 'all_excerpts_get_more_link' ) ) {
 	 */
 	function all_excerpts_get_more_link( $post_excerpt ) {
 
-		return $post_excerpt . '<div><a class="btn btn-secondary understrap-read-more-link" href="' . get_permalink( get_the_ID() ) . '">' . __( 'Read More...',
-		'understrap' ) . '</a></div>';
+		return $post_excerpt . '<div><a class="btn btn-secondary skeletonwp-read-more-link" href="' . get_permalink( get_the_ID() ) . '">' . __( 'Read More...',
+		'skeletonwp' ) . '</a></div>';
 	}
 }
 add_filter( 'wp_trim_excerpt', 'all_excerpts_get_more_link' );

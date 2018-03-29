@@ -2,13 +2,13 @@
 /**
  * Left sidebar check.
  *
- * @package understrap
+ * @package skeletonwp
  */
 
 ?>
 
 <?php
-$sidebar_pos = get_theme_mod( 'understrap_sidebar_position' );
+$sidebar_pos = get_theme_mod( 'skeletonwp_sidebar_position' );
 ?>
 
 <?php if ( 'left' === $sidebar_pos || 'both' === $sidebar_pos ) : ?>

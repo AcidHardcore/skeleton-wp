@@ -4,11 +4,11 @@
  *
  * Contains the closing of the #content div and all content after
  *
- * @package understrap
+ * @package skeletonwp
  */
 
 $the_theme = wp_get_theme();
-$container = get_theme_mod('understrap_container_type');
+$container = get_theme_mod('skeletonwp_container_type');
 ?>
 
 <?php get_sidebar('footerfull'); ?>
@@ -25,7 +25,7 @@ $container = get_theme_mod('understrap_container_type');
             <div class="page-footer__site-info">
                 <?php printf( // WPCS: XSS ok.
                 /* translators:*/
-                    esc_html__('Vitalii Ivanychko © 2107.', 'understrap')); ?>
+                    esc_html__('Vitalii Ivanychko © 2107.', 'skeletonwp')); ?>
             </div><!-- .site-info -->
 
             <?php if ('container' == $container) : ?>

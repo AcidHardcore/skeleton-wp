@@ -2,7 +2,7 @@
 /**
  * Pagination layout.
  *
- * @package understrap
+ * @package skeletonwp
  */
 
 /**
@@ -14,8 +14,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly
 }
 
-if ( ! function_exists( 'understrap_pagination' ) ) :
-	function understrap_pagination($query = NULL) {
+if ( ! function_exists( 'skeletonwp_pagination' ) ) :
+	function skeletonwp_pagination($query = NULL) {
 //		if ( is_singular() ) {
 //			return;
 //		}

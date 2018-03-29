@@ -20,7 +20,7 @@
     "./src/scss/mixins.scss",
     "./src/scss/fonts.scss",
     "./src/scss/contact-form7.scss",
-    "./src/scss/understrap.scss",
+    "./src/scss/skeletonwp.scss",
     "/../../node_modules/swiper/dist/css/swiper.min.css"
   ],
   "addCssAfter": [],

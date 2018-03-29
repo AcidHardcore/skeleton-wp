@@ -2,13 +2,13 @@
 /**
  * The template for displaying search results pages.
  *
- * @package understrap
+ * @package skeletonwp
  */
 
 get_header();
 
-$container   = get_theme_mod( 'understrap_container_type' );
-$sidebar_pos = get_theme_mod( 'understrap_sidebar_position' );
+$container   = get_theme_mod( 'skeletonwp_container_type' );
+$sidebar_pos = get_theme_mod( 'skeletonwp_sidebar_position' );
 ?>
 
 <div class="wrapper" id="search-wrapper">
@@ -28,7 +28,7 @@ $sidebar_pos = get_theme_mod( 'understrap_sidebar_position' );
 						
 							<h1 class="page-title"><?php printf(
 							/* translators:*/
-							 esc_html__( 'Search Results for: %s', 'understrap' ),
+							 esc_html__( 'Search Results for: %s', 'skeletonwp' ),
 								'<span>' . get_search_query() . '</span>' ); ?></h1>
 
 					</header><!-- .page-header -->
@@ -56,7 +56,7 @@ $sidebar_pos = get_theme_mod( 'understrap_sidebar_position' );
 			</main><!-- #main -->
 
 			<!-- The pagination component -->
-			<?php understrap_pagination(); ?>
+			<?php skeletonwp_pagination(); ?>
 
 		</div><!-- #primary -->
 

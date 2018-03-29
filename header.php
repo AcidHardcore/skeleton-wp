@@ -4,10 +4,10 @@
  *
  * Displays all of the <head> section and everything up till <div id="content">
  *
- * @package understrap
+ * @package skeletonwp
  */
 
-$container = get_theme_mod('understrap_container_type');
+$container = get_theme_mod('skeletonwp_container_type');
 ?>
 <!DOCTYPE html>
 <html class="no-js" <?php language_attributes(); ?>>
@@ -33,7 +33,7 @@ $container = get_theme_mod('understrap_container_type');
     <div class="wrapper-fluid wrapper-navbar" id="wrapper-navbar">
 
         <a class="skip-link screen-reader-text sr-only"
-           href="#content"><?php esc_html_e('Skip to content', 'understrap'); ?></a>
+           href="#content"><?php esc_html_e('Skip to content', 'skeletonwp'); ?></a>
 
         <header class="page-header">
 
