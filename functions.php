@@ -89,6 +89,10 @@ require get_template_directory() . '/inc/disable-wpautop.php';
  */
 require get_template_directory() . '/inc/optimisation.php';
 /**
+ * Help functions
+ */
+require get_template_directory() . '/inc/helper.php';
+/**
  *
  * CLEANING
  *
