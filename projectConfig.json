@@ -21,7 +21,8 @@
     "burger": [],
     "close": [],
     "modal": [],
-    "contact-forms-7": []
+    "contact-forms-7": [],
+    "social": []
   },
   "addCssBefore": [
     "./src/scss/custom.scss",

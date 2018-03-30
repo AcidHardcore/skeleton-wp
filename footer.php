@@ -44,7 +44,7 @@ $container = get_theme_mod( 'skeletonwp_container_type' );
 			  /* translators:*/
 				  esc_html__( 'Version: %1$s', 'skeletonwp' ), $the_theme->get( 'Version' ) ); ?>)
           </div><!-- .site-info -->
-
+          <?php echo do_shortcode('[social]');?>
         </footer><!-- #colophon -->
 
       </div><!--col end -->
