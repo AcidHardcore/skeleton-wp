@@ -9,7 +9,7 @@ function skeletonwp_social_shrortcode( $atts, $content, $tag ) {
 	$html = '<ul class="social">';
 	foreach ( $social_links as $link ) {
 		$html .= sprintf( '<li class="social__item">
-                                   %s
+                                   <i class="fa fa-%s"></i>
                                    <a class="social__link" href="%s" target="_blank">%s</a>
                                  </li>',
 			$link['social-icon'],

@@ -17,14 +17,13 @@ Container::make( 'theme_options', __( 'Theme Options', 'skeletonwp' ) )
 	->add_tab( 'Social', array(
 		Field::make( 'complex', 'skeletonwp_social_urls', 'Social Links' )
 			->set_layout( 'grid' ) // https://carbonfields.net/docs/complex-field-config-methods/?crb_version=2-2-0
-			->set_help_text('Use by Social shortcode')
 		     ->add_fields( array(
 			     Field::make( 'text', 'social-name', 'Social name' )
 			          ->set_width( 25 ) // condense layout so field takes only 50% of the available width
 			          ->set_required(),
 			     Field::make( 'text', 'social-icon', 'social-icon' ) // We're only changing the label field to an image one
 			          ->set_width( 25 )
-				      ->set_help_text('Add some font awesome icon'),
+				      ->set_help_text('Add some font awesome icon name fa-*'),
 				 Field::make( 'image', 'social-image', 'Social image' )
 				     ->set_width( 25 )
 					 ->set_help_text('or Add some image'),
@@ -34,11 +33,22 @@ Container::make( 'theme_options', __( 'Theme Options', 'skeletonwp' ) )
 		     ) ),
 	) )
 	->add_tab('Scripts',array(
-			Field::make( 'header_scripts', 'skeletonwp_header_script' )
+			Field::make( 'header_scripts', 'skeletonwp_header_script', 'Header scripts' )
 				->set_hook('wp_head', 99),
-		Field::make( 'footer_scripts', 'skeletonwp_footer_script' )
+		Field::make( 'footer_scripts', 'skeletonwp_footer_script', 'Footer scripts' )
 		     ->set_hook('wp_footer', 99),
+		    ))
+	->add_tab('Woocommerce',array(
+			Field::make( 'radio', 'skeletonwp_woo_scripts', 'Woocommerce scripts' )
+				->add_options( array(
+					'0' => 'turn off',
+					'1' => 'turn on',
+
+					))
 		    ));
+
+global $skeletonwp_woo_scripts;
+$skeletonwp_woo_scripts = carbon_get_theme_option( 'skeletonwp_woo_scripts');
 
 
 //$basic_options_container = Container::make( 'theme_options', 'Basic Options' )

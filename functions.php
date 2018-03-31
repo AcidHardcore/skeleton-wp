@@ -131,3 +131,9 @@ require get_template_directory() . '/inc/clean-wp/recentcomments.php';
  *
  */
 require get_template_directory() . '/inc/shortcodes/social-shortcode.php';
+/**
+ * Load WooCommerce compatibility file.
+ */
+if ( class_exists( 'WooCommerce' ) ) {
+	require get_template_directory() . '/woocommerce/inc/wc-functions-remove.php';
+}
