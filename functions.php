@@ -13,6 +13,11 @@ function skeletonwp_register_custom_fields() {
 	require get_template_directory() . '/inc/custom-field-options/metabox.php';
 	require get_template_directory() . '/inc/custom-field-options/theme-options.php';
 }
+
+/**
+ * Initialize theme default settings
+ */
+require get_template_directory() . '/inc/theme-settings.php';
 /**
  * Theme setup and custom theme supports.
  */
@@ -137,3 +142,4 @@ require get_template_directory() . '/inc/shortcodes/social-shortcode.php';
 if ( class_exists( 'WooCommerce' ) ) {
 	require get_template_directory() . '/woocommerce/inc/wc-functions-remove.php';
 }
+
