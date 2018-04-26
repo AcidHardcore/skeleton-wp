@@ -117,15 +117,15 @@ require get_template_directory() . '/inc/clean-wp/amoji.php';
 /**
  * Remove rest-api.
  */
-require get_template_directory() . '/inc/clean-wp/rest-api.php';
+//require get_template_directory() . '/inc/clean-wp/rest-api.php';
 /**
  * Remove xml-rpc.
  */
-require get_template_directory() . '/inc/clean-wp/xml-rpc.php';
+//require get_template_directory() . '/inc/clean-wp/xml-rpc.php';
 /**
  * Remove pingback, canonical, meta generator, wlwmanifest, EditURI, shortlink, prev, next, RSS, feed, profile from head
  */
-require get_template_directory() . '/inc/clean-wp/remove-other.php';
+//require get_template_directory() . '/inc/clean-wp/remove-other.php';
 /**
  * Remove recentcomments css
  */
