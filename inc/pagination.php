@@ -42,7 +42,7 @@ if ( ! defined( 'ABSPATH' ) ) {
                     <?php
                     $i = 1;
                         foreach ( $links as $link ) { ?>
-                            <li class="page-item <?php if ($i == $args['current']) { echo active; }; ?>">
+                            <li class="page-item <?php if ($i == $args['current']) { echo 'active'; }; ?>">
                     <?php echo str_replace( 'page-numbers', 'page-link', $link ); ?>
                             </li>
 
