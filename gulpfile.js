@@ -15,27 +15,34 @@ var settings = {
   reload: true
 };
 
+/** BrowserSync Options
+*
+ */
+var browserSyncOptions = {
+	proxy: "skeleton-wp",
+	notify: false
+};
+
 
 /**
  * Paths to project folders
  */
 
 var paths = {
-  input: 'src/',
-  output: 'dist/',
+  php: '**/*.php',
   scripts: {
-    input: 'src/js/*',
-    watchPath: 'src/js/**/*.js',
+    input: 'assets/js/src/*',
+    watchPath: 'assets/js/*.js',
     polyfills: '.polyfill.js',
-    output: 'dist/js/'
+    output: 'assets/js/'
   },
   libs: {
-    input: 'src/libs/*',
-    output: 'dist/js/'
+    input: 'assets/js/libs/*',
+    output: 'assets/js/'
   },
   styles: {
-    input: 'src/sass/**/*.{scss,sass}',
-    output: 'dist/css/'
+    input: 'assets/css/src/**/*.{scss,sass}',
+    output: 'assets/css/'
   },
   images: {
     input: 'src/img/**/*.{jpg,jpeg,gif,png}',
@@ -245,7 +252,7 @@ var svgSprite =  function (done) {
     .pipe(dest(paths.svgs.output));
 };
 
-// Copy static files into output folder
+
 var images = function (done) {
 
   // Make sure this feature is activated before running
@@ -280,11 +287,7 @@ var startServer = function (done) {
   if (!settings.reload) return done();
 
   // Initialize BrowserSync
-  browserSync.init({
-    server: {
-      baseDir: paths.reload
-    }
-  });
+  browserSync.init(browserSyncOptions);
 
   // Signal completion
   done();
@@ -304,6 +307,7 @@ var watchSource = function (done) {
   watch(paths.libs.input, series(exports.copyJSLibs, reloadBrowser));
   watch(paths.styles.input, series(exports.styles, reloadBrowser));
   watch([paths.svgs.input, paths.images.input], series(exports.assets, reloadBrowser));
+  watch(paths.php, reloadBrowser);
   done();
 };
 
