@@ -1,75 +1,44 @@
 <?php
 /**
- * The main template file.
+ * The main template file
  *
  * This is the most generic template file in a WordPress theme
  * and one of the two required files for a theme (the other being style.css).
  * It is used to display a page when nothing more specific matches a query.
  * E.g., it puts together the home page when no home.php file exists.
- * Learn more: http://codex.wordpress.org/Template_Hierarchy
  *
- * @package skeletonwp
+ * @link https://codex.wordpress.org/Template_Hierarchy
+ *
+ * @package wp_rig
  */
+
+namespace WP_Rig\WP_Rig;
 
 get_header();
 
-$container   = get_theme_mod( 'skeletonwp_container_type' );
+wp_rig()->print_styles( 'wp-rig-content' );
+
 ?>
+	<main id="primary" class="site-main">
+		<?php
+		if ( have_posts() ) {
 
-<?php if ( is_front_page() && is_home() ) : ?>
-	<?php get_template_part( 'global-templates/hero' ); ?>
-<?php endif; ?>
+			get_template_part( 'template-parts/content/page_header' );
 
-<div class="wrapper" id="index-wrapper">
+			while ( have_posts() ) {
+				the_post();
 
-	<div class="<?php echo esc_attr( $container ); ?>" id="content" tabindex="-1">
+				get_template_part( 'template-parts/content/entry', get_post_type() );
+			}
 
-		<div class="row">
-
-			<!-- Do the left sidebar check and opens the primary div -->
-			<?php get_template_part( 'global-templates/left-sidebar-check' ); ?>
-
-			<main class="site-main" id="main">
-
-				<?php if ( have_posts() ) : ?>
-
-					<?php /* Start the Loop */ ?>
-
-					<?php while ( have_posts() ) : the_post(); ?>
-
-						<?php
-
-						/*
-						 * Include the Post-Format-specific template for the content.
-						 * If you want to override this in a child theme, then include a file
-						 * called content-___.php (where ___ is the Post Format name) and that will be used instead.
-						 */
-						get_template_part( 'loop-templates/content', get_post_format() );
-						?>
-
-					<?php endwhile; ?>
-
-				<?php else : ?>
-
-					<?php get_template_part( 'loop-templates/content', 'none' ); ?>
-
-				<?php endif; ?>
-
-			</main><!-- #main -->
-
-			<!-- The pagination component -->
-			<?php skeletonwp_pagination(); ?>
-
-		</div><!-- #primary -->
-
-		<!-- Do the right sidebar check -->
-		<?php get_template_part( 'global-templates/right-sidebar-check' ); ?>
-
-
-	</div><!-- .row -->
-
-</div><!-- Container end -->
-
-</div><!-- Wrapper end -->
-
-<?php get_footer(); ?>
+			if ( ! is_singular() ) {
+				get_template_part( 'template-parts/content/pagination' );
+			}
+		} else {
+			get_template_part( 'template-parts/content/error' );
+		}
+		?>
+	</main><!-- #primary -->
+<?php
+get_sidebar();
+get_footer();

@@ -1,84 +1,42 @@
 <?php
 /**
- * The header for our theme.
+ * The header for our theme
  *
- * Displays all of the <head> section and everything up till <div id="content">
+ * This is the template that displays all of the <head> section and everything up until <div id="content">
  *
- * @package skeletonwp
+ * @link https://developer.wordpress.org/themes/basics/template-files/#template-partials
+ *
+ * @package wp_rig
  */
 
-$container = get_theme_mod( 'skeletonwp_container_type' );
+namespace WP_Rig\WP_Rig;
+
 ?>
-<!DOCTYPE html>
-<html class="no-js" <?php language_attributes(); ?>>
+<!doctype html>
+<html <?php language_attributes(); ?> class="no-js">
 <head>
-  <meta charset="<?php bloginfo( 'charset' ); ?>">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <meta name="mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-title" content="<?php bloginfo( 'name' ); ?> - <?php bloginfo( 'description' ); ?>">
+	<meta charset="<?php bloginfo( 'charset' ); ?>">
+	<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1">
+	<link rel="profile" href="http://gmpg.org/xfn/11">
+
+	<?php
+	if ( ! wp_rig()->is_amp() ) {
+		?>
+		<script>document.documentElement.classList.remove('no-js');</script>
+		<?php
+	}
+	?>
+
 	<?php wp_head(); ?>
 </head>
 
-<body <?php body_class(); ?> >
-<script>
-    // Маркер работающего javascript
-    document.documentElement.className = document.documentElement.className.replace('no-js', 'js');
-</script>
-<div class="hfeed site" id="page">
+<body <?php body_class(); ?>>
+<?php wp_body_open(); ?>
+<div id="page" class="site">
+	<a class="skip-link screen-reader-text" href="#primary"><?php esc_html_e( 'Skip to content', 'wp-rig' ); ?></a>
 
-  <!-- ******************* The Navbar Area ******************* -->
-  <div id="wrapper-navbar" itemscope itemtype="http://schema.org/WebSite">
+	<header id="masthead" class="site-header">
+			<?php get_template_part( 'template-parts/header/branding' ); ?>
 
-    <a class="skip-link screen-reader-text sr-only"
-       href="#content"><?php esc_html_e( 'Skip to content', 'skeletonwp' ); ?></a>
-
-    <header class="page-header">
-
-		<?php if ( 'container' == $container ) : ?>
-      <div class="page-header__container">
-        <!--      <div class="container">-->
-		  <?php endif; ?>
-
-        <!-- Your site title as branding in the menu -->
-		  <?php if ( ! has_custom_logo() ) { ?>
-
-	  <?php if ( is_front_page() && is_home() ) : ?>
-
-        <h1 class="logo"><a rel="home" href="<?php echo esc_url( home_url( '/' ) ); ?>"
-                            title="<?php echo esc_attr( get_bloginfo( 'name', 'display' ) ); ?>"><?php bloginfo( 'name' ); ?></a>
-        </h1>
-
-	  <?php else : ?>
-
-        <a class="logo" rel="home" href="<?php echo esc_url( home_url( '/' ) ); ?>"
-           title="<?php echo esc_attr( get_bloginfo( 'name', 'display' ) ); ?>"><?php bloginfo( 'name' ); ?></a>
-
-	  <?php endif; ?>
-
-
-		  <?php } else {
-			  the_custom_logo();
-		  } ?><!-- end custom logo -->
-        <!-- The WordPress Menu goes here -->
-        <nav id="main-nav" class="main-nav" role="navigation">
-          <button id="main-nav-toggler" class="main-nav__toggler  burger"><span></span></button>
-
-			<?php wp_nav_menu( array(
-				'theme_location' => 'primary',
-				'container'      => false,
-				'menu_class'     => 'main-nav__list',
-				'fallback_cb'    => '',
-				'menu_id'        => ' ',
-				'walker'         => new WP_BEM_Navwalker(),
-
-			) ); ?>
-        </nav><!-- .site-navigation -->
-
-		  <?php if ( 'container' == $container ) : ?>
-      </div><!-- .container -->
-	<?php endif; ?>
-    </header>
-
-  </div><!-- .wrapper-navbar end -->
+			<?php get_template_part( 'template-parts/header/navigation' ); ?>
+	</header><!-- #masthead -->

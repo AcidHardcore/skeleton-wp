@@ -1,512 +1,359 @@
-'use strict';
+/**
+ * Settings
+ * Turn on/off build features
+ */
 
-// Подключения зависимостей
-const fs = require('fs');
-const gulp = require('gulp');
-const gulpSequence = require('gulp-sequence');
-const browserSync = require('browser-sync').create();
+var settings = {
+  clean: false,
+  scripts: true,
+  libs: true,
+  polyfills: false,
+  styles: true,
+  svgs: true,
+  sprite: false,
+  images: true,
+  reload: true
+};
 
-const postcss = require('gulp-postcss');
-const autoprefixer = require("autoprefixer");
-const mqpacker = require("css-mqpacker");
-const atImport = require("postcss-import");
-const cleanss = require('gulp-cleancss');
-const inlineSVG = require('postcss-inline-svg');
-const objectFitImages = require('postcss-object-fit-images');
-const imageInliner = require('postcss-image-inliner');
 
-const plumber = require('gulp-plumber');
-const notify = require('gulp-notify');
-const gulpIf = require('gulp-if');
-const debug = require('gulp-debug');
-const rename = require('gulp-rename');
-const size = require('gulp-size');
-const del = require('del');
-const newer = require('gulp-newer');
+/**
+ * Paths to project folders
+ */
 
-// Получение настроек проекта из projectConfig.json
-let projectConfig = require('./projectConfig.json');
-let dirs = projectConfig.dirs;
-let lists = getFilesList(projectConfig);
-// console.log(lists);
+var paths = {
+  input: 'src/',
+  output: 'dist/',
+  scripts: {
+    input: 'src/js/*',
+    watchPath: 'src/js/**/*.js',
+    polyfills: '.polyfill.js',
+    output: 'dist/js/'
+  },
+  libs: {
+    input: 'src/libs/*',
+    output: 'dist/js/'
+  },
+  styles: {
+    input: 'src/sass/**/*.{scss,sass}',
+    output: 'dist/css/'
+  },
+  images: {
+    input: 'src/img/**/*.{jpg,jpeg,gif,png}',
+    output: 'dist/img/'
+  },
+  svgs: {
+    input: 'src/svg/*.svg',
+    output: 'dist/img/'
+  },
+  reload: './dist/'
+};
 
-// Формирование и запись диспетчера подключений (style.scss), который компилируется в style.min.css
-let styleImports = '/*!*\n * ВНИМАНИЕ! Этот файл генерируется автоматически.\n * Не пишите сюда ничего вручную, все такие правки будут потеряны.\n * Читайте ./README.md для понимания.\n */\n\n';
-lists.css.forEach(function (blockPath) {
-    styleImports += '@import \'' + blockPath + '\';\n';
-});
-fs.writeFileSync(dirs.srcPath + 'scss/style.scss', styleImports);
 
-// Определение: разработка это или финальная сборка
-// Запуск `NODE_ENV=production npm start [задача]` приведет к сборке без sourcemaps
-const isDev = !process.env.NODE_ENV || process.env.NODE_ENV == 'dev';
+/**
+ * Template for banner to add to file headers
+ */
 
-// Перечисление и настройки плагинов postCSS, которыми обрабатываются стилевые файлы
-let postCssPlugins = [
-    autoprefixer({
-        browsers: ['last 2 version']
-    }),
-    mqpacker({
+var banner = {
+  main:
+    '/*!' +
+    ' <%= package.name %> v<%= package.version %>' +
+    ' | (c) ' + new Date().getFullYear() + ' <%= package.author.name %>' +
+    ' | <%= package.license %> License' +
+    ' | <%= package.repository.url %>' +
+    ' */\n'
+};
+
+
+/**
+ * Gulp Packages
+ */
+
+// General
+var {gulp, src, dest, watch, series, parallel} = require('gulp');
+var del = require('del');
+var flatmap = require('gulp-flatmap');
+var lazypipe = require('lazypipe');
+var rename = require('gulp-rename');
+var header = require('gulp-header');
+var package = require('./package.json');
+
+// Scripts
+var jshint = require('gulp-jshint');
+var stylish = require('jshint-stylish');
+var concat = require('gulp-concat');
+var uglify = require('gulp-terser');
+var optimizejs = require('gulp-optimize-js');
+
+// Styles
+var sass = require('gulp-sass');
+var postcss = require('gulp-postcss');
+var prefix = require('autoprefixer');
+var minify = require('cssnano');
+var mqpacker = require("css-mqpacker");
+var inlineSVG = require('postcss-inline-svg');
+
+// SVGs
+var svgmin = require('gulp-svgmin');
+var svgstore = require('gulp-svgstore');
+
+//Images
+var imagemin = require('gulp-imagemin');
+
+// BrowserSync
+var browserSync = require('browser-sync');
+
+
+/**
+ * Gulp Tasks
+ */
+
+// Repeated JavaScript tasks
+var jsTasks = lazypipe()
+  .pipe(header, banner.main, {package: package})
+  .pipe(optimizejs)
+  .pipe(dest, paths.scripts.output)
+  .pipe(rename, {suffix: '.min'})
+  .pipe(uglify)
+  .pipe(optimizejs)
+  .pipe(header, banner.main, {package: package})
+  .pipe(dest, paths.scripts.output);
+
+// Lint, minify, and concatenate scripts
+var buildScripts = function (done) {
+
+  // Make sure this feature is activated before running
+  if (!settings.scripts) return done();
+
+  // Run tasks on script files
+  return src(paths.scripts.input)
+    .pipe(flatmap(function (stream, file) {
+
+      // If the file is a directory
+      if (file.isDirectory()) {
+
+        // Setup a suffix variable
+        var suffix = '';
+
+        // If separate polyfill files enabled
+        if (settings.polyfills) {
+
+          // Update the suffix
+          suffix = '.polyfills';
+
+          // Grab files that aren't polyfills, concatenate them, and process them
+          src([file.path + '/*.js', '!' + file.path + '/*' + paths.scripts.polyfills])
+            .pipe(concat(file.relative + '.js'))
+            .pipe(jsTasks());
+
+        }
+
+        // Grab all files and concatenate them
+        // If separate polyfills enabled, this will have .polyfills in the filename
+        src(file.path + '/*.js')
+          .pipe(concat(file.relative + suffix + '.js'))
+          .pipe(jsTasks());
+
+        return stream;
+
+      }
+
+      // Otherwise, process the file
+      return stream.pipe(jsTasks());
+
+    }));
+
+};
+
+// Lint scripts
+var lintScripts = function (done) {
+
+  // Make sure this feature is activated before running
+  if (!settings.scripts) return done();
+
+  // Lint scripts
+  return src(paths.scripts.input)
+    .pipe(jshint())
+    .pipe(jshint.reporter('jshint-stylish'));
+
+};
+
+// Process, lint, and minify Sass files
+var buildStyles = function (done) {
+
+  // Make sure this feature is activated before running
+  if (!settings.styles) return done();
+
+  // Run tasks on all Sass files
+  return src(paths.styles.input)
+    .pipe(sass({
+      outputStyle: 'expanded',
+      sourceComments: true
+    }))
+    .pipe(postcss([
+      prefix({
+        cascade: true,
+        remove: true
+      }),
+      mqpacker({
         sort: true
-    }),
-    atImport(),
-    inlineSVG(),
-    objectFitImages(),
-    imageInliner({
-        // Осторожнее с именами файлов картинок! Добавляйте имя блока как префикс к имени картинки.
-        assetPaths: [
-            'src/blocks/**/img_to_bg/',
-        ],
-        // Инлайнятся только картинки менее 10 Кб.
-        maxFileSize: 10240
-    })
-];
+      }),
+      inlineSVG()
+    ]))
+    .pipe(header(banner.main, {package: package}))
+    .pipe(dest(paths.styles.output))
+    .pipe(rename({suffix: '.min'}))
+    .pipe(postcss([
+      minify({
+        preset: ["default", { discardComments: { removeAll: true } }],
+      })
+    ]))
+    .pipe(dest(paths.styles.output));
 
-// Очистка папки сборки
-gulp.task('clean', function () {
-    console.log('---------- Очистка папки сборки');
-    return del([
-        dirs.buildPath + '/**/*',
-        '!' + dirs.buildPath + '/readme.md'
-    ]);
-});
+};
 
-// Компиляция стилей блоков проекта (и добавочных)
-gulp.task('style', function () {
-    const sass = require('gulp-sass');
-    const sourcemaps = require('gulp-sourcemaps');
-    const wait = require('gulp-wait');
-    console.log('---------- Компиляция стилей');
-    return gulp.src(dirs.srcPath + 'scss/style.scss')
-        .pipe(plumber({
-            errorHandler: function (err) {
-                notify.onError({
-                    title: 'Styles compilation error',
-                    message: err.message
-                })(err);
-                this.emit('end');
-            }
-        }))
-        .pipe(wait(100))
-        .pipe(gulpIf(isDev, sourcemaps.init()))
-        .pipe(debug({title: "Style:"}))
-        .pipe(sass())
-        .pipe(postcss(postCssPlugins))
-        .pipe(gulpIf(!isDev, cleanss()))
-        .pipe(rename('style.min.css'))
-        .pipe(gulpIf(isDev, sourcemaps.write('/')))
-        .pipe(size({
-            title: 'Размер',
-            showFiles: true,
-            showTotal: false,
-        }))
-        .pipe(gulp.dest(dirs.buildPath + '/css'))
-        .pipe(browserSync.stream({match: '**/*.css'}));
-});
+// Optimize SVG files
+var buildSVGs = function (done) {
 
-// Компиляция отдельных файлов
-gulp.task('style:single', function () {
-    if (projectConfig.singleCompiled.length) {
-        const sass = require('gulp-sass');
-        const sourcemaps = require('gulp-sourcemaps');
-        const wait = require('gulp-wait');
-        console.log('---------- Компиляция добавочных стилей');
-        return gulp.src(projectConfig.singleCompiled)
-            .pipe(plumber({
-                errorHandler: function (err) {
-                    notify.onError({
-                        title: 'Single style compilation error',
-                        message: err.message
-                    })(err);
-                    this.emit('end');
-                }
-            }))
-            .pipe(wait(100))
-            .pipe(gulpIf(isDev, sourcemaps.init()))
-            .pipe(debug({title: "Single style:"}))
-            .pipe(sass())
-            .pipe(postcss(postCssPlugins))
-            .pipe(gulpIf(!isDev, cleanss()))
-            .pipe(gulpIf(isDev, sourcemaps.write('/')))
-            .pipe(size({
-                title: 'Размер',
-                showFiles: true,
-                showTotal: false,
-            }))
-            .pipe(gulp.dest(dirs.buildPath + '/css'))
-            .pipe(browserSync.stream({match: '**/*.css'}));
-    }
-});
+  // Make sure this feature is activated before running
+  if (!settings.svgs) return done();
 
-// Копирование добавочных CSS, которые хочется иметь отдельными файлами
-gulp.task('copy:css', function (callback) {
-    if (projectConfig.copiedCss.length) {
-        return gulp.src(projectConfig.copiedCss)
-            .pipe(postcss(postCssPlugins))
-            .pipe(cleanss())
-            .pipe(size({
-                title: 'Размер',
-                showFiles: true,
-                showTotal: false,
-            }))
-            .pipe(gulp.dest(dirs.buildPath + '/css'))
-            .pipe(browserSync.stream());
-    }
-    else {
-        callback();
-    }
-});
+  // Optimize SVG files
+  return src(paths.svgs.input)
+    .pipe(svgmin())
+    .pipe(dest(paths.svgs.output));
 
-// Копирование изображений
-gulp.task('copy:img', function () {
-    console.log('---------- Копирование изображений');
-    return gulp.src(lists.img)
-        .pipe(newer(dirs.buildPath + '/img'))  // оставить в потоке только изменившиеся файлы
-        .pipe(size({
-            title: 'Размер',
-            showFiles: true,
-            showTotal: false,
-        }))
-        .pipe(gulp.dest(dirs.buildPath + '/img'));
-});
+};
 
-// Копирование JS
-gulp.task('copy:js', function (callback) {
-    if (projectConfig.copiedJs.length) {
-        return gulp.src(projectConfig.copiedJs)
-            .pipe(size({
-                title: 'Размер',
-                showFiles: true,
-                showTotal: false,
-            }))
-            .pipe(gulp.dest(dirs.buildPath + '/js'));
-    }
-    else {
-        callback();
-    }
-});
+//make SVG sprite
+var svgSprite =  function (done) {
 
-// Копирование шрифтов
-gulp.task('copy:fonts', function () {
-    console.log('---------- Копирование шрифтов');
-    return gulp.src(dirs.srcPath + '/fonts/*.{ttf,woff,woff2,eot,svg}')
-        .pipe(newer(dirs.buildPath + '/fonts'))  // оставить в потоке только изменившиеся файлы
-        .pipe(size({
-            title: 'Размер',
-            showFiles: true,
-            showTotal: false,
-        }))
-        .pipe(gulp.dest(dirs.buildPath + '/fonts'));
-});
+  // Make sure this feature is activated before running
+  if (!settings.sprite) return done();
 
-// Сборка SVG-спрайта для блока sprite-svg
-let spriteSvgPath = dirs.srcPath + dirs.blocksDirName + '/sprite-svg/svg/';
-gulp.task('sprite:svg', function (callback) {
-    if ((projectConfig.blocks['sprite-svg']) !== undefined) {
-        const svgstore = require('gulp-svgstore');
-        const svgmin = require('gulp-svgmin');
-        const cheerio = require('gulp-cheerio');
-        if (fileExist(spriteSvgPath) !== false) {
-            console.log('---------- Сборка SVG спрайта');
-            return gulp.src(spriteSvgPath + '*.svg')
-                .pipe(svgmin(function (file) {
-                    return {
-                        plugins: [{
-                            cleanupIDs: {
-                                minify: true
-                            }
-                        }]
-                    }
-                }))
-                .pipe(svgstore({inlineSvg: true}))
-                .pipe(cheerio({
-                    run: function ($) {
-                        $('svg').attr('style', 'display:none');
-                    },
-                    parserOptions: {
-                        xmlMode: true
-                    }
-                }))
-                .pipe(rename('sprite-svg.svg'))
-                .pipe(size({
-                    title: 'Размер',
-                    showFiles: true,
-                    showTotal: false,
-                }))
-                .pipe(gulp.dest(dirs.srcPath + dirs.blocksDirName + '/sprite-svg/img/'));
-        }
-        else {
-            console.log('---------- Сборка SVG спрайта: ОТМЕНА, нет папки с картинками');
-            callback();
-        }
-    }
-    else {
-        console.log('---------- Сборка SVG спрайта: ОТМЕНА, блок не используется на проекте');
-        callback();
-    }
-});
+  return src(paths.svgs.input)
+    .pipe(svgmin(function (file) {
+      return {
+        plugins: [{
+          cleanupIDs: {
+            minify: true
+          }
+        }]
+      }
+    }))
+    .pipe(svgstore({inlineSvg: true}))
+    .pipe(rename('sprite.svg'))
+    .pipe(dest(paths.svgs.output));
+};
 
-// Сборка растрового спрайта для блока sprite-png
-let spritePngPath = dirs.srcPath + dirs.blocksDirName + '/sprite-png/png/';
-gulp.task('sprite:png', function (callback) {
-    if ((projectConfig.blocks['sprite-png']) !== undefined) {
-        const spritesmith = require('gulp.spritesmith');
-        const buffer = require('vinyl-buffer');
-        const merge = require('merge-stream');
-        const imagemin = require('gulp-imagemin');
-        const pngquant = require('imagemin-pngquant');
-        if (fileExist(spritePngPath) !== false) {
-            del(dirs.srcPath + dirs.blocksDirName + '/sprite-png/img/*.png');
-            let fileName = 'sprite-' + Math.random().toString().replace(/[^0-9]/g, '') + '.png';
-            let spriteData = gulp.src(spritePngPath + '*.png')
-                .pipe(spritesmith({
-                    imgName: fileName,
-                    cssName: 'sprite-png.scss',
-                    padding: 4,
-                    imgPath: '../img/' + fileName
-                }));
-            let imgStream = spriteData.img
-                .pipe(buffer())
-                .pipe(imagemin({
-                    use: [pngquant()]
-                }))
-                .pipe(gulp.dest(dirs.srcPath + dirs.blocksDirName + '/sprite-png/img/'));
-            let cssStream = spriteData.css
-                .pipe(gulp.dest(dirs.srcPath + dirs.blocksDirName + '/sprite-png/'));
-            return merge(imgStream, cssStream);
-        }
-        else {
-            console.log('---------- Сборка PNG спрайта: ОТМЕНА, нет папки с картинками');
-            callback();
-        }
-    }
-    else {
-        console.log('---------- Сборка PNG спрайта: ОТМЕНА, блок не используется на проекте');
-        callback();
-    }
-});
+// Copy static files into output folder
+var images = function (done) {
 
-// Конкатенация и углификация Javascript
-gulp.task('js', function (callback) {
-    const uglify = require('gulp-terser');
-    const concat = require('gulp-concat');
-    if (lists.js.length > 0) {
-        console.log('---------- Обработка JS');
-        return gulp.src(lists.js)
-            .pipe(plumber({
-                errorHandler: function (err) {
-                    notify.onError({
-                        title: 'Javascript concat/uglify error',
-                        message: err.message
-                    })(err);
-                    this.emit('end');
-                }
-            }))
-            .pipe(concat('script.min.js'))
-            // .pipe(gulpIf(!isDev, uglify()))
-            .pipe(uglify())
-            .pipe(size({
-                title: 'Размер',
-                showFiles: true,
-                showTotal: false,
-            }))
-            .pipe(gulp.dest(dirs.buildPath + '/js'));
-    }
-    else {
-        console.log('---------- Обработка JS: в сборке нет JS-файлов');
-        callback();
-    }
-});
+  // Make sure this feature is activated before running
+  if (!settings.images) return done();
 
-// Ручная оптимизация изображений
-// Использование: folder=src/img npm start img:opt
-const folder = process.env.folder;
-gulp.task('img:opt', function (callback) {
-    const imagemin = require('gulp-imagemin');
-    const pngquant = require('imagemin-pngquant');
-    if (folder) {
-        console.log('---------- Оптимизация картинок');
-        return gulp.src(folder + '/*.{jpg,jpeg,gif,png,svg}')
-            .pipe(imagemin({
-                progressive: true,
-                svgoPlugins: [{removeViewBox: false}],
-                use: [pngquant()]
-            }))
-            .pipe(gulp.dest(folder));
-    }
-    else {
-        console.log('---------- Оптимизация картинок: ошибка (не указана папка)');
-        console.log('---------- Пример вызова команды: folder=src/blocks/block-name/img npm start img:opt');
-        callback();
-    }
-});
+  // optimize images
+  return src(paths.images.input)
+    .pipe(imagemin([
+      imagemin.gifsicle({interlaced: true}),
+      imagemin.mozjpeg({quality: 70, progressive: true}),
+      imagemin.optipng({optimizationLevel: 5}),
+    ]))
+    .pipe(dest(paths.images.output));
 
-// coping and optimisation images
-gulp.task('img', function () {
-    const imagemin = require('gulp-imagemin');
-    const pngquant = require('imagemin-pngquant');
-    console.log('---------- Copy and optimisation images');
-    return gulp.src('./src/img/*.{jpg,jpeg,gif,png,svg}')
-        .pipe(imagemin([
-            imagemin.gifsicle({interlaced: true}),
-            imagemin.jpegtran({progressive: true}),
-            imagemin.optipng({optimizationLevel: 5}),
-            imagemin.svgo({
-                plugins: [
-                    {removeViewBox: true},
-                    {cleanupIDs: false}
-                ]
-            })
-        ]))
-        .pipe(gulp.dest(dirs.buildPath + '/img'))
-        .pipe(debug({title: "img:"}));
-});
+};
 
-// Сборка всего
-gulp.task('build', function (callback) {
-    gulpSequence(
-        // 'clean',
-        // ['sprite:svg', 'sprite:png'],
-        ['style', 'style:single', 'js', 'copy:css', 'copy:img', 'copy:js', 'copy:fonts'],
-        callback
-    );
-});
+var copyJSLibs = function (done) {
 
-// Отправка в GH pages (ветку gh-pages репозитория)
-gulp.task('deploy', function () {
-    const ghPages = require('gulp-gh-pages');
-    console.log('---------- Публикация содержимого ./build/ на GH pages');
-    return gulp.src(dirs.buildPath + '**/*')
-        .pipe(ghPages());
-});
+  // Make sure this feature is activated before running
+  if (!settings.libs) return done();
 
-// Задача по умолчанию
-gulp.task('default', ['serve']);
+  // Copy static files
+  return src(paths.libs.input)
+    .pipe(dest(paths.libs.output));
 
-// Локальный сервер, слежение
-gulp.task('serve', ['build'], function () {
-    browserSync.init({
-        // server: dirs.buildPath,
-        // startPath: 'index.html',
-        open: false,
-        port: 3000,
-        proxy: 'skeleton-wp'
-    });
-    // Слежение за стилями
-    gulp.watch([
-        dirs.srcPath + 'scss/style.scss',
-        dirs.srcPath + dirs.blocksDirName + '/**/*.scss',
-        projectConfig.addCssBefore,
-        projectConfig.addCssAfter,
-    ], ['style']);
-    // Слежение за отдельными стилями
-    gulp.watch(projectConfig.singleCompiled, ['style:single',]);
-    // Слежение за добавочными стилями
-    if (projectConfig.copiedCss.length) {
-        gulp.watch(projectConfig.copiedCss, ['copy:css']);
-    }
-    // Слежение за изображениями
-    if (lists.img.length) {
-        gulp.watch(lists.img, ['watch:img']);
-    }
-    // Слежение за добавочными JS
-    if (projectConfig.copiedJs.length) {
-        gulp.watch(projectConfig.copiedJs, ['watch:copied:js']);
-    }
-    // Слежение за шрифтами
-    gulp.watch('/fonts/*.{ttf,woff,woff2,eot,svg}', {cwd: dirs.srcPath}, ['watch:fonts']);
-// Слежение за php
-    gulp.watch([
-        './*.php',
-        './**/*.php'
-    ], ['watch:php']);
-    // Слежение за JS
-    if (lists.js.length) {
-        gulp.watch(lists.js, ['watch:js']);
-    }
-    // Слежение за SVG (спрайты)
-    if ((projectConfig.blocks['sprite-svg']) !== undefined) {
-        gulp.watch('*.svg', {cwd: spriteSvgPath}, ['watch:sprite:svg']); // следит за новыми и удаляемыми файлами
-    }
-    // Слежение за PNG (спрайты)
-    if ((projectConfig.blocks['sprite-png']) !== undefined) {
-        gulp.watch('*.png', {cwd: spritePngPath}, ['watch:sprite:png']); // следит за новыми и удаляемыми файлами
-    }
-});
+};
 
-// Браузерсинк с 3-м галпом — такой браузерсинк...
-gulp.task('watch:img', ['copy:img'], reload);
-gulp.task('watch:copied:js', ['copy:js'], reload);
-gulp.task('watch:fonts', ['copy:fonts'], reload);
-// gulp.task('watch:html', ['html'], reload);
-gulp.task('watch:php', reload);
-gulp.task('watch:js', ['js'], reload);
-gulp.task('watch:sprite:svg', ['sprite:svg'], reload);
-gulp.task('watch:sprite:png', ['sprite:png'], reload);
+// Watch for changes to the src directory
+var startServer = function (done) {
+
+  // Make sure this feature is activated before running
+  if (!settings.reload) return done();
+
+  // Initialize BrowserSync
+  browserSync.init({
+    server: {
+      baseDir: paths.reload
+    }
+  });
+
+  // Signal completion
+  done();
+
+};
+
+// Reload the browser when files change
+var reloadBrowser = function (done) {
+  if (!settings.reload) return done();
+  browserSync.reload();
+  done();
+};
+
+// Watch for changes
+var watchSource = function (done) {
+  watch(paths.scripts.watchPath, series(exports.scripts, reloadBrowser));
+  watch(paths.libs.input, series(exports.copyJSLibs, reloadBrowser));
+  watch(paths.styles.input, series(exports.styles, reloadBrowser));
+  watch([paths.svgs.input, paths.images.input], series(exports.assets, reloadBrowser));
+  done();
+};
 
 
 /**
- * Вернет объект с обрабатываемыми файлами и папками
- * @param  {object}
- * @return {object}
+ * Export Tasks
  */
-function getFilesList(config) {
 
-    let res = {
-        'css': [],
-        'js': [],
-        'img': [],
-    };
+// Default task
+// gulp
+exports.default = series(
+  parallel(
+    buildScripts,
+    lintScripts,
+    buildStyles,
+    buildSVGs,
+    svgSprite,
+    images,
+    copyJSLibs
+  )
+);
 
-    // Style
-    for (let blockName in config.blocks) {
-        res.css.push(config.dirs.srcPath + config.dirs.blocksDirName + '/' + blockName + '/' + blockName + '.scss');
-        if (config.blocks[blockName].length) {
-            config.blocks[blockName].forEach(function (elementName) {
-                res.css.push(config.dirs.srcPath + config.dirs.blocksDirName + '/' + blockName + '/' + blockName + elementName + '.scss');
-            });
-        }
-    }
-    res.css = res.css.concat(config.addCssAfter);
-    res.css = config.addCssBefore.concat(res.css);
+// Watch and reload
+// gulp watch
+exports.watch = series(
+  exports.default,
+  startServer,
+  watchSource
+);
 
-    // JS
-    for (let blockName in config.blocks) {
-        res.js.push(config.dirs.srcPath + config.dirs.blocksDirName + '/' + blockName + '/' + blockName + '.js');
-        if (config.blocks[blockName].length) {
-            config.blocks[blockName].forEach(function (elementName) {
-                res.js.push(config.dirs.srcPath + config.dirs.blocksDirName + '/' + blockName + '/' + blockName + elementName + '.js');
-            });
-        }
-    }
-    res.js = res.js.concat(config.addJsAfter);
-    res.js = config.addJsBefore.concat(res.js);
+//Build and link scripts
+exports.scripts = parallel(
+  buildScripts,
+  lintScripts,
+);
 
-    // Images
-    for (let blockName in config.blocks) {
-        res.img.push(config.dirs.srcPath + config.dirs.blocksDirName + '/' + blockName + '/img/*.{jpg,jpeg,gif,png,svg}');
-    }
-    res.img = config.addImages.concat(res.img);
+//Compile styles
+exports.styles = buildStyles;
 
-    return res;
-}
+exports.assets = series(
+  buildSVGs,
+  svgSprite,
+  images
+);
 
-/**
- * Проверка существования файла или папки
- * @param  {string} path      Путь до файла или папки]
- * @return {boolean}
- */
-function fileExist(path) {
-    const fs = require('fs');
-    try {
-        fs.statSync(path);
-    } catch (err) {
-        return !(err && err.code === 'ENOENT');
-    }
-}
+//Copy Libs
+exports.copyJSLibs = copyJSLibs;
 
-// Перезагрузка браузера
-function reload(done) {
-    browserSync.reload();
-    done();
-}
+
+
+
+
+
