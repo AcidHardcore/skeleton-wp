@@ -288,7 +288,7 @@ gulp.task('sprite:png', function (callback) {
 
 // Конкатенация и углификация Javascript
 gulp.task('js', function (callback) {
-    const uglify = require('gulp-uglifyes');
+    const uglify = require('gulp-terser');
     const concat = require('gulp-concat');
     if (lists.js.length > 0) {
         console.log('---------- Обработка JS');

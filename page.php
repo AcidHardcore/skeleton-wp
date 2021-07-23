@@ -13,7 +13,6 @@
 get_header();
 
 $container   = get_theme_mod( 'skeletonwp_container_type' );
-
 ?>
 
 <div class="wrapper" id="page-wrapper">
