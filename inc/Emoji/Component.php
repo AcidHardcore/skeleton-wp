@@ -1,13 +1,13 @@
 <?php
 /**
- * WP_Rig\WP_Rig\Emoji\Component class
+ * Skeleton_WP\Skeleton_WP\Emoji\Component class
  *
- * @package wp_rig
+ * @package skeleton_wp
  */
 
-namespace WP_Rig\WP_Rig\Emoji;
+namespace Skeleton_WP\Skeleton_WP\Emoji;
 
-use WP_Rig\WP_Rig\Component_Interface;
+use Skeleton_WP\Skeleton_WP\Component_Interface;
 use function add_action;
 use function add_filter;
 

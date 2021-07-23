@@ -1,14 +1,14 @@
 <?php
 /**
- * WP_Rig\WP_Rig\AMP\Component class
+ * Skeleton_WP\Skeleton_WP\AMP\Component class
  *
- * @package wp_rig
+ * @package skeleton_wp
  */
 
-namespace WP_Rig\WP_Rig\AMP;
+namespace Skeleton_WP\Skeleton_WP\AMP;
 
-use WP_Rig\WP_Rig\Component_Interface;
-use WP_Rig\WP_Rig\Templating_Component_Interface;
+use Skeleton_WP\Skeleton_WP\Component_Interface;
+use Skeleton_WP\Skeleton_WP\Templating_Component_Interface;
 use function add_action;
 use function add_theme_support;
 use function get_theme_support;
@@ -17,8 +17,8 @@ use function get_theme_support;
  * Class for managing AMP support.
  *
  * Exposes template tags:
- * * `wp_rig()->is_amp()`
- * * `wp_rig()->using_amp_live_list_comments()`
+ * * `skeleton_wp()->is_amp()`
+ * * `skeleton_wp()->using_amp_live_list_comments()`
  *
  * @link https://wordpress.org/plugins/amp/
  */
@@ -41,7 +41,7 @@ class Component implements Component_Interface, Templating_Component_Interface {
 	}
 
 	/**
-	 * Gets template tags to expose as methods on the Template_Tags class instance, accessible through `wp_rig()`.
+	 * Gets template tags to expose as methods on the Template_Tags class instance, accessible through `skeleton_wp()`.
 	 *
 	 * @return array Associative array of $method_name => $callback_info pairs. Each $callback_info must either be
 	 *               a callable or an array with key 'callable'. This approach is used to reserve the possibility of

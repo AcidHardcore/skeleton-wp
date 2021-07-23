@@ -4,18 +4,18 @@
  *
  * @link https://developer.wordpress.org/themes/basics/template-hierarchy/#front-page-display
  *
- * @package wp_rig
+ * @package skeleton_wp
  */
 
-namespace WP_Rig\WP_Rig;
+namespace Skeleton_WP\Skeleton_WP;
 
 get_header();
 
 // Use grid layout if blog index is displayed.
 if ( is_home() ) {
-	wp_rig()->print_styles( 'wp-rig-content', 'wp-rig-front-page' );
+	skeleton_wp()->print_styles( 'skeleton-wp-content', 'skeleton-wp-front-page' );
 } else {
-	wp_rig()->print_styles( 'wp-rig-content' );
+	skeleton_wp()->print_styles( 'skeleton-wp-content' );
 }
 
 ?>

@@ -2,16 +2,16 @@
 /**
  * Template part for displaying the page content when an offline error has occurred
  *
- * @package wp_rig
+ * @package skeleton_wp
  */
 
-namespace WP_Rig\WP_Rig;
+namespace Skeleton_WP\Skeleton_WP;
 
 ?>
 <section class="error">
 	<header class="page-header">
 		<h1 class="page-title">
-			<?php esc_html_e( 'Oops! It looks like you&#8217;re offline.', 'wp-rig' ); ?>
+			<?php esc_html_e( 'Oops! It looks like you&#8217;re offline.', 'skeleton-wp' ); ?>
 		</h1>
 	</header><!-- .page-header -->
 

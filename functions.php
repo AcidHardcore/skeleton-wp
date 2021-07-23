@@ -18,9 +18,6 @@ if ( version_compare( $GLOBALS['wp_version'], SKELETON_WP_MINIMUM_WP_VERSION, '<
 	return;
 }
 
-// Include WordPress shims.
-require get_template_directory() . '/inc/wordpress-shims.php';
-
 // Setup autoloader (via Composer or custom).
 if ( file_exists( get_template_directory() . '/vendor/autoload.php' ) ) {
 	require get_template_directory() . '/vendor/autoload.php';
@@ -59,7 +56,7 @@ if ( file_exists( get_template_directory() . '/vendor/autoload.php' ) ) {
 	spl_autoload_register( '_skeleton_wp_autoload' );
 }
 
-// Load the `wp_rig()` entry point function.
+// Load the `skeleton_wp()` entry point function.
 require get_template_directory() . '/inc/functions.php';
 
 // Initialize the theme.

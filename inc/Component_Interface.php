@@ -1,11 +1,11 @@
 <?php
 /**
- * WP_Rig\WP_Rig\Component_Interface interface
+ * Skeleton_WP\Skeleton_WP\Component_Interface interface
  *
- * @package wp_rig
+ * @package skeleton_wp
  */
 
-namespace WP_Rig\WP_Rig;
+namespace Skeleton_WP\Skeleton_WP;
 
 /**
  * Interface for a theme component.

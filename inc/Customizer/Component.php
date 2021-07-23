@@ -1,14 +1,14 @@
 <?php
 /**
- * WP_Rig\WP_Rig\Customizer\Component class
+ * Skeleton_WP\Skeleton_WP\Customizer\Component class
  *
- * @package wp_rig
+ * @package skeleton_wp
  */
 
-namespace WP_Rig\WP_Rig\Customizer;
+namespace Skeleton_WP\Skeleton_WP\Customizer;
 
-use WP_Rig\WP_Rig\Component_Interface;
-use function WP_Rig\WP_Rig\wp_rig;
+use Skeleton_WP\Skeleton_WP\Component_Interface;
+use function Skeleton_WP\Skeleton_WP\skeleton_wp;
 use WP_Customize_Manager;
 use function add_action;
 use function bloginfo;
@@ -75,7 +75,7 @@ class Component implements Component_Interface {
 		$wp_customize->add_section(
 			'theme_options',
 			array(
-				'title'    => __( 'Theme Options', 'wp-rig' ),
+				'title'    => __( 'Theme Options', 'skeleton-wp' ),
 				'priority' => 130, // Before Additional CSS.
 			)
 		);
@@ -86,10 +86,10 @@ class Component implements Component_Interface {
 	 */
 	public function action_enqueue_customize_preview_js() {
 		wp_enqueue_script(
-			'wp-rig-customizer',
+			'skeleton-wp-customizer',
 			get_theme_file_uri( '/assets/js/customizer.min.js' ),
 			array( 'customize-preview' ),
-			wp_rig()->get_asset_version( get_theme_file_path( '/assets/js/customizer.min.js' ) ),
+			skeleton_wp()->get_asset_version( get_theme_file_path( '/assets/js/customizer.min.js' ) ),
 			true
 		);
 	}

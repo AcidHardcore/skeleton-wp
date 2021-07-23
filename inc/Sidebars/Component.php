@@ -1,14 +1,14 @@
 <?php
 /**
- * WP_Rig\WP_Rig\Sidebars\Component class
+ * Skeleton_WP\Skeleton_WP\Sidebars\Component class
  *
- * @package wp_rig
+ * @package skeleton_wp
  */
 
-namespace WP_Rig\WP_Rig\Sidebars;
+namespace Skeleton_WP\Skeleton_WP\Sidebars;
 
-use WP_Rig\WP_Rig\Component_Interface;
-use WP_Rig\WP_Rig\Templating_Component_Interface;
+use Skeleton_WP\Skeleton_WP\Component_Interface;
+use Skeleton_WP\Skeleton_WP\Templating_Component_Interface;
 use function add_action;
 use function add_filter;
 use function register_sidebar;
@@ -20,8 +20,8 @@ use function dynamic_sidebar;
  * Class for managing sidebars.
  *
  * Exposes template tags:
- * * `wp_rig()->is_primary_sidebar_active()`
- * * `wp_rig()->display_primary_sidebar()`
+ * * `skeleton_wp()->is_primary_sidebar_active()`
+ * * `skeleton_wp()->display_primary_sidebar()`
  *
  * @link https://developer.wordpress.org/themes/functionality/sidebars/
  */
@@ -47,7 +47,7 @@ class Component implements Component_Interface, Templating_Component_Interface {
 	}
 
 	/**
-	 * Gets template tags to expose as methods on the Template_Tags class instance, accessible through `wp_rig()`.
+	 * Gets template tags to expose as methods on the Template_Tags class instance, accessible through `skeleton_wp()`.
 	 *
 	 * @return array Associative array of $method_name => $callback_info pairs. Each $callback_info must either be
 	 *               a callable or an array with key 'callable'. This approach is used to reserve the possibility of
@@ -66,9 +66,9 @@ class Component implements Component_Interface, Templating_Component_Interface {
 	public function action_register_sidebars() {
 		register_sidebar(
 			array(
-				'name'          => esc_html__( 'Sidebar', 'wp-rig' ),
+				'name'          => esc_html__( 'Sidebar', 'skeleton-wp' ),
 				'id'            => static::PRIMARY_SIDEBAR_SLUG,
-				'description'   => esc_html__( 'Add widgets here.', 'wp-rig' ),
+				'description'   => esc_html__( 'Add widgets here.', 'skeleton-wp' ),
 				'before_widget' => '<section id="%1$s" class="widget %2$s">',
 				'after_widget'  => '</section>',
 				'before_title'  => '<h3 class="widget-title">',

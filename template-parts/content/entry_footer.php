@@ -2,10 +2,10 @@
 /**
  * Template part for displaying a post's footer
  *
- * @package wp_rig
+ * @package skeleton_wp
  */
 
-namespace WP_Rig\WP_Rig;
+namespace Skeleton_WP\Skeleton_WP;
 
 ?>
 <footer class="entry-footer">

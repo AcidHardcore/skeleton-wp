@@ -2,10 +2,10 @@
 /**
  * Template part for displaying a post's metadata
  *
- * @package wp_rig
+ * @package skeleton_wp
  */
 
-namespace WP_Rig\WP_Rig;
+namespace Skeleton_WP\Skeleton_WP;
 
 $post_type_obj = get_post_type_object( get_post_type() );
 
@@ -60,7 +60,7 @@ if ( ! empty( $post->post_parent ) && 'attachment' === get_post_type() ) {
 			<?php
 			printf(
 				/* translators: %s: post date */
-				esc_html_x( 'Posted on %s', 'post date', 'wp-rig' ),
+				esc_html_x( 'Posted on %s', 'post date', 'skeleton-wp' ),
 				$time_string // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 			);
 			?>
@@ -73,10 +73,10 @@ if ( ! empty( $post->post_parent ) && 'attachment' === get_post_type() ) {
 		<span class="posted-by">
 			<?php
 			/* translators: %s: post author */
-			$author_byline = _x( 'By %s', 'post author', 'wp-rig' );
+			$author_byline = _x( 'By %s', 'post author', 'skeleton-wp' );
 			if ( ! empty( $time_string ) ) {
 				/* translators: %s: post author */
-				$author_byline = _x( 'by %s', 'post author', 'wp-rig' );
+				$author_byline = _x( 'by %s', 'post author', 'skeleton-wp' );
 			}
 			printf(
 				esc_html( $author_byline ),
@@ -92,10 +92,10 @@ if ( ! empty( $post->post_parent ) && 'attachment' === get_post_type() ) {
 		<span class="posted-in">
 			<?php
 			/* translators: %s: post parent title */
-			$parent_note = _x( 'In %s', 'post parent', 'wp-rig' );
+			$parent_note = _x( 'In %s', 'post parent', 'skeleton-wp' );
 			if ( ! empty( $time_string ) || ! empty( $author_string ) ) {
 				/* translators: %s: post parent title */
-				$parent_note = _x( 'in %s', 'post parent', 'wp-rig' );
+				$parent_note = _x( 'in %s', 'post parent', 'skeleton-wp' );
 			}
 			printf(
 				esc_html( $parent_note ),

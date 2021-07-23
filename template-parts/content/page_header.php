@@ -2,16 +2,16 @@
 /**
  * Template part for displaying the page header of the currently displayed page
  *
- * @package wp_rig
+ * @package skeleton_wp
  */
 
-namespace WP_Rig\WP_Rig;
+namespace Skeleton_WP\Skeleton_WP;
 
 if ( is_404() ) {
 	?>
 	<header class="page-header">
 		<h1 class="page-title">
-			<?php esc_html_e( 'Oops! That page can&rsquo;t be found.', 'wp-rig' ); ?>
+			<?php esc_html_e( 'Oops! That page can&rsquo;t be found.', 'skeleton-wp' ); ?>
 		</h1>
 	</header><!-- .page-header -->
 	<?php
@@ -19,7 +19,7 @@ if ( is_404() ) {
 	?>
 	<header class="page-header">
 		<h1 class="page-title">
-			<?php esc_html_e( 'Nothing Found', 'wp-rig' ); ?>
+			<?php esc_html_e( 'Nothing Found', 'skeleton-wp' ); ?>
 		</h1>
 	</header><!-- .page-header -->
 	<?php
@@ -38,7 +38,7 @@ if ( is_404() ) {
 			<?php
 			printf(
 				/* translators: %s: search query */
-				esc_html__( 'Search Results for: %s', 'wp-rig' ),
+				esc_html__( 'Search Results for: %s', 'skeleton-wp' ),
 				'<span>' . get_search_query() . '</span>'
 			);
 			?>

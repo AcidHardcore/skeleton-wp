@@ -2,10 +2,10 @@
 /**
  * Template part for displaying a post's comment and edit links
  *
- * @package wp_rig
+ * @package skeleton_wp
  */
 
-namespace WP_Rig\WP_Rig;
+namespace Skeleton_WP\Skeleton_WP;
 
 ?>
 <div class="entry-actions">
@@ -18,7 +18,7 @@ namespace WP_Rig\WP_Rig;
 				sprintf(
 					wp_kses(
 						/* translators: %s: post title */
-						__( 'Leave a Comment<span class="screen-reader-text"> on %s</span>', 'wp-rig' ),
+						__( 'Leave a Comment<span class="screen-reader-text"> on %s</span>', 'skeleton-wp' ),
 						array(
 							'span' => array(
 								'class' => array(),
@@ -37,7 +37,7 @@ namespace WP_Rig\WP_Rig;
 		sprintf(
 			wp_kses(
 				/* translators: %s: post title */
-				__( 'Edit <span class="screen-reader-text">%s</span>', 'wp-rig' ),
+				__( 'Edit <span class="screen-reader-text">%s</span>', 'skeleton-wp' ),
 				array(
 					'span' => array(
 						'class' => array(),

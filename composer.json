@@ -1,6 +1,6 @@
 {
-  "name": "wprig/wprig",
-  "description": "A progressive theme development rig for WordPress.",
+  "name": "skeleton_wp/skeleton_wp",
+  "description": "A progressive theme development for WordPress.",
   "type": "wordpress-theme",
   "license": "GPL-3.0-or-later",
   "require-dev": {
@@ -13,7 +13,7 @@
   },
   "autoload": {
     "psr-4": {
-      "WP_Rig\\WP_Rig\\": "inc"
+      "Skeleton_WP\\Skeleton_WP\\": "inc"
     }
   }
 }

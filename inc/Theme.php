@@ -1,11 +1,11 @@
 <?php
 /**
- * WP_Rig\WP_Rig\Theme class
+ * Skeleton_WP\Skeleton_WP\Theme class
  *
- * @package wp_rig
+ * @package skeleton_wp
  */
 
-namespace WP_Rig\WP_Rig;
+namespace Skeleton_WP\Skeleton_WP;
 
 use InvalidArgumentException;
 use function is_plugin_active;
@@ -55,7 +55,7 @@ class Theme {
 				throw new InvalidArgumentException(
 					sprintf(
 						/* translators: 1: classname/type of the variable, 2: interface name */
-						__( 'The theme component %1$s does not implement the %2$s interface.', 'wp-rig' ),
+						__( 'The theme component %1$s does not implement the %2$s interface.', 'skeleton-wp' ),
 						gettype( $component ),
 						Component_Interface::class
 					)
@@ -93,9 +93,9 @@ class Theme {
 	/**
 	 * Retrieves the template tags instance, the entry point exposing template tag methods.
 	 *
-	 * Calling `wp_rig()` is a short-hand for calling this method on the main theme instance. The instance then allows
+	 * Calling `skeleton_wp()` is a short-hand for calling this method on the main theme instance. The instance then allows
 	 * for actual template tag methods to be called. For example, if there is a template tag called `posted_on`, it can
-	 * be accessed via `wp_rig()->posted_on()`.
+	 * be accessed via `skeleton_wp()->posted_on()`.
 	 *
 	 * @return Template_Tags Template tags instance.
 	 */
@@ -118,7 +118,7 @@ class Theme {
 			throw new InvalidArgumentException(
 				sprintf(
 					/* translators: %s: slug */
-					__( 'No theme component with the slug %s exists.', 'wp-rig' ),
+					__( 'No theme component with the slug %s exists.', 'skeleton-wp' ),
 					$slug
 				)
 			);
@@ -141,9 +141,9 @@ class Theme {
 
 		$message = sprintf(
 		/* translators: 1: Plugin name 2: ACF PRO */
-			esc_html__( '"%1$s" requires "%2$s" to be installed and activated.', 'wp-rig' ),
-			'<strong>' . esc_html__( 'Current Theme', 'wp-rig' ) . '</strong>',
-			'<strong>' . esc_html__( 'ACF PRO', 'wp-rig' ) . '</strong>'
+			esc_html__( '"%1$s" requires "%2$s" to be installed and activated.', 'skeleton-wp' ),
+			'<strong>' . esc_html__( 'Current Theme', 'skeleton-wp' ) . '</strong>',
+			'<strong>' . esc_html__( 'ACF PRO', 'skeleton-wp' ) . '</strong>'
 		);
 
 		printf( '<div class="notice notice-warning is-dismissible"><p>%1$s</p></div>', $message );

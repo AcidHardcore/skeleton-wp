@@ -6,10 +6,10 @@
  *
  * @link https://developer.wordpress.org/themes/basics/template-files/#template-partials
  *
- * @package wp_rig
+ * @package skeleton_wp
  */
 
-namespace WP_Rig\WP_Rig;
+namespace Skeleton_WP\Skeleton_WP;
 
 ?>
 <!doctype html>
@@ -20,7 +20,7 @@ namespace WP_Rig\WP_Rig;
 	<link rel="profile" href="http://gmpg.org/xfn/11">
 
 	<?php
-	if ( ! wp_rig()->is_amp() ) {
+	if ( ! skeleton_wp()->is_amp() ) {
 		?>
 		<script>document.documentElement.classList.remove('no-js');</script>
 		<?php
@@ -33,7 +33,7 @@ namespace WP_Rig\WP_Rig;
 <body <?php body_class(); ?>>
 <?php wp_body_open(); ?>
 <div id="page" class="site">
-	<a class="skip-link screen-reader-text" href="#primary"><?php esc_html_e( 'Skip to content', 'wp-rig' ); ?></a>
+	<a class="skip-link screen-reader-text" href="#primary"><?php esc_html_e( 'Skip to content', 'skeleton-wp' ); ?></a>
 
 	<header id="masthead" class="site-header">
 			<?php get_template_part( 'template-parts/header/branding' ); ?>

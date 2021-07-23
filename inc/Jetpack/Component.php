@@ -1,13 +1,13 @@
 <?php
 /**
- * WP_Rig\WP_Rig\Jetpack\Component class
+ * Skeleton_WP\Skeleton_WP\Jetpack\Component class
  *
- * @package wp_rig
+ * @package skeleton_wp
  */
 
-namespace WP_Rig\WP_Rig\Jetpack;
+namespace Skeleton_WP\Skeleton_WP\Jetpack;
 
-use WP_Rig\WP_Rig\Component_Interface;
+use Skeleton_WP\Skeleton_WP\Component_Interface;
 use function add_action;
 use function add_theme_support;
 use function have_posts;
@@ -73,7 +73,7 @@ class Component implements Component_Interface {
 			'jetpack-content-options',
 			array(
 				'post-details' => array(
-					'stylesheet' => 'wp-rig-content',
+					'stylesheet' => 'skeleton-wp-content',
 					'date'       => '.posted-on',
 					'categories' => '.category-links',
 					'tags'       => '.tag-links',

@@ -1,13 +1,13 @@
 <?php
 /**
- * WP_Rig\WP_Rig\Custom_Logo\Component class
+ * Skeleton_WP\Skeleton_WP\Custom_Logo\Component class
  *
- * @package wp_rig
+ * @package skeleton_wp
  */
 
-namespace WP_Rig\WP_Rig\Custom_Logo;
+namespace Skeleton_WP\Skeleton_WP\Custom_Logo;
 
-use WP_Rig\WP_Rig\Component_Interface;
+use Skeleton_WP\Skeleton_WP\Component_Interface;
 use function add_action;
 use function add_theme_support;
 use function apply_filters;
@@ -42,7 +42,7 @@ class Component implements Component_Interface {
 		add_theme_support(
 			'custom-logo',
 			apply_filters(
-				'wp_rig_custom_logo_args',
+				'skeleton_wp_custom_logo_args',
 				array(
 					'height'      => 250,
 					'width'       => 250,

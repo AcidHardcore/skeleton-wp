@@ -7,14 +7,14 @@
  *
  * @link https://developer.wordpress.org/themes/template-files-section/post-template-files/#singular-php
  *
- * @package wp_rig
+ * @package skeleton_wp
  */
 
-namespace WP_Rig\WP_Rig;
+namespace Skeleton_WP\Skeleton_WP;
 
 get_header();
 
-wp_rig()->print_styles( 'wp-rig-content' );
+skeleton_wp()->print_styles( 'skeleton-wp-content' );
 
 ?>
 	<main id="primary" class="site-main">

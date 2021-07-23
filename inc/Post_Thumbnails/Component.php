@@ -1,13 +1,13 @@
 <?php
 /**
- * WP_Rig\WP_Rig\Post_Thumbnails\Component class
+ * Skeleton_WP\Skeleton_WP\Post_Thumbnails\Component class
  *
- * @package wp_rig
+ * @package skeleton_wp
  */
 
-namespace WP_Rig\WP_Rig\Post_Thumbnails;
+namespace Skeleton_WP\Skeleton_WP\Post_Thumbnails;
 
-use WP_Rig\WP_Rig\Component_Interface;
+use Skeleton_WP\Skeleton_WP\Component_Interface;
 use function add_action;
 use function add_theme_support;
 use function add_image_size;
@@ -47,6 +47,6 @@ class Component implements Component_Interface {
 	 * Adds custom image sizes.
 	 */
 	public function action_add_image_sizes() {
-		add_image_size( 'wp-rig-featured', 720, 480, true );
+		add_image_size( 'skeleton-wp-featured', 720, 480, true );
 	}
 }

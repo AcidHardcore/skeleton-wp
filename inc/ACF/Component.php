@@ -1,13 +1,13 @@
 <?php
 /**
- * WP_Rig\WP_Rig\ACF\Component class
+ * Skeleton_WP\Skeleton_WP\ACF\Component class
  *
- * @package wp_rig
+ * @package skeleton_wp
  */
 
-namespace WP_Rig\WP_Rig\ACF;
+namespace Skeleton_WP\Skeleton_WP\ACF;
 
-use WP_Rig\WP_Rig\Component_Interface;
+use Skeleton_WP\Skeleton_WP\Component_Interface;
 use function add_action;
 use function add_filter;
 use function acf_register_block_type;

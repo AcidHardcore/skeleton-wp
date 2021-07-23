@@ -1,14 +1,14 @@
 <?php
 /**
- * WP_Rig\WP_Rig\Accessibility\Component class
+ * Skeleton_WP\Skeleton_WP\Accessibility\Component class
  *
- * @package wp_rig
+ * @package skeleton_wp
  */
 
-namespace WP_Rig\WP_Rig\Accessibility;
+namespace Skeleton_WP\Skeleton_WP\Accessibility;
 
-use WP_Rig\WP_Rig\Component_Interface;
-use function WP_Rig\WP_Rig\wp_rig;
+use Skeleton_WP\Skeleton_WP\Component_Interface;
+use function Skeleton_WP\Skeleton_WP\skeleton_wp;
 use WP_Post;
 use function add_action;
 use function add_filter;
@@ -48,26 +48,26 @@ class Component implements Component_Interface {
 	public function action_enqueue_navigation_script() {
 
 		// If the AMP plugin is active, return early.
-		if ( wp_rig()->is_amp() ) {
+		if ( skeleton_wp()->is_amp() ) {
 			return;
 		}
 
 		// Enqueue the navigation script.
 		wp_enqueue_script(
-			'wp-rig-navigation',
+			'skeleton-wp-navigation',
 			get_theme_file_uri( '/assets/js/navigation.min.js' ),
 			array(),
-			wp_rig()->get_asset_version( get_theme_file_path( '/assets/js/navigation.min.js' ) ),
+			skeleton_wp()->get_asset_version( get_theme_file_path( '/assets/js/navigation.min.js' ) ),
 			false
 		);
-		wp_script_add_data( 'wp-rig-navigation', 'async', true );
-		wp_script_add_data( 'wp-rig-navigation', 'precache', true );
+		wp_script_add_data( 'skeleton-wp-navigation', 'async', true );
+		wp_script_add_data( 'skeleton-wp-navigation', 'precache', true );
 		wp_localize_script(
-			'wp-rig-navigation',
+			'skeleton-wp-navigation',
 			'wpRigScreenReaderText',
 			array(
-				'expand'   => __( 'Expand child menu', 'wp-rig' ),
-				'collapse' => __( 'Collapse child menu', 'wp-rig' ),
+				'expand'   => __( 'Expand child menu', 'skeleton-wp' ),
+				'collapse' => __( 'Collapse child menu', 'skeleton-wp' ),
 			)
 		);
 	}
@@ -85,7 +85,7 @@ class Component implements Component_Interface {
 	public function action_print_skip_link_focus_fix() {
 
 		// If the AMP plugin is active, return early.
-		if ( wp_rig()->is_amp() ) {
+		if ( skeleton_wp()->is_amp() ) {
 			return;
 		}
 

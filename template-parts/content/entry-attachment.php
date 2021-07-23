@@ -2,10 +2,10 @@
 /**
  * Template part for displaying a post of post type 'attachment'
  *
- * @package wp_rig
+ * @package skeleton_wp
  */
 
-namespace WP_Rig\WP_Rig;
+namespace Skeleton_WP\Skeleton_WP;
 
 ?>
 
@@ -30,7 +30,7 @@ if ( is_singular( get_post_type() ) ) {
 		$prev_link = ob_get_clean();
 		if ( ! empty( $prev_link ) ) {
 			$attachment_navigation .= '<div class="nav-previous">';
-			$attachment_navigation .= '<div class="post-navigation-sub"><span>' . esc_html__( 'Previous:', 'wp-rig' ) . '</span></div>';
+			$attachment_navigation .= '<div class="post-navigation-sub"><span>' . esc_html__( 'Previous:', 'skeleton-wp' ) . '</span></div>';
 			$attachment_navigation .= $prev_link;
 			$attachment_navigation .= '</div>';
 		}
@@ -40,13 +40,13 @@ if ( is_singular( get_post_type() ) ) {
 		$next_link = ob_get_clean();
 		if ( ! empty( $next_link ) ) {
 			$attachment_navigation .= '<div class="nav-next">';
-			$attachment_navigation .= '<div class="post-navigation-sub"><span>' . esc_html__( 'Next:', 'wp-rig' ) . '</span></div>';
+			$attachment_navigation .= '<div class="post-navigation-sub"><span>' . esc_html__( 'Next:', 'skeleton-wp' ) . '</span></div>';
 			$attachment_navigation .= $next_link;
 			$attachment_navigation .= '</div>';
 		}
 
 		if ( ! empty( $attachment_navigation ) ) {
-			echo _navigation_markup( $attachment_navigation, $class = 'post-navigation', __( 'Post navigation', 'wp-rig' ) ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+			echo _navigation_markup( $attachment_navigation, $class = 'post-navigation', __( 'Post navigation', 'skeleton-wp' ) ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 		}
 	}
 

@@ -1,11 +1,11 @@
 <?php
 /**
- * WP_Rig\WP_Rig\Template_Tags class
+ * Skeleton_WP\Skeleton_WP\Template_Tags class
  *
- * @package wp_rig
+ * @package skeleton_wp
  */
 
-namespace WP_Rig\WP_Rig;
+namespace Skeleton_WP\Skeleton_WP;
 
 use InvalidArgumentException;
 use BadMethodCallException;
@@ -16,8 +16,8 @@ use RuntimeException;
  *
  * This class provides access to all available template tag methods.
  *
- * Its instance can be accessed through `wp_rig()`. For example, if there is a template tag called `posted_on`, it can
- * be accessed via `wp_rig()->posted_on()`.
+ * Its instance can be accessed through `skeleton_wp()`. For example, if there is a template tag called `posted_on`, it can
+ * be accessed via `skeleton_wp()->posted_on()`.
  */
 class Template_Tags {
 
@@ -51,7 +51,7 @@ class Template_Tags {
 				throw new InvalidArgumentException(
 					sprintf(
 						/* translators: 1: classname/type of the variable, 2: interface name */
-						__( 'The theme templating component %1$s does not implement the %2$s interface.', 'wp-rig' ),
+						__( 'The theme templating component %1$s does not implement the %2$s interface.', 'skeleton-wp' ),
 						gettype( $component ),
 						Templating_Component_Interface::class
 					)
@@ -78,8 +78,8 @@ class Template_Tags {
 			throw new BadMethodCallException(
 				sprintf(
 					/* translators: %s: template tag name */
-					__( 'The template tag %s does not exist.', 'wp-rig' ),
-					'wp_rig()->' . $method . '()'
+					__( 'The template tag %s does not exist.', 'skeleton-wp' ),
+					'skeleton_wp()->' . $method . '()'
 				)
 			);
 		}
@@ -107,7 +107,7 @@ class Template_Tags {
 				throw new InvalidArgumentException(
 					sprintf(
 						/* translators: 1: template tag method name, 2: component class name */
-						__( 'The template tag method %1$s registered by theme component %2$s must either be a callable or an array.', 'wp-rig' ),
+						__( 'The template tag method %1$s registered by theme component %2$s must either be a callable or an array.', 'skeleton-wp' ),
 						$method_name,
 						get_class( $component )
 					)
@@ -118,7 +118,7 @@ class Template_Tags {
 				throw new RuntimeException(
 					sprintf(
 						/* translators: 1: template tag method name, 2: component class name */
-						__( 'The template tag method %1$s registered by theme component %2$s conflicts with an already registered template tag of the same name.', 'wp-rig' ),
+						__( 'The template tag method %1$s registered by theme component %2$s conflicts with an already registered template tag of the same name.', 'skeleton-wp' ),
 						$method_name,
 						get_class( $component )
 					)

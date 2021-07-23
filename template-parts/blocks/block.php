@@ -7,7 +7,7 @@
  * @param bool $is_preview True during AJAX preview.
  * @param   (int|string) $post_id The post ID this block is saved to.
  */
-namespace WP_Rig\WP_Rig;
+namespace Skeleton_WP\Skeleton_WP;
 
 // Create id attribute allowing for custom "anchor" value.
 $id = 'block-' . $block['id'];

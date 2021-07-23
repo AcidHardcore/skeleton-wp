@@ -2,16 +2,16 @@
 /**
  * Template part for displaying a pagination
  *
- * @package wp_rig
+ * @package skeleton_wp
  */
 
-namespace WP_Rig\WP_Rig;
+namespace Skeleton_WP\Skeleton_WP;
 
 the_posts_pagination(
 	array(
 		'mid_size'           => 2,
-		'prev_text'          => _x( 'Previous', 'previous set of search results', 'wp-rig' ),
-		'next_text'          => _x( 'Next', 'next set of search results', 'wp-rig' ),
-		'screen_reader_text' => __( 'Page navigation', 'wp-rig' ),
+		'prev_text'          => _x( 'Previous', 'previous set of search results', 'skeleton-wp' ),
+		'next_text'          => _x( 'Next', 'next set of search results', 'skeleton-wp' ),
+		'screen_reader_text' => __( 'Page navigation', 'skeleton-wp' ),
 	)
 );

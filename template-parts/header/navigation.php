@@ -2,20 +2,20 @@
 /**
  * Template part for displaying the header navigation menu
  *
- * @package wp_rig
+ * @package skeleton_wp
  */
 
-namespace WP_Rig\WP_Rig;
+namespace Skeleton_WP\Skeleton_WP;
 
-if ( ! wp_rig()->is_primary_nav_menu_active() ) {
+if ( ! skeleton_wp()->is_primary_nav_menu_active() ) {
 	return;
 }
 
 ?>
 
-<nav id="site-navigation" class="main-navigation nav--toggle-sub nav--toggle-small" aria-label="<?php esc_attr_e( 'Main menu', 'wp-rig' ); ?>"
+<nav id="site-navigation" class="main-navigation nav--toggle-sub nav--toggle-small" aria-label="<?php esc_attr_e( 'Main menu', 'skeleton-wp' ); ?>"
 	<?php
-	if ( wp_rig()->is_amp() ) {
+	if ( skeleton_wp()->is_amp() ) {
 		?>
 		[class]=" siteNavigationMenu.expanded ? 'main-navigation nav--toggle-sub nav--toggle-small nav--toggled-on' : 'main-navigation nav--toggle-sub nav--toggle-small' "
 		<?php
@@ -23,7 +23,7 @@ if ( ! wp_rig()->is_primary_nav_menu_active() ) {
 	?>
 >
 	<?php
-	if ( wp_rig()->is_amp() ) {
+	if ( skeleton_wp()->is_amp() ) {
 		?>
 		<amp-state id="siteNavigationMenu">
 			<script type="application/json">
@@ -36,9 +36,9 @@ if ( ! wp_rig()->is_primary_nav_menu_active() ) {
 	}
 	?>
 
-	<button class="menu-toggle" aria-label="<?php esc_attr_e( 'Open menu', 'wp-rig' ); ?>" aria-controls="primary-menu" aria-expanded="false"
+	<button class="menu-toggle" aria-label="<?php esc_attr_e( 'Open menu', 'skeleton-wp' ); ?>" aria-controls="primary-menu" aria-expanded="false"
 		<?php
-		if ( wp_rig()->is_amp() ) {
+		if ( skeleton_wp()->is_amp() ) {
 			?>
 			on="tap:AMP.setState( { siteNavigationMenu: { expanded: ! siteNavigationMenu.expanded } } )"
 			[aria-expanded]="siteNavigationMenu.expanded ? 'true' : 'false'"
@@ -46,11 +46,11 @@ if ( ! wp_rig()->is_primary_nav_menu_active() ) {
 		}
 		?>
 	>
-		<span><?php esc_html_e( 'Menu', 'wp-rig' ); ?></span>
+		<span><?php esc_html_e( 'Menu', 'skeleton-wp' ); ?></span>
 	</button>
 
 
-	<?php wp_rig()->display_primary_nav_menu( array(
+	<?php skeleton_wp()->display_primary_nav_menu( array(
 		'menu_id' => 'primary-menu'
 	) ); ?>
 

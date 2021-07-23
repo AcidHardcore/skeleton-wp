@@ -1,13 +1,13 @@
 <?php
 /**
- * WP_Rig\WP_Rig\Editor\Component class
+ * Skeleton_WP\Skeleton_WP\Editor\Component class
  *
- * @package wp_rig
+ * @package skeleton_wp
  */
 
-namespace WP_Rig\WP_Rig\Editor;
+namespace Skeleton_WP\Skeleton_WP\Editor;
 
-use WP_Rig\WP_Rig\Component_Interface;
+use Skeleton_WP\Skeleton_WP\Component_Interface;
 use function add_action;
 use function add_theme_support;
 

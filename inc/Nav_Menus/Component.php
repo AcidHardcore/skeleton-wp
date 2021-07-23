@@ -1,14 +1,14 @@
 <?php
 /**
- * WP_Rig\WP_Rig\Nav_Menus\Component class
+ * Skeleton_WP\Skeleton_WP\Nav_Menus\Component class
  *
- * @package wp_rig
+ * @package skeleton_wp
  */
 
-namespace WP_Rig\WP_Rig\Nav_Menus;
+namespace Skeleton_WP\Skeleton_WP\Nav_Menus;
 
-use WP_Rig\WP_Rig\Component_Interface;
-use WP_Rig\WP_Rig\Templating_Component_Interface;
+use Skeleton_WP\Skeleton_WP\Component_Interface;
+use Skeleton_WP\Skeleton_WP\Templating_Component_Interface;
 use WP_Post;
 use function add_action;
 use function add_filter;
@@ -21,8 +21,8 @@ use function wp_nav_menu;
  * Class for managing navigation menus.
  *
  * Exposes template tags:
- * * `wp_rig()->is_primary_nav_menu_active()`
- * * `wp_rig()->display_primary_nav_menu( array $args = array() )`
+ * * `skeleton_wp()->is_primary_nav_menu_active()`
+ * * `skeleton_wp()->display_primary_nav_menu( array $args = array() )`
  */
 class Component implements Component_Interface, Templating_Component_Interface {
 
@@ -46,7 +46,7 @@ class Component implements Component_Interface, Templating_Component_Interface {
 	}
 
 	/**
-	 * Gets template tags to expose as methods on the Template_Tags class instance, accessible through `wp_rig()`.
+	 * Gets template tags to expose as methods on the Template_Tags class instance, accessible through `skeleton_wp()`.
 	 *
 	 * @return array Associative array of $method_name => $callback_info pairs. Each $callback_info must either be
 	 *               a callable or an array with key 'callable'. This approach is used to reserve the possibility of
@@ -65,7 +65,7 @@ class Component implements Component_Interface, Templating_Component_Interface {
 	public function action_register_nav_menus() {
 		register_nav_menus(
 			array(
-				static::PRIMARY_NAV_MENU_SLUG => esc_html__( 'Primary', 'wp-rig' ),
+				static::PRIMARY_NAV_MENU_SLUG => esc_html__( 'Primary', 'skeleton-wp' ),
 			)
 		);
 	}

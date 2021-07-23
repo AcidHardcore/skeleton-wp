@@ -2,10 +2,10 @@
 /**
  * Template part for displaying a post
  *
- * @package wp_rig
+ * @package skeleton_wp
  */
 
-namespace WP_Rig\WP_Rig;
+namespace Skeleton_WP\Skeleton_WP;
 
 ?>
 
@@ -29,8 +29,8 @@ if ( is_singular( get_post_type() ) ) {
 	if ( 'post' === get_post_type() || get_post_type_object( get_post_type() )->has_archive ) {
 		the_post_navigation(
 			array(
-				'prev_text' => '<div class="post-navigation-sub"><span>' . esc_html__( 'Previous:', 'wp-rig' ) . '</span></div>%title',
-				'next_text' => '<div class="post-navigation-sub"><span>' . esc_html__( 'Next:', 'wp-rig' ) . '</span></div>%title',
+				'prev_text' => '<div class="post-navigation-sub"><span>' . esc_html__( 'Previous:', 'skeleton-wp' ) . '</span></div>%title',
+				'next_text' => '<div class="post-navigation-sub"><span>' . esc_html__( 'Next:', 'skeleton-wp' ) . '</span></div>%title',
 			)
 		);
 	}

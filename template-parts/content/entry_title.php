@@ -2,10 +2,10 @@
 /**
  * Template part for displaying a post's title
  *
- * @package wp_rig
+ * @package skeleton_wp
  */
 
-namespace WP_Rig\WP_Rig;
+namespace Skeleton_WP\Skeleton_WP;
 
 if ( is_singular( get_post_type() ) ) {
 	the_title( '<h1 class="entry-title entry-title-singular">', '</h1>' );
