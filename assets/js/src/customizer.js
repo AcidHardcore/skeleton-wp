@@ -5,6 +5,7 @@
  *
  * Contains handlers to make Theme Customizer preview reload changes asynchronously.
  */
+"use strict";
 
 ( function( $ ) {
 	// Site title and description.

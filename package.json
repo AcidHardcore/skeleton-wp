@@ -7,9 +7,6 @@
     "type": "git",
     "url": "https://github.com/AcidHardcore/skeleton_WP"
   },
-  "jshintConfig": {
-   "esversion": 6
-  },
   "devDependencies": {
     "autoprefixer": "^9.0.0",
     "browser-sync": "^2.26.14",

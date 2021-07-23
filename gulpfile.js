@@ -84,12 +84,7 @@ var rename = require('gulp-rename');
 var header = require('gulp-header');
 var pkg = require('./package.json');
 
-const jshintConfig = pkg.jshintConfig;
-jshintConfig.lookup = false;
-
 // Scripts
-var jshint = require('gulp-jshint');
-var stylish = require('jshint-stylish');
 var concat = require('gulp-concat');
 var uglify = require('gulp-terser');
 var optimizejs = require('gulp-optimize-js');
@@ -174,18 +169,6 @@ var buildScripts = function (done) {
 
 };
 
-// Lint scripts
-var lintScripts = function (done) {
-
-  // Make sure this feature is activated before running
-  if (!settings.scripts) return done();
-
-  // Lint scripts
-  return src(paths.scripts.input)
-    .pipe(jshint(jshintConfig))
-    .pipe(jshint.reporter('jshint-stylish'));
-
-};
 
 // Process, lint, and minify Sass files
 var buildStyles = function (done) {
@@ -324,7 +307,6 @@ var watchSource = function (done) {
 exports.default = series(
   parallel(
     buildScripts,
-    lintScripts,
     buildStyles,
     buildSVGs,
     svgSprite,
@@ -342,10 +324,7 @@ exports.watch = series(
 );
 
 //Build and link scripts
-exports.scripts = parallel(
-  buildScripts,
-  lintScripts,
-);
+exports.scripts = buildScripts;
 
 //Compile styles
 exports.styles = buildStyles;
