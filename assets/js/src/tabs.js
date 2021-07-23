@@ -34,13 +34,13 @@ document.addEventListener('DOMContentLoaded', function(){
       var tabsParent = document.querySelector(tabId).closest('.tabs');
       var activeTabClassName = 'tabs__link-wrap--active';
       var activeTabContentClassName = 'tabs__content-item--active';
-      // таб
+      // tab
       tabsParent.querySelectorAll('.'+activeTabClassName).forEach(function(item){
         item.classList.remove(activeTabClassName);
       });
       var activeTab = tabsParent.querySelector('[href="'+tabId+'"]') ? tabsParent.querySelector('[href="'+tabId+'"]') : tabsParent.querySelector('[data-target="'+tabId+'"]')
       activeTab.closest('.tabs__link-wrap').classList.add(activeTabClassName);
-      // контент таба
+      // tab content
       tabsParent.querySelectorAll('.'+activeTabContentClassName).forEach(function(item){
         item.classList.remove(activeTabContentClassName);
       });
