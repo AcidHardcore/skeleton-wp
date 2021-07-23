@@ -84,6 +84,9 @@ var rename = require('gulp-rename');
 var header = require('gulp-header');
 var pkg = require('./package.json');
 
+const jshintConfig = pkg.jshintConfig;
+jshintConfig.lookup = false;
+
 // Scripts
 var jshint = require('gulp-jshint');
 var stylish = require('jshint-stylish');
@@ -179,7 +182,7 @@ var lintScripts = function (done) {
 
   // Lint scripts
   return src(paths.scripts.input)
-    .pipe(jshint())
+    .pipe(jshint(jshintConfig))
     .pipe(jshint.reporter('jshint-stylish'));
 
 };

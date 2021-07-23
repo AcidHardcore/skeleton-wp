@@ -38,7 +38,7 @@ document.addEventListener('DOMContentLoaded', function(){
       tabsParent.querySelectorAll('.'+activeTabClassName).forEach(function(item){
         item.classList.remove(activeTabClassName);
       });
-      var activeTab = tabsParent.querySelector('[href="'+tabId+'"]') ? tabsParent.querySelector('[href="'+tabId+'"]') : tabsParent.querySelector('[data-target="'+tabId+'"]')
+      var activeTab = tabsParent.querySelector('[href="'+tabId+'"]') ? tabsParent.querySelector('[href="'+tabId+'"]') : tabsParent.querySelector('[data-target="'+tabId+'"]');
       activeTab.closest('.tabs__link-wrap').classList.add(activeTabClassName);
       // tab content
       tabsParent.querySelectorAll('.'+activeTabContentClassName).forEach(function(item){
@@ -57,7 +57,7 @@ document.addEventListener('DOMContentLoaded', function(){
         else node = node.parentElement;
       }
       return null;
-    }
+    };
   })(Element.prototype);
 
 });

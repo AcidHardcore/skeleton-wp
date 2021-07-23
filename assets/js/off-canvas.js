@@ -16,4 +16,4 @@
     document.getElementById('off-canvas').classList.toggle('off-canvas--open');
   }
 
-});
+})();
