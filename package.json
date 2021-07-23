@@ -74,7 +74,7 @@
     "popper.js": "^1.12.8",
     "scrollmagic": "^2.0.5",
     "svg4everybody": "^2.1.8",
-    "swiper": "^4.0.6",
+    "swiper": "^6.5.1",
     "undescores-for-npm": "^1.0.0"
   }
 }
