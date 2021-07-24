@@ -1,19 +1,19 @@
 <?php
 /**
- * Skeleton_WP\Skeleton_WP\Pagination\Component class
+ * Skeleton_WP\Skeleton_WP\Shortcodes\Component class
  *
  * @package skeleton_wp
  */
 
-namespace Skeleton_WP\Skeleton_WP\Pagination;
+namespace Skeleton_WP\Skeleton_WP\Shortcodes;
 
 use Skeleton_WP\Skeleton_WP\Component_Interface;
-use function add_action;
+use function add_shortcode;
 
 /**
- * Class for Pagination that allows your user to page back and forth through multiple pages of content.
+ * Class for Shortcodes
  *
- * @link https://developer.wordpress.org/themes/functionality/pagination/
+ * @link https://codex.wordpress.org/Shortcode_API
  */
 class Component implements Component_Interface {
 
@@ -23,14 +23,20 @@ class Component implements Component_Interface {
 	 * @return string Component slug.
 	 */
 	public function get_slug(): string {
-		return 'pagination';
+		return 'shortcodes';
 	}
 
 	/**
 	 * Adds the action and filter hooks to integrate with WordPress.
 	 */
 	public function initialize() {
-		add_action( 'after_setup_theme', array( $this, 'action_add_editor_support' ) );
+		add_shortcode('year', array($this, 'year_shortcode'));
 	}
 
+	/**
+	 * Year short code function
+	 */
+	function year_shortcode() {
+		return date('Y');
+	}
 }
