@@ -1,6 +1,6 @@
 /*! skeleton_WP v3.0.0 | (c) 2021  |  License | https://github.com/AcidHardcore/skeleton_WP */
 jQuery(document).ready((function ($) {
-"use strict";
+	"use strict";
 	/**
 	 * @typedef jsData
 	 * @type {object}
@@ -88,7 +88,7 @@ jQuery(document).ready((function ($) {
 		/*
 		 * Load More
 		 */
-		$loadMore.on('click', function (e) {
+		$loadMore.on('click', (function (e) {
 			e.preventDefault();
 			//if need only current target
 			// var $button = $(this);
@@ -98,7 +98,7 @@ jQuery(document).ready((function ($) {
 				url: jsData.ajaxurl, // AJAX handler
 				data: {
 					'action': 'load_more_button',
-					'paged': $args.paged,
+					'paged': $args.paged + 1, //increment PAGED
 					'post_type': $args.post_type,
 					'orderby': $args.orderby,
 					'order': $args.order,
@@ -132,6 +132,6 @@ jQuery(document).ready((function ($) {
 				}
 			});
 			return false;
-		});
+		}));
 	}
 }));
