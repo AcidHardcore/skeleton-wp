@@ -36,7 +36,7 @@ class Component implements Component_Interface {
 	/**
 	 * Year short code function
 	 */
-	function year_shortcode() {
+	public function year_shortcode() {
 		return date('Y');
 	}
 }
