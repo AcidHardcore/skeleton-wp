@@ -183,6 +183,7 @@ class Theme {
 
 		if ( function_exists( 'acf_register_block_type' ) ) {
 			$components[] = new ACF\Component();
+			$components[] = new Load_More\Component();
 		} else {
 			add_action( 'admin_notices', [ $this, 'action_admin_notice_missing_required_plugin' ] );
 		}
