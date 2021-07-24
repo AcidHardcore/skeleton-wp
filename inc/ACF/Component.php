@@ -86,6 +86,27 @@ class Component implements Component_Interface {
 				) );
 			},
 		) );
+
+		acf_register_block_type( array(
+			'name'            => 'press',
+			'title'           => __( 'Press' ),
+			'description'     => __( 'Posts with AJAX pagination' ),
+			'render_template' => 'blocks/press.php',
+			'category'        => 'common',
+			'icon'            => 'editor-ul',
+			'align'           => 'full',
+			'keywords'        => array( 'common', 'press' ),
+			'mode'            => 'edit',
+			'enqueue_assets' => function() {
+				$the_theme     = wp_get_theme();
+				$theme_version = $the_theme->get( 'Version' );
+				$js_version = $theme_version . '.' . filemtime( get_template_directory() . '/js/load-more.js' );
+				wp_enqueue_script( 'load-more-scripts', get_template_directory_uri() . '/js/load-more.js', array('jquery'), $js_version, true );
+				wp_localize_script( 'load-more-scripts', 'jsData', array(
+					'ajaxurl'      => admin_url( 'admin-ajax.php' ),
+				) );
+			},
+		) );
 	}
 
 	/**

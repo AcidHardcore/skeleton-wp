@@ -1,21 +1,35 @@
 <?php
 /**
- * Skeleton_WP\Skeleton_WP\Shortcodes\Component class
+ * Skeleton_WP\Skeleton_WP\Load_More\Component class
  *
  * @package skeleton_wp
  */
 
-namespace Skeleton_WP\Skeleton_WP\Shortcodes;
+namespace Skeleton_WP\Skeleton_WP\Load_More;
 
 use Skeleton_WP\Skeleton_WP\Component_Interface;
-use function add_shortcode;
+use function add_action;
 
 /**
- * Class for Pagination that allows your user to page back and forth through multiple pages of content.
+ * Class for AJAX load more post and pagination
  *
- * @link https://developer.wordpress.org/themes/functionality/pagination/
+ * @link https://rudrastyh.com/wordpress/load-more-posts-ajax.html
  */
 class Component implements Component_Interface {
+
+	/**
+	 * Associative array of $_POST super array.
+	 *
+	 * @var array
+	 */
+	protected array $input;
+
+	/**
+	 * WP_Query instance.
+	 *
+	 * @var object
+	 */
+	protected object $query;
 
 	/**
 	 * Gets the unique identifier for the theme component.
@@ -23,20 +37,116 @@ class Component implements Component_Interface {
 	 * @return string Component slug.
 	 */
 	public function get_slug(): string {
-		return 'shortcodes';
+		return 'load_more';
 	}
 
 	/**
 	 * Adds the action and filter hooks to integrate with WordPress.
 	 */
 	public function initialize() {
-		add_shortcode('year', array($this, 'year_shortcode'));
+		// load more button for posts
+		//add_action( 'wp_ajax_load_more_button', 'load_more_ajax_handler' );
+		//add_action( 'wp_ajax_nopriv_load_more_button', 'load_more_ajax_handler' );
+		// ajax pagination
+		add_action('wp_ajax_pagination', 'send_pagination');
+		add_action('wp_ajax_nopriv_pagination', 'send_pagination');
 	}
 
-	/**
-	 * Year short code function
-	 */
-	function year_shortcode() {
-		return date('Y');
+	public function check_input(): array {
+
+		$this->input['paged'] = !empty($_POST['paged']) ? esc_attr($_POST['paged']) : 0;
+		$this->input['post_type'] = !empty($_POST['post_type']) ? esc_attr($_POST['post_type']) : 0;
+		$this->input['orderby'] = !empty($_POST['orderby']) ? esc_attr($_POST['orderby']) : 0;
+		$this->input['order'] = !empty($_POST['order']) ? esc_attr($_POST['order']) : 0;
+		$this->input['posts_per_page'] = !empty($_POST['posts_per_page']) ? esc_attr($_POST['posts_per_page']) : 0;
+		$this->input['current_url'] = !empty($_POST['current_url']) ? esc_attr($_POST['current_url']) : 0;
+		$this->input['category'] = !empty($_POST['category']) ? array_map('esc_attr', $_POST['category']) : array();
+
+		return $this->input;
+	}
+
+	public function retrieve_pagination_posts() {
+
+		$this->check_input();
+
+		$args = array(
+			'post_type' => $this->input['post_type'],
+			'post_status' => 'publish',
+			'posts_per_page' => $this->input['posts_per_page'],
+			'order' => $this->input['order'],
+			'orderby' => $this->input['orderby'],
+			'paged' => $this->input['paged'],
+		);
+
+		if(!empty($category)) {
+			$args['category__in'] = $this->input['category'];
+		}
+
+		$this->query = new WP_Query($args);
+
+		if($this->query->have_posts()) {
+			ob_start();
+
+			while($this->query->have_posts()): $this->query->the_post();
+
+				if($this->input['post_type'] == 'post') {
+					get_template_part('templates-parts/content/entry');
+				}
+
+			endwhile;
+
+			return ob_get_clean();
+
+		} else {
+			return false;
+		}
+
+	}
+
+	public function pagination() {
+		$this->input['total_pages'] = $this->query->max_num_pages;
+
+		$this->input['current_page'] = max(1, $this->input['paged']);
+
+		$args = array(
+			'base' => $this->input['current_url'] . '/page/%#%/',
+			'format' => '',
+			'mid_size' => 2,
+			'show_all' => true,
+			'prev_next' => true,
+			'prev_text' => __('Previous', 'understrap'),
+			'next_text' => __('Next', 'understrap'),
+			'screen_reader_text' => __('Posts navigation', 'understrap'),
+			'type' => 'array',
+			'current' => $this->input['current_page'],
+			'total' => $this->input['total_pages'],
+		);
+
+		$links = paginate_links($args);
+
+		ob_start();
+
+		foreach($links as $key => $link) {
+			?>
+			<li class="<?php echo strpos($link, 'current') ? 'active' : ''; ?>">
+				<?php echo str_replace('page-numbers', 'page-link', $link); ?>
+			</li>
+			<?php
+		}
+
+		return ob_get_clean();
+
+	}
+
+	function send_pagination() {
+
+		wp_send_json_success(
+			array(
+				'posts' => $this->retrieve_pagination_posts(),
+				'pagination' => $this->pagination()
+			)
+		);
+
+		die; // here we exit the script and even no wp_reset_query() required!
 	}
 }
