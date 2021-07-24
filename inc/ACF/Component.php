@@ -82,26 +82,26 @@ class Component implements Component_Interface {
 				wp_enqueue_script( 'block', get_template_directory_uri() . '/assets/js/block.min.js', array('jquery'), $load_more_version, true );
 
 				wp_localize_script( 'block', 'jsData', array(
-					'ajaxurl' => admin_url( 'admin-ajax.php' ),
+					'ajaxUrl' => admin_url( 'admin-ajax.php' ),
 				) );
 			},
 		) );
 
 		acf_register_block_type( array(
-			'name'            => 'press',
-			'title'           => __( 'Press' ),
-			'description'     => __( 'Posts with AJAX pagination' ),
-			'render_template' => 'blocks/press.php',
+			'name'            => 'posts',
+			'title'           => __( 'Posts' ),
+			'description'     => __( 'Posts with Load More button or AJAX pagination' ),
+			'render_template' => 'template-parts/blocks/posts.php',
 			'category'        => 'common',
 			'icon'            => 'editor-ul',
 			'align'           => 'full',
-			'keywords'        => array( 'common', 'press' ),
+			'keywords'        => array( 'common', 'posts' ),
 			'mode'            => 'edit',
 			'enqueue_assets' => function() {
 				$the_theme     = wp_get_theme();
 				$theme_version = $the_theme->get( 'Version' );
-				$js_version = $theme_version . '.' . filemtime( get_template_directory() . '/js/load-more.js' );
-				wp_enqueue_script( 'load-more-scripts', get_template_directory_uri() . '/js/load-more.js', array('jquery'), $js_version, true );
+				$js_version = $theme_version . '.' . filemtime( get_template_directory() . '/assets/js/load-more.js' );
+				wp_enqueue_script( 'load-more-scripts', get_template_directory_uri() . '/assets/js/load-more.js', array('jquery'), $js_version, true );
 				wp_localize_script( 'load-more-scripts', 'jsData', array(
 					'ajaxurl'      => admin_url( 'admin-ajax.php' ),
 				) );

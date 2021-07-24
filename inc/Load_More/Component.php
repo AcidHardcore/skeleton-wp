@@ -44,12 +44,8 @@ class Component implements Component_Interface {
 	 * Adds the action and filter hooks to integrate with WordPress.
 	 */
 	public function initialize() {
-		// load more button for posts
-		//add_action( 'wp_ajax_load_more_button', 'load_more_ajax_handler' );
-		//add_action( 'wp_ajax_nopriv_load_more_button', 'load_more_ajax_handler' );
-		// ajax pagination
-		add_action('wp_ajax_pagination', 'send_pagination');
-		add_action('wp_ajax_nopriv_pagination', 'send_pagination');
+		add_action('wp_ajax_load_more_button', array($this, 'send_data'));
+		add_action('wp_ajax_nopriv_load_more_button', array($this, 'send_data'));
 	}
 
 	public function check_input(): array {
@@ -59,13 +55,14 @@ class Component implements Component_Interface {
 		$this->input['orderby'] = !empty($_POST['orderby']) ? esc_attr($_POST['orderby']) : 0;
 		$this->input['order'] = !empty($_POST['order']) ? esc_attr($_POST['order']) : 0;
 		$this->input['posts_per_page'] = !empty($_POST['posts_per_page']) ? esc_attr($_POST['posts_per_page']) : 0;
-		$this->input['current_url'] = !empty($_POST['current_url']) ? esc_attr($_POST['current_url']) : 0;
 		$this->input['category'] = !empty($_POST['category']) ? array_map('esc_attr', $_POST['category']) : array();
+		$this->input['load_more_type'] = !empty($_POST['load_more_type']) ? esc_attr($_POST['load_more_type']) : 0;
+		$this->input['current_url'] = !empty($_POST['current_url']) ? esc_attr($_POST['current_url']) : 0;
 
 		return $this->input;
 	}
 
-	public function retrieve_pagination_posts() {
+	public function retrieve_posts() {
 
 		$this->check_input();
 
@@ -82,7 +79,8 @@ class Component implements Component_Interface {
 			$args['category__in'] = $this->input['category'];
 		}
 
-		$this->query = new WP_Query($args);
+
+		$this->query = new \WP_Query($args);
 
 		if($this->query->have_posts()) {
 			ob_start();
@@ -90,7 +88,7 @@ class Component implements Component_Interface {
 			while($this->query->have_posts()): $this->query->the_post();
 
 				if($this->input['post_type'] == 'post') {
-					get_template_part('templates-parts/content/entry');
+					get_template_part('template-parts/content/entry');
 				}
 
 			endwhile;
@@ -138,14 +136,14 @@ class Component implements Component_Interface {
 
 	}
 
-	function send_pagination() {
+	function send_data() {
 
-		wp_send_json_success(
-			array(
-				'posts' => $this->retrieve_pagination_posts(),
-				'pagination' => $this->pagination()
-			)
-		);
+		$result = array();
+		$result['posts'] = $this->retrieve_posts();
+		if($this->input['load_more_type'] === 'pagination') {
+			$result['pagination'] = $this->pagination();
+		}
+		wp_send_json_success($result);
 
 		die; // here we exit the script and even no wp_reset_query() required!
 	}

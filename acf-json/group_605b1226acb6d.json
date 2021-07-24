@@ -1,26 +1,7 @@
 {
     "key": "group_605b1226acb6d",
-    "title": "Block Press",
+    "title": "Block Posts",
     "fields": [
-        {
-            "key": "field_606044cc4f454",
-            "label": "Hide for those who haven't authored posts?",
-            "name": "is_hidden",
-            "type": "true_false",
-            "instructions": "",
-            "required": 0,
-            "conditional_logic": 0,
-            "wrapper": {
-                "width": "",
-                "class": "",
-                "id": ""
-            },
-            "message": "",
-            "default_value": 0,
-            "ui": 1,
-            "ui_on_text": "",
-            "ui_off_text": ""
-        },
         {
             "key": "field_605b1252dcc54",
             "label": "Title",
@@ -61,8 +42,8 @@
         },
         {
             "key": "field_605b1d35d9fda",
-            "label": "Press per Page",
-            "name": "press_per_page",
+            "label": "Posts per Page",
+            "name": "posts_per_page",
             "type": "number",
             "instructions": "",
             "required": 0,
@@ -72,13 +53,63 @@
                 "class": "",
                 "id": ""
             },
-            "default_value": 4,
+            "default_value": 6,
             "placeholder": "",
             "prepend": "",
             "append": "",
             "min": "",
             "max": "",
             "step": ""
+        },
+        {
+            "key": "field_60fc485c5c73f",
+            "label": "Load More Type",
+            "name": "load_more_type",
+            "type": "select",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "choices": {
+                "load_more": "Load More Button",
+                "pagination": "Pagination"
+            },
+            "default_value": false,
+            "allow_null": 0,
+            "multiple": 0,
+            "ui": 1,
+            "ajax": 0,
+            "return_format": "value",
+            "placeholder": ""
+        },
+        {
+            "key": "field_60fc4a91ecc9e",
+            "label": "Background",
+            "name": "bg",
+            "type": "select",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "choices": {
+                "white": "white",
+                "black": "black"
+            },
+            "default_value": false,
+            "allow_null": 0,
+            "multiple": 0,
+            "ui": 0,
+            "return_format": "value",
+            "ajax": 0,
+            "placeholder": ""
         }
     ],
     "location": [
@@ -86,7 +117,7 @@
             {
                 "param": "block",
                 "operator": "==",
-                "value": "acf\/press"
+                "value": "acf\/posts"
             }
         ]
     ],
@@ -98,5 +129,5 @@
     "hide_on_screen": "",
     "active": true,
     "description": "",
-    "modified": 1616923025
+    "modified": 1627147672
 }

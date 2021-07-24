@@ -1,6 +1,6 @@
 /*! skeleton_WP v3.0.0 | (c) 2021  |  License | https://github.com/AcidHardcore/skeleton_WP */
 (function(){
-
+"use strict";
   document.addEventListener('click', (function(event) {
     if(event.target.dataset.toggle === 'off-canvas') {
       event.preventDefault();

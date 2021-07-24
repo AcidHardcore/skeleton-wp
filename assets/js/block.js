@@ -1,6 +1,6 @@
 /*! skeleton_WP v3.0.0 | (c) 2021  |  License | https://github.com/AcidHardcore/skeleton_WP */
 (function($){
-
+	"use strict";
 	/**
 	 * initializeBlock
 	 *
