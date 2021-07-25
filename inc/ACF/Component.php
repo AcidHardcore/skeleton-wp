@@ -34,7 +34,7 @@ class Component implements Component_Interface {
 	 * Adds the action and filter hooks to integrate with WordPress.
 	 */
 	public function initialize() {
-		add_filter( 'block_categories', array( $this, 'action_acf_block_category', 10, 2 ) );
+		add_filter( 'block_categories_all', array( $this, 'action_acf_block_category', 10, 2 ) );
 		add_action( 'acf/init', array( $this, 'action_register_acf_block_types' ) );
 		add_action( 'acf/init', array( $this, 'action_register_acf_option_page' ) );
 	}
@@ -50,8 +50,8 @@ class Component implements Component_Interface {
 	public function action_acf_block_category( $categories, $post ) {
 		return array_merge( $categories, array(
 				array(
-					'slug'  => 'common',
-					'title' => __( 'Common Blocks', 'common' ),
+					'slug'  => 'skeleton-wp',
+					'title' => __( 'Skeleton-WP Blocks', 'skeleton-wp' ),
 				),
 			) );
 	}

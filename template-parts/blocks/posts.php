@@ -58,7 +58,7 @@ if($type === 'pagination') {
 
 		$args = array(
 			'mid_size' => 2,
-			'show_all' => true,
+			'show_all' => false, //show all pages links
 			'prev_next' => true,
 			'prev_text' => __('Previous', 'understrap'),
 			'next_text' => __('Next', 'understrap'),

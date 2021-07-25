@@ -107,10 +107,10 @@ class Component implements Component_Interface {
 		$this->input['current_page'] = max(1, $this->input['paged']);
 
 		$args = array(
-			'base' => $this->input['current_url'] . '/page/%#%/',
-			'format' => '',
+			'base' => $this->input['current_url'],
+			'format' => '/page/%#%/',
 			'mid_size' => 2,
-			'show_all' => true,
+			'show_all' => false, //show all pages links
 			'prev_next' => true,
 			'prev_text' => __('Previous', 'understrap'),
 			'next_text' => __('Next', 'understrap'),
