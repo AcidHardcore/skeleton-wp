@@ -11,7 +11,7 @@ jQuery(document).ready((function ($) {
 	let $pagination = $('.navigation');
 	let $loadMore = $('.load-more');
 
-	if ($pagination) {
+	if ($pagination.length) {
 		let $pageLinks = $pagination.find('.page-link');
 		let $args = $pagination.data('args');
 
@@ -75,7 +75,7 @@ jQuery(document).ready((function ($) {
 		}));
 	}
 
-	if ($loadMore) {
+	if ($loadMore.length) {
 
 		let $args = $loadMore.data('args');
 		$args.action = 'load_more_button';

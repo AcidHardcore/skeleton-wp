@@ -12,7 +12,7 @@ jQuery(document).ready((function ($) {
 	let $pagination = $('.navigation');
 	let $loadMore = $('.load-more');
 
-	if ($pagination) {
+	if ($pagination.length) {
 		let $pageLinks = $pagination.find('.page-link');
 		let $args = $pagination.data('args');
 
@@ -31,19 +31,14 @@ jQuery(document).ready((function ($) {
 				$page = parseInt($args.paged) - 1;
 			}
 			console.log('current ', $page);
+
+			$args.action = 'load_more_button';
+			$args.paged = $page;
+
 			$.ajax({
 
 				url: jsData.ajaxurl, // AJAX handler
-				data: {
-					'action': 'load_more_button',
-					'paged': $page,
-					'post_type': $args.post_type,
-					'orderby': $args.orderby,
-					'order': $args.order,
-					'posts_per_page': $args.posts_per_page,
-					'current_url': $args.current_url,
-					'load_more_type': $args.load_more_type
-				},
+				data: $args,
 				type: 'POST',
 				dataType: 'JSON',
 				beforeSend: function () {
@@ -81,30 +76,21 @@ jQuery(document).ready((function ($) {
 		}));
 	}
 
-	if ($loadMore) {
+	if ($loadMore.length) {
 
-		var $args = $loadMore.data('args');
-
+		let $args = $loadMore.data('args');
+		$args.action = 'load_more_button';
+		$args.paged += 1; //increment PAGED
 		/*
 		 * Load More
 		 */
 		$loadMore.on('click', (function (e) {
 			e.preventDefault();
-			//if need only current target
-			// var $button = $(this);
 
 			$.ajax({
 
 				url: jsData.ajaxurl, // AJAX handler
-				data: {
-					'action': 'load_more_button',
-					'paged': $args.paged + 1, //increment PAGED
-					'post_type': $args.post_type,
-					'orderby': $args.orderby,
-					'order': $args.order,
-					'posts_per_page': $args.posts_per_page,
-					'load_more_type': $args.load_more_type
-				},
+				data: $args,
 				type: 'POST',
 				dataType: 'JSON',
 				beforeSend: function () {
