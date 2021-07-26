@@ -1036,8 +1036,9 @@ a.btn--disabled {
 }
 
 /* line 1, assets/css/src/_logo.scss */
-.logo {
-  display: block;
+.custom-logo-link {
+  position: relative;
+  z-index: 1;
 }
 
 /* line 1, assets/css/src/_menu.scss */
@@ -2359,7 +2360,9 @@ span.pagination__item {
   }
   /* line 40, assets/css/src/_menu.scss */
   .nav--toggle-small .menu {
-    display: block;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
   }
   /* line 44, assets/css/src/_menu.scss */
   .nav--toggle-sub ul ul {

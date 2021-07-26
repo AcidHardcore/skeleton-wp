@@ -1,8 +1,5 @@
-.logo {
-
-  $block-name:                &; // #{$block-name}__element
-
-  display: block;
-
-
+.custom-logo-link {
+	position: relative;
+	z-index: 1;
 }
+
