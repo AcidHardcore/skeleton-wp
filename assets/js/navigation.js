@@ -161,6 +161,7 @@ function initEachNavToggleSmall( nav ) {
 
 	menuTOGGLE.addEventListener( 'click', ( e ) => {
 		nav.classList.toggle( 'nav--toggled-on' );
+		menuTOGGLE.classList.toggle('burger--close');
 		e.target.setAttribute( 'aria-expanded', 'false' === e.target.getAttribute( 'aria-expanded' ) ? 'true' : 'false' );
 	}, false );
 }

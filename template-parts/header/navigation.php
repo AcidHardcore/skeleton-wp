@@ -13,42 +13,11 @@ if ( ! skeleton_wp()->is_primary_nav_menu_active() ) {
 
 ?>
 
-<nav id="site-navigation" class="main-navigation nav--toggle-sub nav--toggle-small" aria-label="<?php esc_attr_e( 'Main menu', 'skeleton-wp' ); ?>"
-	<?php
-	if ( skeleton_wp()->is_amp() ) {
-		?>
-		[class]=" siteNavigationMenu.expanded ? 'main-navigation nav--toggle-sub nav--toggle-small nav--toggled-on' : 'main-navigation nav--toggle-sub nav--toggle-small' "
-		<?php
-	}
-	?>
->
-	<?php
-	if ( skeleton_wp()->is_amp() ) {
-		?>
-		<amp-state id="siteNavigationMenu">
-			<script type="application/json">
-				{
-					"expanded": false
-				}
-			</script>
-		</amp-state>
-		<?php
-	}
-	?>
+<nav id="site-navigation" class="main-navigation nav--toggle-sub nav--toggle-small" aria-label="<?php esc_attr_e( 'Main menu', 'skeleton-wp' ); ?>">
 
-	<button class="menu-toggle" aria-label="<?php esc_attr_e( 'Open menu', 'skeleton-wp' ); ?>" aria-controls="primary-menu" aria-expanded="false"
-		<?php
-		if ( skeleton_wp()->is_amp() ) {
-			?>
-			on="tap:AMP.setState( { siteNavigationMenu: { expanded: ! siteNavigationMenu.expanded } } )"
-			[aria-expanded]="siteNavigationMenu.expanded ? 'true' : 'false'"
-			<?php
-		}
-		?>
-	>
+	<button class="menu-toggle burger" aria-label="<?php esc_attr_e( 'Open menu', 'skeleton-wp' ); ?>" aria-controls="primary-menu" aria-expanded="false">
 		<span><?php esc_html_e( 'Menu', 'skeleton-wp' ); ?></span>
 	</button>
-
 
 	<?php skeleton_wp()->display_primary_nav_menu( array(
 		'menu_id' => 'primary-menu'
