@@ -47,6 +47,9 @@ class Component implements Component_Interface {
 		add_filter('block_categories_all', array($this, 'action_acf_block_category', 10, 2));
 		add_action('acf/init', array($this, 'action_register_acf_block_types'));
 		add_action('acf/init', array($this, 'action_register_acf_option_page'));
+		add_action('wp_head', array($this, 'above_head'));
+		add_action('wp_body_open', array($this, 'after_body'));
+		add_action('wp_footer', array($this, 'above_body'));
 	}
 
 
@@ -144,5 +147,39 @@ class Component implements Component_Interface {
 			'parent_slug' => 'global-settings',
 		));
 	}
+
+	/**
+	 * Add a custom code above the head close tag
+	 */
+	public function above_head() {
+		$above_head = get_field('above_head', 'option');
+
+		if($above_head) {
+			echo $above_head;
+		}
+	}
+
+	/**
+	 * Add a custom code after the body open tag
+	 */
+	public function after_body() {
+		$after_body = get_field('after_body', 'option');
+
+		if($after_body) {
+			echo $after_body;
+		}
+	}
+
+	/**
+	 * Add a custom code before the body close tag
+	 */
+	public function above_body() {
+		$above_body = get_field('above_body', 'option');
+
+		if($above_body) {
+			echo $above_body;
+		}
+	}
+
 
 }
