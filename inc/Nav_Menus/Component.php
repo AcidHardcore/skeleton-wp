@@ -137,14 +137,14 @@ class Component implements Component_Interface, Templating_Component_Interface {
 	/**
 	 * Update li classes
 	 *
-	 * @param string $classes Array of the CSS classes that are applied to the menu item's <li> element.
+	 * @param string[] $classes Array of the CSS classes that are applied to the menu item's <li> element.
 	 * @param WP_Post $item The current menu item.
 	 * @param stdClass $args An object of wp_nav_menu() arguments.
 	 * @param int $depth Depth of menu item. Used for padding.
-	 * @return string
+	 * @return array
 	 *
 	 */
-	public function filter_nav_menu_css_classes($classes, $item, $args, $depth): string {
+	public function filter_nav_menu_css_classes($classes, $item, $args, $depth) {
 		if($args->theme_location === static::PRIMARY_NAV_MENU_SLUG && $depth == 0) {
 //			$classes[] = 'main-nav__item';
 
@@ -157,10 +157,10 @@ class Component implements Component_Interface, Templating_Component_Interface {
 	}
 
 	/**
-	 * @param string $classes Array of the CSS classes that are applied to the menu <ul> element.
+	 * @param string[] $classes Array of the CSS classes that are applied to the menu <ul> element.
 	 * @param stdClass $args An object of wp_nav_menu() arguments.
 	 * @param int $depth Depth of menu item. Used for padding.
-	 * @return string
+	 * @return array
 	 */
 	function filter_submenu_classes($classes, $args, $depth) {
 		if($args->theme_location === static::PRIMARY_NAV_MENU_SLUG) {

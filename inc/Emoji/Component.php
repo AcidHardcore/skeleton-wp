@@ -10,6 +10,9 @@ namespace Skeleton_WP\Skeleton_WP\Emoji;
 use Skeleton_WP\Skeleton_WP\Component_Interface;
 use function add_action;
 use function add_filter;
+use function remove_action;
+use function remove_filter;
+use function array_diff;
 
 /**
  * Class for managing Emoji.

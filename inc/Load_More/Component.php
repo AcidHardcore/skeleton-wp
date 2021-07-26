@@ -9,6 +9,15 @@ namespace Skeleton_WP\Skeleton_WP\Load_More;
 
 use Skeleton_WP\Skeleton_WP\Component_Interface;
 use function add_action;
+use WP_Query;
+use function ob_start;
+use function ob_get_clean;
+use function get_template_part;
+use function max;
+use function paginate_links;
+use function strpos;
+use function str_replace;
+use function wp_send_json_success;
 
 /**
  * Class for AJAX load more post and pagination
@@ -80,7 +89,7 @@ class Component implements Component_Interface {
 		}
 
 
-		$this->query = new \WP_Query($args);
+		$this->query = new WP_Query($args);
 
 		if($this->query->have_posts()) {
 			ob_start();
