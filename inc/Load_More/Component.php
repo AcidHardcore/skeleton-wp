@@ -57,6 +57,10 @@ class Component implements Component_Interface {
 		add_action('wp_ajax_nopriv_load_more_button', array($this, 'send_data'));
 	}
 
+	/**
+	 * Check input data
+	 * @return array
+	 */
 	public function check_input(): array {
 
 		$this->input['paged'] = !empty($_POST['paged']) ? esc_attr($_POST['paged']) : 0;
@@ -70,6 +74,12 @@ class Component implements Component_Interface {
 
 		return $this->input;
 	}
+
+	/**
+	 * Retrieve posts
+	 *
+	 * @return false|string
+	 */
 
 	public function retrieve_posts() {
 
@@ -110,6 +120,11 @@ class Component implements Component_Interface {
 
 	}
 
+	/**
+	 * Update pagination
+	 *
+	 * @return false|string
+	 */
 	public function pagination() {
 		$this->input['total_pages'] = $this->query->max_num_pages;
 
@@ -145,6 +160,9 @@ class Component implements Component_Interface {
 
 	}
 
+	/**
+	 * Send data to front-end
+	 */
 	function send_data() {
 
 		$result = array();
