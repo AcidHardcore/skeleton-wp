@@ -1,119 +1,231 @@
-.menu-toggle {
-	border: none;
-	padding: 0;
-	background: none;
-	position: relative;
-	z-index: 1;
-	display: flex;
-	align-items: center;
-	width: 2rem;
-	height: 2rem;
-	user-select: none;
-	cursor: pointer;
-	margin-top: 1rem;
-	margin-right: 1rem;
-	justify-self: end;
-}
+.main-nav {
+	display: grid;
+	grid-row-gap: 4rem;
+	position: absolute;
+	left: 0;
+	top: 0;
+	right: 0;
 
-.nav--toggle-small .menu {
-	display: none;
-}
-
-.nav--toggle-sub .dropdown,
-.nav--toggle-sub .dropdown-toggle {
-	display: none;
-}
-
-@include media-breakpoint-down(md){
-
-	.nav--toggle-small.nav--toggled-on .menu {
-		display: block;
-	}
-}
-
-@include media-breakpoint-up(lg){
-
-	.nav--toggle-small .menu-toggle {
-		display: none;
+	@include media-breakpoint-up(lg) {
+		position: static;
+		align-content: center;
 	}
 
-	.nav--toggle-small .menu {
+	&__toggle {
+		border: none;
+		padding: 0;
+		background: none;
+		position: relative;
+		z-index: 1;
 		display: flex;
+		align-items: center;
+		width: 2rem;
+		height: 2rem;
+		user-select: none;
+		cursor: pointer;
+		margin-top: 1rem;
+		margin-right: 1rem;
+		justify-self: end;
 	}
 
-	.nav--toggle-sub ul ul {
-		display: none;
-		position: absolute;
-		top: 100%;
-		flex-direction: column;
-		background: #ffffff;
-		margin-left: 0;
-		box-shadow: 0 3px 3px rgba(0, 0, 0, 0.2);
-		z-index: 100;
-	}
-
-	.nav--toggle-sub .dropdown,
-	.nav--toggle-sub .dropdown-toggle {
+	& a {
 		display: block;
-		background: transparent;
-		position: absolute;
-		right: 0;
-		top: 50%;
-		width: var(--dropdown-symbol-width);
-		height: var(--dropdown-symbol-width);
-		font-size: inherit;
-		line-height: inherit;
+		width: 100%;
+		padding: 0.5rem 1rem 0.5rem 1rem;
+		text-decoration: none;
+		color: $link-color;
+	}
+
+	& a:hover,
+	& a:focus {
+		text-decoration: underline;
+	}
+
+	& .current-menu-item > a,
+	& .current-menu-ancestor > a {
+		color: $link-color--hover;
+	}
+
+	& ul {
+		display: block;
+		list-style: none;
 		margin: 0;
 		padding: 0;
-		border: none;
-		border-radius: 0;
-		transform: translateY(-50%);
-		overflow: visible;
 	}
 
-	.nav--toggle-sub .dropdown-symbol {
-		display: block;
-		background: transparent;
-		position: absolute;
-		right: 20%;
-		top: 35%;
-		width: 60%;
-		height: 60%;
-		border: solid var(--border-color-dark);
-		border-width: 0 2px 2px 0;
-		transform: translateY(-50%) rotate(45deg);
+	& ul ul li {
+		padding-left: 1em;
+
+		@include media-breakpoint-up(md) {
+			padding-left: 0;
+			margin-left: 0;
+		}
 	}
 
-	.nav--toggle-sub ul ul .dropdown,
-	.nav--toggle-sub ul ul .dropdown-toggle {
-		top: 40%;
-		right: 0.2em;
+	& ul li a {
+		@include media-breakpoint-up(md) {
+			padding: 0.4em 0.5em;
+		}
 	}
 
-	.nav--toggle-sub ul ul .dropdown-symbol {
-		transform: rotate(-45deg);
+	& ul li {
+		@include media-breakpoint-up(md) {
+			margin: 0 0 0 0.5em;
+		}
 	}
 
-	.nav--toggle-sub .dropdown-toggle:hover,
-	.nav--toggle-sub .menu-item--has-toggle:hover .dropdown-toggle {
-		pointer-events: none;
+	& ul li:first-child {
+		@include media-breakpoint-up(md) {
+			margin-left: 0;
+		}
+	}
+
+	& ul ul a {
+		@include media-breakpoint-up(md) {
+			width: rem(200);
+		}
+	}
+
+
+	& ul ul li a {
+		@include media-breakpoint-up(md) {
+			width: rem(218);
+			background: none;
+		}
+	}
+
+	& ul ul ul {
+		@include media-breakpoint-up(md) {
+			top: 0;
+			left: 100%;
+			min-height: 100%;
+		}
+	}
+
+}
+
+.main-nav--toggle-small {
+	& .menu {
+		display: none;
+		background-color: $white;
+	}
+
+	& .dropdown,
+	& .dropdown-toggle {
+		display: none;
+	}
+
+	&.main-nav--toggled-on .menu {
+		@include media-breakpoint-down(lg) {
+			display: block;
+		}
+	}
+
+	& .main-nav__toggle {
+		@include media-breakpoint-up(lg) {
+		display: none;
+		}
+	}
+
+	& .menu {
+		@include media-breakpoint-up(lg) {
+			display: flex;
+			flex-wrap: wrap;
+			justify-content: center;
+		}
+	}
+
+}
+
+.main-nav--toggle-sub {
+	& ul ul {
+		@include media-breakpoint-up(lg) {
+			display: none;
+			position: absolute;
+			top: 100%;
+			flex-direction: column;
+			background: #ffffff;
+			margin-left: 0;
+			box-shadow: 0 3px 3px rgba(0, 0, 0, 0.2);
+			z-index: 100;
+		}
+	}
+
+	& .dropdown-toggle {
+		@include media-breakpoint-up(lg) {
+			display: block;
+			background: transparent;
+			position: absolute;
+			right: 0;
+			top: 50%;
+			width: $dropdown-symbol-width;
+			height: $dropdown-symbol-width;
+			font-size: inherit;
+			line-height: inherit;
+			margin: 0;
+			padding: 0;
+			border: none;
+			border-radius: 0;
+			transform: translateY(-50%);
+			overflow: visible;
+		}
+	}
+
+	& .dropdown-symbol {
+		@include media-breakpoint-up(lg) {
+			display: block;
+			background: transparent;
+			position: absolute;
+			right: 20%;
+			top: 35%;
+			width: 60%;
+			height: 60%;
+			border: solid $black;
+			border-width: 0 2px 2px 0;
+			transform: translateY(-50%) rotate(45deg);
+		}
+	}
+
+	& ul ul .dropdown,
+	& ul ul .dropdown-toggle {
+		@include media-breakpoint-up(lg) {
+			top: 40%;
+			right: 0.2em;
+		}
+	}
+
+	& ul ul .dropdown-symbol {
+		@include media-breakpoint-up(lg) {
+			transform: rotate(-45deg);
+		}
+	}
+
+	& .dropdown-toggle:hover,
+	& .menu-item--has-toggle:hover .dropdown-toggle {
+		@include media-breakpoint-up(lg) {
+			//pointer-events: none;
+		}
 	}
 
 	/* Need menu-item-has-children for non-JS */
-	.nav--toggle-sub li.menu-item-has-children,
-	.nav--toggle-sub li.menu-item--has-toggle {
-		position: relative;
-		padding-right: var(--dropdown-symbol-width);
+	& li.menu-item-has-children,
+	& li.menu-item--has-toggle {
+		@include media-breakpoint-up(lg) {
+			position: relative;
+			padding-right: $dropdown-symbol-width;
+		}
 	}
 
 	/*
 	 * If the dropdown toggle is active with JS, then
 	 * we'll take care of showing the submenu with JS.
 	 */
-	.nav--toggle-sub li:hover > ul,
-	.nav--toggle-sub li.menu-item--toggled-on > ul,
-	.nav--toggle-sub li:not(.menu-item--has-toggle):focus > ul {
-		display: block;
+	& li:hover > ul,
+	& li.menu-item--toggled-on > ul,
+	& li:not(.menu-item--has-toggle):focus > ul {
+		@include media-breakpoint-up(lg) {
+			display: block;
+		}
 	}
 
 	/*
@@ -124,97 +236,15 @@
 	 * This selector needs to stay separated, otherwise submenus
 	 * will not be displayed with IE/Edge.
 	 */
-	.nav--toggle-sub li:not(.menu-item--has-toggle):focus-within > ul {
-		display: block;
-	}
-}
-
-/*--------------------------------------------------------------
-## Main navigation menu
---------------------------------------------------------------*/
-
-.main-navigation {
-	display: grid;
-	grid-row-gap: .5rem;
-	position: absolute;
-	left: 0;
-	top: 0;
-	right: 0;
-}
-
-@include media-breakpoint-up(lg){
-	.main-navigation {
-		position: static;
+	& li:not(.menu-item--has-toggle):focus-within > ul {
+		@include media-breakpoint-up(lg) {
+			display: block;
+		}
 	}
 }
 
 
-.main-navigation a {
-	display: block;
-	width: 100%;
-	padding: 0.5rem 1rem 0.5rem 1rem;
-	text-decoration: none;
-	color: var(--global-font-color);
-}
 
-.main-navigation a:hover,
-.main-navigation a:focus {
-	text-decoration: underline;
-}
 
-.main-navigation .current-menu-item > a,
-.main-navigation .current-menu-ancestor > a {
-	color: var(--color-theme-primary);
-}
 
-.main-navigation ul {
-	display: block;
-	list-style: none;
-	margin: 0;
-	padding: 0;
-}
 
-.main-navigation ul ul li {
-	padding-left: 1em;
-}
-
-@include media-breakpoint-up(md){
-
-	.main-navigation ul li a {
-		padding: 0.4em 0.5em;
-	}
-
-	.main-navigation ul li {
-		margin: 0 0 0 0.5em;
-	}
-
-	.main-navigation ul li:first-child {
-		margin-left: 0;
-	}
-
-	.main-navigation ul ul a {
-		width: 200px;
-	}
-
-	.main-navigation ul ul li {
-		padding-left: 0;
-		margin-left: 0;
-	}
-
-	.main-navigation ul ul li a {
-		width: 218px;
-		background: none;
-	}
-
-	.main-navigation ul ul ul {
-		top: 0;
-		left: 100%;
-		min-height: 100%;
-	}
-
-	.main-navigation .menu {
-		display: flex;
-		flex-wrap: wrap;
-		justify-content: center;
-	}
-}

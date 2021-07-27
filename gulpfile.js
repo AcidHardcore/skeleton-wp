@@ -32,7 +32,7 @@ var paths = {
   php: '**/*.php',
   scripts: {
     input: 'assets/js/src/*',
-    watchPath: 'assets/js/**/*.js',
+    watchPath: 'assets/js/src/*.js',
     polyfills: '.polyfill.js',
     output: 'assets/js/'
   },

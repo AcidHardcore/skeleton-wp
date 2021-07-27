@@ -827,7 +827,17 @@ pre code {
 }
 
 /* line 1, assets/css/src/_menu.scss */
-.menu-toggle {
+.main-nav {
+  display: grid;
+  grid-row-gap: 4rem;
+  position: absolute;
+  left: 0;
+  top: 0;
+  right: 0;
+}
+
+/* line 14, assets/css/src/_menu.scss */
+.main-nav__toggle {
   border: none;
   padding: 0;
   background: none;
@@ -851,62 +861,67 @@ pre code {
   justify-self: end;
 }
 
-/* line 18, assets/css/src/_menu.scss */
-.nav--toggle-small .menu {
-  display: none;
-}
-
-/* line 22, assets/css/src/_menu.scss */
-.nav--toggle-sub .dropdown,
-.nav--toggle-sub .dropdown-toggle {
-  display: none;
-}
-
-/*--------------------------------------------------------------
-## Main navigation menu
---------------------------------------------------------------*/
-/* line 136, assets/css/src/_menu.scss */
-.main-navigation {
-  display: grid;
-  grid-row-gap: .5rem;
-  position: absolute;
-  left: 0;
-  top: 0;
-  right: 0;
-}
-
-/* line 152, assets/css/src/_menu.scss */
-.main-navigation a {
+/* line 31, assets/css/src/_menu.scss */
+.main-nav a {
   display: block;
   width: 100%;
   padding: 0.5rem 1rem 0.5rem 1rem;
   text-decoration: none;
-  color: var(--global-font-color);
+  color: #0275d9;
 }
 
-/* line 160, assets/css/src/_menu.scss */
-.main-navigation a:hover,
-.main-navigation a:focus {
+/* line 39, assets/css/src/_menu.scss */
+.main-nav a:hover,
+.main-nav a:focus {
   text-decoration: underline;
 }
 
-/* line 165, assets/css/src/_menu.scss */
-.main-navigation .current-menu-item > a,
-.main-navigation .current-menu-ancestor > a {
-  color: var(--color-theme-primary);
+/* line 44, assets/css/src/_menu.scss */
+.main-nav .current-menu-item > a,
+.main-nav .current-menu-ancestor > a {
+  color: #014c8d;
 }
 
-/* line 170, assets/css/src/_menu.scss */
-.main-navigation ul {
+/* line 49, assets/css/src/_menu.scss */
+.main-nav ul {
   display: block;
   list-style: none;
   margin: 0;
   padding: 0;
 }
 
-/* line 177, assets/css/src/_menu.scss */
-.main-navigation ul ul li {
+/* line 56, assets/css/src/_menu.scss */
+.main-nav ul ul li {
   padding-left: 1em;
+}
+
+/* line 108, assets/css/src/_menu.scss */
+.main-nav--toggle-small .menu {
+  display: none;
+  background-color: white;
+}
+
+/* line 113, assets/css/src/_menu.scss */
+.main-nav--toggle-small .dropdown,
+.main-nav--toggle-small .dropdown-toggle {
+  display: none;
+}
+
+/* line 140, assets/css/src/_menu.scss */
+.main-nav--toggle-sub {
+  /* Need menu-item-has-children for non-JS */
+  /*
+	 * If the dropdown toggle is active with JS, then
+	 * we'll take care of showing the submenu with JS.
+	 */
+  /*
+	 * "focus-within" is an alternative to focus class for
+	 * supporting browsers (all but IE/Edge) for no-JS context
+	 * (e.g. AMP) See https://caniuse.com/#feat=css-focus-within
+	 *
+	 * This selector needs to stay separated, otherwise submenus
+	 * will not be displayed with IE/Edge.
+	 */
 }
 
 /* line 1, assets/css/src/_logo.scss */
@@ -1184,48 +1199,37 @@ a.btn--disabled {
   .site-header {
     padding: 1rem 2rem;
   }
-  /* line 183, assets/css/src/_menu.scss */
-  .main-navigation ul li a {
-    padding: 0.4em 0.5em;
-  }
-  /* line 187, assets/css/src/_menu.scss */
-  .main-navigation ul li {
-    margin: 0 0 0 0.5em;
-  }
-  /* line 191, assets/css/src/_menu.scss */
-  .main-navigation ul li:first-child {
-    margin-left: 0;
-  }
-  /* line 195, assets/css/src/_menu.scss */
-  .main-navigation ul ul a {
-    width: 200px;
-  }
-  /* line 199, assets/css/src/_menu.scss */
-  .main-navigation ul ul li {
+  /* line 56, assets/css/src/_menu.scss */
+  .main-nav ul ul li {
     padding-left: 0;
     margin-left: 0;
   }
-  /* line 204, assets/css/src/_menu.scss */
-  .main-navigation ul ul li a {
-    width: 218px;
+  /* line 65, assets/css/src/_menu.scss */
+  .main-nav ul li a {
+    padding: 0.4em 0.5em;
+  }
+  /* line 71, assets/css/src/_menu.scss */
+  .main-nav ul li {
+    margin: 0 0 0 0.5em;
+  }
+  /* line 77, assets/css/src/_menu.scss */
+  .main-nav ul li:first-child {
+    margin-left: 0;
+  }
+  /* line 83, assets/css/src/_menu.scss */
+  .main-nav ul ul a {
+    width: 12.5rem;
+  }
+  /* line 90, assets/css/src/_menu.scss */
+  .main-nav ul ul li a {
+    width: 13.625rem;
     background: none;
   }
-  /* line 209, assets/css/src/_menu.scss */
-  .main-navigation ul ul ul {
+  /* line 97, assets/css/src/_menu.scss */
+  .main-nav ul ul ul {
     top: 0;
     left: 100%;
     min-height: 100%;
-  }
-  /* line 215, assets/css/src/_menu.scss */
-  .main-navigation .menu {
-    display: -webkit-box;
-    display: -ms-flexbox;
-    display: flex;
-    -ms-flex-wrap: wrap;
-        flex-wrap: wrap;
-    -webkit-box-pack: center;
-        -ms-flex-pack: center;
-            justify-content: center;
   }
 }
 @media (min-width: 62rem) {
@@ -1287,18 +1291,29 @@ a.btn--disabled {
     grid-template-columns: auto 1fr;
     grid-column-gap: 1rem;
   }
-  /* line 36, assets/css/src/_menu.scss */
-  .nav--toggle-small .menu-toggle {
+  /* line 1, assets/css/src/_menu.scss */
+  .main-nav {
+    position: static;
+    -ms-flex-line-pack: center;
+        align-content: center;
+  }
+  /* line 124, assets/css/src/_menu.scss */
+  .main-nav--toggle-small .main-nav__toggle {
     display: none;
   }
-  /* line 40, assets/css/src/_menu.scss */
-  .nav--toggle-small .menu {
+  /* line 130, assets/css/src/_menu.scss */
+  .main-nav--toggle-small .menu {
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
+    -ms-flex-wrap: wrap;
+        flex-wrap: wrap;
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
   }
-  /* line 44, assets/css/src/_menu.scss */
-  .nav--toggle-sub ul ul {
+  /* line 141, assets/css/src/_menu.scss */
+  .main-nav--toggle-sub ul ul {
     display: none;
     position: absolute;
     top: 100%;
@@ -1312,16 +1327,15 @@ a.btn--disabled {
             box-shadow: 0 3px 3px rgba(0, 0, 0, 0.2);
     z-index: 100;
   }
-  /* line 55, assets/css/src/_menu.scss */
-  .nav--toggle-sub .dropdown,
-  .nav--toggle-sub .dropdown-toggle {
+  /* line 154, assets/css/src/_menu.scss */
+  .main-nav--toggle-sub .dropdown-toggle {
     display: block;
     background: transparent;
     position: absolute;
     right: 0;
     top: 50%;
-    width: var(--dropdown-symbol-width);
-    height: var(--dropdown-symbol-width);
+    width: 0.7em;
+    height: 0.7em;
     font-size: inherit;
     line-height: inherit;
     margin: 0;
@@ -1332,8 +1346,8 @@ a.btn--disabled {
             transform: translateY(-50%);
     overflow: visible;
   }
-  /* line 74, assets/css/src/_menu.scss */
-  .nav--toggle-sub .dropdown-symbol {
+  /* line 174, assets/css/src/_menu.scss */
+  .main-nav--toggle-sub .dropdown-symbol {
     display: block;
     background: transparent;
     position: absolute;
@@ -1341,59 +1355,37 @@ a.btn--disabled {
     top: 35%;
     width: 60%;
     height: 60%;
-    border: solid var(--border-color-dark);
+    border: solid black;
     border-width: 0 2px 2px 0;
     -webkit-transform: translateY(-50%) rotate(45deg);
             transform: translateY(-50%) rotate(45deg);
   }
-  /* line 87, assets/css/src/_menu.scss */
-  .nav--toggle-sub ul ul .dropdown,
-  .nav--toggle-sub ul ul .dropdown-toggle {
+  /* line 189, assets/css/src/_menu.scss */
+  .main-nav--toggle-sub ul ul .dropdown,
+  .main-nav--toggle-sub ul ul .dropdown-toggle {
     top: 40%;
     right: 0.2em;
   }
-  /* line 93, assets/css/src/_menu.scss */
-  .nav--toggle-sub ul ul .dropdown-symbol {
+  /* line 197, assets/css/src/_menu.scss */
+  .main-nav--toggle-sub ul ul .dropdown-symbol {
     -webkit-transform: rotate(-45deg);
             transform: rotate(-45deg);
   }
-  /* line 97, assets/css/src/_menu.scss */
-  .nav--toggle-sub .dropdown-toggle:hover,
-  .nav--toggle-sub .menu-item--has-toggle:hover .dropdown-toggle {
-    pointer-events: none;
-  }
-  /* Need menu-item-has-children for non-JS */
-  /* line 103, assets/css/src/_menu.scss */
-  .nav--toggle-sub li.menu-item-has-children,
-  .nav--toggle-sub li.menu-item--has-toggle {
+  /* line 211, assets/css/src/_menu.scss */
+  .main-nav--toggle-sub li.menu-item-has-children,
+  .main-nav--toggle-sub li.menu-item--has-toggle {
     position: relative;
-    padding-right: var(--dropdown-symbol-width);
+    padding-right: 0.7em;
   }
-  /*
-	 * If the dropdown toggle is active with JS, then
-	 * we'll take care of showing the submenu with JS.
-	 */
-  /* line 113, assets/css/src/_menu.scss */
-  .nav--toggle-sub li:hover > ul,
-  .nav--toggle-sub li.menu-item--toggled-on > ul,
-  .nav--toggle-sub li:not(.menu-item--has-toggle):focus > ul {
+  /* line 223, assets/css/src/_menu.scss */
+  .main-nav--toggle-sub li:hover > ul,
+  .main-nav--toggle-sub li.menu-item--toggled-on > ul,
+  .main-nav--toggle-sub li:not(.menu-item--has-toggle):focus > ul {
     display: block;
   }
-  /*
-	 * "focus-within" is an alternative to focus class for
-	 * supporting browsers (all but IE/Edge) for no-JS context
-	 * (e.g. AMP) See https://caniuse.com/#feat=css-focus-within
-	 *
-	 * This selector needs to stay separated, otherwise submenus
-	 * will not be displayed with IE/Edge.
-	 */
-  /* line 127, assets/css/src/_menu.scss */
-  .nav--toggle-sub li:not(.menu-item--has-toggle):focus-within > ul {
+  /* line 239, assets/css/src/_menu.scss */
+  .main-nav--toggle-sub li:not(.menu-item--has-toggle):focus-within > ul {
     display: block;
-  }
-  /* line 146, assets/css/src/_menu.scss */
-  .main-navigation {
-    position: static;
   }
 }
 @media (min-width: 75rem) {
@@ -1508,9 +1500,9 @@ a.btn--disabled {
     scroll-behavior: auto !important;
   }
 }
-@media (max-width: 47.98rem) {
-  /* line 29, assets/css/src/_menu.scss */
-  .nav--toggle-small.nav--toggled-on .menu {
+@media (max-width: 61.98rem) {
+  /* line 118, assets/css/src/_menu.scss */
+  .main-nav--toggle-small.main-nav--toggled-on .menu {
     display: block;
   }
 }

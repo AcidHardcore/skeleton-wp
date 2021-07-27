@@ -19,7 +19,7 @@ namespace Skeleton_WP\Skeleton_WP;
 	<span class="sep"> | </span>
 	<?php
 	/* translators: Theme name. */
-	printf( esc_html__( 'Theme: %s by the contributors.', 'skeleton-wp' ), '<a href="' . esc_url( 'https://github.com/wprig/wprig/' ) . '">WP Rig</a>' );
+	printf( esc_html__( 'Theme: %s by the contributors.', 'skeleton-wp' ), '<a href="' . esc_url( 'https://github.com/AcidHardcore/skeleton-wp' ) . '">SKeleton WP</a>' );
 
 	if ( function_exists( 'the_privacy_policy_link' ) ) {
 		the_privacy_policy_link( '<span class="sep"> | </span>' );

@@ -13,9 +13,9 @@ if ( ! skeleton_wp()->is_primary_nav_menu_active() ) {
 
 ?>
 
-<nav id="site-navigation" class="main-navigation nav--toggle-sub nav--toggle-small" aria-label="<?php esc_attr_e( 'Main menu', 'skeleton-wp' ); ?>">
+<nav id="site-navigation" class="main-nav main-nav--toggle-sub main-nav--toggle-small" aria-label="<?php esc_attr_e( 'Main menu', 'skeleton-wp' ); ?>">
 
-	<button class="menu-toggle burger" aria-label="<?php esc_attr_e( 'Open menu', 'skeleton-wp' ); ?>" aria-controls="primary-menu" aria-expanded="false">
+	<button class="main-nav__toggle burger" aria-label="<?php esc_attr_e( 'Open menu', 'skeleton-wp' ); ?>" aria-controls="primary-menu" aria-expanded="false">
 		<span><?php esc_html_e( 'Menu', 'skeleton-wp' ); ?></span>
 	</button>
 

@@ -99,7 +99,7 @@ class Component implements Component_Interface, Templating_Component_Interface {
 
 		// Add the dropdown for items that have children.
 		if(!empty($item->classes) && in_array('menu-item-has-children', $item->classes)) {
-			return $item_output . '<span class="dropdown"><i class="dropdown-symbol"></i></span>';
+			return $item_output . '<button class="dropdown-toggle" aria-expanded="false" aria-label="Expand child menu"><i class="dropdown-symbol"></i></button>';
 		}
 //        example
 //		if(array_search("menu-item-has-children", $item->classes) &&  $args->theme_location === 'mobile') {

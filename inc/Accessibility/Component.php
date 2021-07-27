@@ -64,7 +64,7 @@ class Component implements Component_Interface {
 		wp_script_add_data( 'skeleton-wp-navigation', 'precache', true );
 		wp_localize_script(
 			'skeleton-wp-navigation',
-			'wpRigScreenReaderText',
+			'skeletonWpScreenReaderText',
 			array(
 				'expand'   => __( 'Expand child menu', 'skeleton-wp' ),
 				'collapse' => __( 'Collapse child menu', 'skeleton-wp' ),
