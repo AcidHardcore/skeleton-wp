@@ -12,11 +12,10 @@ use function add_action;
 use function add_filter;
 use function acf_register_block_type;
 use function array_merge;
-use function wp_get_theme;
+use function Skeleton_WP\Skeleton_WP\skeleton_wp;
 use function wp_enqueue_style;
 use function wp_enqueue_script;
 use function wp_localize_script;
-use function filemtime;
 use function get_template_directory;
 use function get_template_directory_uri;
 use function acf_add_options_page;
@@ -85,14 +84,12 @@ class Component implements Component_Interface {
 			'keywords' => array('news'),
 			//'mode' => 'edit',
 			'enqueue_assets' => function() {
-				$the_theme = wp_get_theme();
-				$theme_version = $the_theme->get('Version');
 
-				$css_version = $theme_version . '.' . filemtime(get_template_directory() . '/assets/css/block.min.css');
+				$css_version = skeleton_wp()->get_asset_version(get_template_directory() . '/assets/css/block.min.css');
 				wp_enqueue_style('block', get_template_directory_uri() . '/assets/css/block.min.css', array(), $css_version);
 
-				$load_more_version = $theme_version . '.' . filemtime(get_template_directory() . '/assets/js/block.min.js');
-				wp_enqueue_script('block', get_template_directory_uri() . '/assets/js/block.min.js', array('jquery'), $load_more_version, true);
+				$js_version = skeleton_wp()->get_asset_version(get_template_directory() . '/assets/js/block.min.js');
+				wp_enqueue_script('block', get_template_directory_uri() . '/assets/js/block.min.js', array('jquery'), $js_version, true);
 
 				wp_localize_script('block', 'jsData', array(
 					'ajaxUrl' => admin_url('admin-ajax.php'),
@@ -111,9 +108,7 @@ class Component implements Component_Interface {
 			'keywords' => array('common', 'posts'),
 			'mode' => 'edit',
 			'enqueue_assets' => function() {
-				$the_theme = wp_get_theme();
-				$theme_version = $the_theme->get('Version');
-				$js_version = $theme_version . '.' . filemtime(get_template_directory() . '/assets/js/load-more.js');
+				$js_version = skeleton_wp()->get_asset_version(get_template_directory() . '/assets/js/load-more.js');
 				wp_enqueue_script('load-more-scripts', get_template_directory_uri() . '/assets/js/load-more.js', array('jquery'), $js_version, true);
 				wp_localize_script('load-more-scripts', 'jsData', array(
 					'ajaxurl' => admin_url('admin-ajax.php'),
