@@ -110,9 +110,6 @@ class Component implements Component_Interface {
 			'enqueue_assets' => function() {
 				$js_version = skeleton_wp()->get_asset_version(get_template_directory() . '/assets/js/load-more.js');
 				wp_enqueue_script('load-more-scripts', get_template_directory_uri() . '/assets/js/load-more.js', array('jquery'), $js_version, true);
-				wp_localize_script('load-more-scripts', 'jsData', array(
-					'ajaxurl' => admin_url('admin-ajax.php'),
-				));
 			},
 		));
 	}

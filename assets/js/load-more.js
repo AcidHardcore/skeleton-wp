@@ -37,19 +37,18 @@ jQuery(document).ready((function ($) {
 
 			$.ajax({
 
-				url: jsData.ajaxurl, // AJAX handler
-				data: $args,
-				type: 'POST',
+				url: 'http://skeleton-wp/wp-json/load-more/v1/posts/?data=' + JSON.stringify($args) ,
+				method: 'GET',
 				dataType: 'JSON',
 				beforeSend: function () {
 					$mainBox.animate({opacity: 0.5}, 300);
 				},
 				success: function (response) {
 
-					if (response.data.posts) {
+					if (response.posts) {
 
-						$mainBox.html(response.data.posts).animate({opacity: 1}, 300); // insert new posts
-						$pagination.find('ul').html(response.data.pagination).animate({opacity: 1}, 300);
+						$mainBox.html(response.posts).animate({opacity: 1}, 300); // insert new posts
+						$pagination.find('ul').html(response.pagination).animate({opacity: 1}, 300);
 
 						$args.paged = $page;
 
@@ -81,6 +80,7 @@ jQuery(document).ready((function ($) {
 		let $args = $loadMore.data('args');
 		$args.action = 'load_more_button';
 		$args.paged += 1; //increment PAGED
+
 		/*
 		 * Load More
 		 */
@@ -89,19 +89,18 @@ jQuery(document).ready((function ($) {
 
 			$.ajax({
 
-				url: jsData.ajaxurl, // AJAX handler
-				data: $args,
-				type: 'POST',
+				url: 'http://skeleton-wp/wp-json/load-more/v1/posts/?data=' + JSON.stringify($args) ,
+				method: 'GET',
 				dataType: 'JSON',
 				beforeSend: function () {
 					$mainBox.animate({opacity: 0.5}, 300);
 					$loadMore.attr('disabled', true);
 				},
 				success: function (response) {
-
+					// console.log(data, status, response.responseJSON); return;
 					if (response) {
 						$loadMore.attr('disabled', false);
-						$mainBox.append(response.data.posts).animate({opacity: 1}, 300); // insert new posts
+						$mainBox.append(response.posts).animate({opacity: 1}, 300); // insert new posts
 
 						$args.paged++;
 
