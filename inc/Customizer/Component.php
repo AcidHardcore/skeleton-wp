@@ -36,6 +36,9 @@ class Component implements Component_Interface {
 	public function initialize() {
 		add_action( 'customize_register', array( $this, 'action_customize_register' ) );
 		add_action( 'customize_preview_init', array( $this, 'action_enqueue_customize_preview_js' ) );
+		add_action('wp_head', array($this, 'above_head'));
+		add_action('wp_body_open', array($this, 'after_body'));
+		add_action('wp_footer', array($this, 'above_body'));
 	}
 
 	/**
@@ -76,9 +79,91 @@ class Component implements Component_Interface {
 			'theme_options',
 			array(
 				'title'    => __( 'Theme Options', 'skeleton-wp' ),
+				'priority' => 120, // Before Custom Code.
+			)
+		);
+
+		/**
+		 * Sticky header
+		 */
+		$setting = 'sticky_header';
+
+		$wp_customize->add_setting( $setting, [
+			'default'            => false,
+			'transport'          => 'postMessage'
+		] );
+
+		$wp_customize->add_control( $setting, [
+			'section'  => 'theme_options',
+			'label'    => 'Enable Sticky Footer?',
+			'type'     => 'checkbox'
+		] );
+
+		/**
+		 * Custom code options.
+		 */
+		$wp_customize->add_section(
+			'custom_code',
+			array(
+				'title'    => __( 'Custom Code', 'skeleton-wp' ),
 				'priority' => 130, // Before Additional CSS.
 			)
 		);
+
+		/**
+		 * Custom code
+		 */
+		$setting = 'above_head';
+
+		$wp_customize->add_setting( $setting, [
+			'default'            => '',
+			'transport'          => 'postMessage'
+		] );
+
+		$wp_customize->add_control( $setting, [
+			'section'  => 'custom_code',
+			'label'    => 'Add a custom code above the head close tag',
+			'type'     => 'textarea'
+		] );
+
+		$setting = 'above_head';
+
+		$wp_customize->add_setting( $setting, [
+			'default'            => '',
+			'transport'          => 'postMessage'
+		] );
+
+		$wp_customize->add_control( $setting, [
+			'section'  => 'custom_code',
+			'label'    => 'Add a custom code above the head close tag',
+			'type'     => 'textarea'
+		] );
+
+		$setting = 'after_body';
+
+		$wp_customize->add_setting( $setting, [
+			'default'            => '',
+			'transport'          => 'postMessage'
+		] );
+
+		$wp_customize->add_control( $setting, [
+			'section'  => 'custom_code',
+			'label'    => 'Add a custom code after the body open tag',
+			'type'     => 'textarea'
+		] );
+
+		$setting = 'above_body';
+
+		$wp_customize->add_setting( $setting, [
+			'default'            => '',
+			'transport'          => 'postMessage'
+		] );
+
+		$wp_customize->add_control( $setting, [
+			'section'  => 'custom_code',
+			'label'    => 'Add a custom code before the body close tag',
+			'type'     => 'textarea'
+		] );
 	}
 
 	/**
@@ -92,5 +177,38 @@ class Component implements Component_Interface {
 			skeleton_wp()->get_asset_version( get_theme_file_path( '/assets/js/customizer.min.js' ) ),
 			true
 		);
+	}
+
+	/**
+	 * Add a custom code above the head close tag
+	 */
+	public function above_head() {
+		$above_head = get_theme_mod('above_head');
+
+		if($above_head) {
+			echo $above_head;
+		}
+	}
+
+	/**
+	 * Add a custom code after the body open tag
+	 */
+	public function after_body() {
+		$after_body = get_theme_mod('after_body');
+
+		if($after_body) {
+			echo $after_body;
+		}
+	}
+
+	/**
+	 * Add a custom code before the body close tag
+	 */
+	public function above_body() {
+		$above_body = get_theme_mod('above_body');
+
+		if($above_body) {
+			echo $above_body;
+		}
 	}
 }
