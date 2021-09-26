@@ -77,6 +77,7 @@ class Component implements Component_Interface, Templating_Component_Interface {
 		add_action( 'wp_enqueue_scripts', array( $this, 'action_enqueue_styles' ) );
 		add_action( 'wp_head', array( $this, 'action_preload_styles' ) );
 //		add_action( 'after_setup_theme', array( $this, 'action_add_editor_styles' ) );
+		add_action( 'enqueue_block_editor_assets', array( $this, 'gutenberg_scripts' ) );
 		add_filter( 'wp_resource_hints', array( $this, 'filter_resource_hints' ), 10, 2 );
 	}
 
@@ -188,6 +189,20 @@ class Component implements Component_Interface, Templating_Component_Interface {
 
 		// Enqueue block editor stylesheet.
 		add_editor_style( 'assets/css/editor/editor-styles.min.css' );
+	}
+
+	/**
+	 * Backend Gutenberg scripts and styles
+	*/
+	public function gutenberg_scripts() {
+		$js_version = skeleton_wp()->get_asset_version(get_template_directory() . '/assets/js/editor.min.js');
+		wp_enqueue_script(
+			'skeleton-wp-editor',
+			get_stylesheet_directory_uri() . '/assets/js/editor.js',
+			array( 'wp-blocks', 'wp-dom' ),
+			$js_version,
+			true
+		);
 	}
 
 	/**
