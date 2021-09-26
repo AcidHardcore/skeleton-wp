@@ -8,6 +8,7 @@
 namespace Skeleton_WP\Skeleton_WP\ACF;
 
 use Skeleton_WP\Skeleton_WP\Component_Interface;
+use WP_Block_Editor_Context;
 use function add_action;
 use function add_filter;
 use function acf_register_block_type;
@@ -43,7 +44,7 @@ class Component implements Component_Interface {
 	 * Adds the action and filter hooks to integrate with WordPress.
 	 */
 	public function initialize() {
-		add_filter('block_categories_all', array($this, 'action_acf_block_category', 10, 2));
+		add_filter('block_categories_all', array($this, 'action_block_category'), 10, 2);
 		add_action('acf/init', array($this, 'action_register_acf_block_types'));
 		add_action('acf/init', array($this, 'action_register_acf_option_page'));
 	}
@@ -52,17 +53,22 @@ class Component implements Component_Interface {
 	/**
 	 * Add Block categories
 	 *
-	 * @param array $categories The Categories array.
-	 * @param WP_Post $post The current post item.
-	 * * @return array Multidimensional associative array of ACF Gutenberg block categories
+	 * @param array $block_categories The Categories array.
+	 * @param WP_Block_Editor_Context $editor_context The current block editor context.
+	 * * @return array Multidimensional associative array of Gutenberg block categories
 	 */
-	public function action_acf_block_category($categories, $post) {
-		return array_merge($categories, array(
-			array(
-				'slug' => 'skeleton-wp',
-				'title' => __('Skeleton-WP Blocks', 'skeleton-wp'),
-			),
-		));
+	public function action_block_category($block_categories, $editor_context) {
+		if(!empty($editor_context->post)) {
+			array_push(
+				$block_categories,
+				array(
+					'slug' => 'skeleton-wp',
+					'title' => __('Skeleton WP', 'skeleton_wp'),
+					'icon' => null,
+				)
+			);
+		}
+		return $block_categories;
 	}
 
 	/**
@@ -75,8 +81,8 @@ class Component implements Component_Interface {
 			'title' => __('Block'),
 			'description' => __('Block description'),
 			'render_template' => 'template-parts/blocks/block.php',
-			'category' => 'common',
-			'icon' => 'editor-ul',
+			'category' => 'skeleton-wp',
+			'icon' => 'wordpress',
 			'align' => 'full',
 			'keywords' => array('news'),
 			//'mode' => 'edit',
@@ -99,8 +105,8 @@ class Component implements Component_Interface {
 			'title' => __('Posts'),
 			'description' => __('Posts with Load More button or AJAX pagination'),
 			'render_template' => 'template-parts/blocks/posts.php',
-			'category' => 'common',
-			'icon' => 'editor-ul',
+			'category' => 'skeleton-wp',
+			'icon' => 'wordpress',
 			'align' => 'full',
 			'keywords' => array('common', 'posts'),
 			'mode' => 'edit',
