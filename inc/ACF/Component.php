@@ -83,7 +83,12 @@ class Component implements Component_Interface {
 			'render_template' => 'template-parts/blocks/block.php',
 			'category' => 'skeleton-wp',
 			'icon' => 'wordpress',
-			'align' => 'full',
+			'supports'		=> [
+				'align'			=> 'full',
+				'anchor'		=> true,
+				'customClassName'	=> true,
+				'jsx' 			=> true,
+			],
 			'keywords' => array('news'),
 			//'mode' => 'edit',
 			'enqueue_assets' => function() {

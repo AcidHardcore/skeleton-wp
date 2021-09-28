@@ -34,10 +34,25 @@ if ( $link ):
 	$link_target = $link['target'] ? $link['target'] : '_self';
 endif;
 
+$template = array(
+	array('core/heading', array(
+		'level' => 2,
+		'content' => 'Title Goes Here',
+	)),
+	array( 'core/paragraph', array(
+		'content' => '<strong>Colorway:</strong> <br /><strong>Style Code:</strong>  <br /><strong>Release Date:</strong> <br /><strong>MSRP:</strong> ',
+	) ),
+	array('core/image', array(
+
+	))
+);
+
 ?>
 
 <section id="<?= esc_attr( $id ); ?>" class="block <?= esc_attr( $className ); ?>">
 	<div class="block-content">
+
+		<InnerBlocks template="<?= esc_attr( wp_json_encode( $template ) ) ?>" templateLock="insert"/>
 
 			<?php if ( $title ): ?>
 				<h1 class="">
