@@ -15,6 +15,8 @@
         }
       ]
     },
+    "custom": {
+    },
     "typography": {
       "customFontSize": true,
       "customLineHeight": true,
@@ -26,6 +28,8 @@
       "units": [ "px", "em", "rem", "vh", "vw" ]
     },
     "layout": {
+      "contentSize": "800px",
+      "wideSize": "1200px"
     },
     "blocks": {
       "core/paragraph": {
