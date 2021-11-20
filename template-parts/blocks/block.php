@@ -34,6 +34,8 @@ if ( $link ):
 	$link_target = $link['target'] ? $link['target'] : '_self';
 endif;
 
+$allowed_blocks = array( 'core/heading', 'core/paragraph', 'core/image' );
+
 $template = array(
 	array('core/heading', array(
 		'level' => 2,
@@ -52,7 +54,7 @@ $template = array(
 <section id="<?= esc_attr( $id ); ?>" class="block <?= esc_attr( $className ); ?>">
 	<div class="block-content">
 
-		<InnerBlocks template="<?= esc_attr( wp_json_encode( $template ) ) ?>" templateLock="insert"/>
+		<InnerBlocks template="<?= esc_attr( wp_json_encode( $template ) ) ?>" allowedBlocks="<?= esc_attr( wp_json_encode( $allowed_blocks ) ) ?>" templateLock="insert"/>
 
 			<?php if ( $title ): ?>
 				<h1 class="">
