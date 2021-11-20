@@ -27,6 +27,30 @@ wp.domReady(() => {
 	// 		label: 'Block',
 	// 	}
 	// ]);
+	/**
+	 * Default Buttons classes
+	 */
+	wp.domReady( () => {
+		wp.blocks.unregisterBlockStyle(
+			'core/button',
+			[ 'default', 'outline', 'squared', 'fill' ]
+		);
+
+		wp.blocks.registerBlockStyle(
+			'core/button',
+			[
+				{
+					name: 'default',
+					label: 'Default',
+					isDefault: true,
+				},
+				{
+					name: 'outlined',
+					label: 'Outlined',
+				}
+			]
+		);
+	} );
 
 	/**
 	 * Unregister block type
