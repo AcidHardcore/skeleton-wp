@@ -48,6 +48,8 @@ class Component implements Component_Interface, Templating_Component_Interface {
 		add_filter('nav_menu_css_class', array($this, 'filter_nav_menu_css_classes'), 10, 4);
 //		submenu classes
 		add_filter('nav_menu_submenu_css_class', array($this, 'filter_submenu_classes'), 10, 3);
+//		extra menu items
+		add_filter('wp_nav_menu_items', array($this, 'filter_main_menu'), 10, 2);
 	}
 
 	/**
@@ -168,5 +170,20 @@ class Component implements Component_Interface, Templating_Component_Interface {
 		}
 
 		return $classes;
+	}
+
+	/**
+	 * @param $items
+	 * @param $args
+	 * @return mixed|string
+	 */
+	public function filter_main_menu($items, $args) {
+		if ($args->theme_location === static::PRIMARY_NAV_MENU_SLUG) {
+//			ob_start();
+//			get_template_part('template-parts/header/branding');
+//			$items .= ob_get_clean();
+		}
+
+		return $items;
 	}
 }
