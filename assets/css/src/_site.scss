@@ -1,6 +1,7 @@
 .site {
 	margin: 0 auto;
 	max-width: 1920px;
+	box-sizing: border-box;
 }
 
 @include media-breakpoint-up(lg){
