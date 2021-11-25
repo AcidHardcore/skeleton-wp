@@ -2,6 +2,13 @@
 	margin: 0 auto;
 	max-width: 1920px;
 	box-sizing: border-box;
+	display: grid;
+	grid-template-rows: min-content auto min-content;
+	height: 100%;
+}
+
+.site-footer {
+	align-self: end;
 }
 
 @include media-breakpoint-up(lg){
