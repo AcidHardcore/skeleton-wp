@@ -95,7 +95,7 @@ class Component implements Component_Interface {
 
 		$wp_customize->add_control( $setting, [
 			'section'  => 'theme_options',
-			'label'    => 'Enable Sticky Footer?',
+			'label'    => 'Enable Sticky Header?',
 			'type'     => 'checkbox'
 		] );
 
