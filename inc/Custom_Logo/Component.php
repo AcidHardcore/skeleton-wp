@@ -61,8 +61,8 @@ class Component implements Component_Interface {
 	 */
 	public function change_logo_class( $html ) {
 
-		$html = str_replace( 'custom-logo-link', 'header-logo', $html );
-		$html = str_replace( 'custom-logo', 'header-logo__image', $html );
+		$html = str_replace( 'custom-logo-link', 'logo', $html );
+		$html = str_replace( 'custom-logo', 'logo__image', $html );
 
 
 		return $html;
