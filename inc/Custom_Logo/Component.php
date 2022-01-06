@@ -33,6 +33,7 @@ class Component implements Component_Interface {
 	 */
 	public function initialize() {
 		add_action( 'after_setup_theme', array( $this, 'action_add_custom_logo_support' ) );
+		add_filter( 'get_custom_logo', array( $this, 'change_logo_class') );
 	}
 
 	/**
@@ -51,5 +52,18 @@ class Component implements Component_Interface {
 				)
 			)
 		);
+	}
+
+	/**
+	 * Replace CSS class of the logo
+	 * @param $html
+	 * @return array|string|string[]
+	 */
+	public function change_logo_class( $html ) {
+
+		$html = str_replace( 'custom-logo', 'header-logo__image', $html );
+		$html = str_replace( 'custom-logo-link', 'header-logo', $html );
+
+		return $html;
 	}
 }
