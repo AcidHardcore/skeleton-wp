@@ -17,7 +17,7 @@ namespace Skeleton_WP\Skeleton_WP;
 
 	<?php else : ?>
 
-		<p class="site-title"><a rel="home" href="<?php echo esc_url( home_url( '/' ) ); ?>" title="<?php echo esc_attr( get_bloginfo( 'name', 'display' ) ); ?>" itemprop="url"></p><?php bloginfo( 'name' ); ?></a>
+		<p class="site-title"><a rel="home" href="<?php echo esc_url( home_url( '/' ) ); ?>" title="<?php echo esc_attr( get_bloginfo( 'name', 'display' ) ); ?>" itemprop="url"><?php bloginfo( 'name' ); ?></a></p>
 
 	<?php endif; ?>
 
