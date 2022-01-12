@@ -203,6 +203,20 @@ class Component implements Component_Interface, Templating_Component_Interface {
 			$js_version,
 			true
 		);
+
+		$css_version = skeleton_wp()->get_asset_version(get_template_directory() . '/assets/css/global.css');
+		wp_enqueue_style( 'skeleton-wp-global',
+			get_stylesheet_directory_uri() . '/assets/css/global.css' ,
+			array(),
+			$css_version
+		);
+
+		$css_version = skeleton_wp()->get_asset_version(get_template_directory() . '/assets/css/common.css');
+		wp_enqueue_style( 'skeleton-wp-common',
+			get_stylesheet_directory_uri() . '/assets/css/common.css' ,
+			array(),
+			$css_version
+		);
 	}
 
 	/**
