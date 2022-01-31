@@ -61,7 +61,7 @@ jQuery(document).ready((function ($) {
 					let $pagination = $('.navigation');
 					let $pageLinks = $pagination.find('.page-link');
 					$pageLinks.on('click', (function (e) {
-						$self = $(this);
+						const $self = $(this);
 						ajaxLoadMore(e, $self);
 					}));
 
