@@ -11,6 +11,7 @@ jQuery(document).ready((function ($) {
 	let $mainBox = $('.posts-wrap');
 	let $pagination = $('.navigation');
 	let $loadMore = $('.load-more');
+	const url = new URL(window.location);
 
 	if ($pagination.length) {
 		let $pageLinks = $pagination.find('.page-link');
@@ -37,7 +38,7 @@ jQuery(document).ready((function ($) {
 
 			$.ajax({
 
-				url: 'http://skeleton-wp/wp-json/load-more/v1/posts/?data=' + JSON.stringify($args) ,
+				url: `${url.protocol}//${url.hostname}/wp-json/load-more/v1/posts/?data=${JSON.stringify($args)}`,
 				method: 'GET',
 				dataType: 'JSON',
 				beforeSend: function () {
@@ -89,7 +90,7 @@ jQuery(document).ready((function ($) {
 
 			$.ajax({
 
-				url: 'http://skeleton-wp/wp-json/load-more/v1/posts/?data=' + JSON.stringify($args) ,
+				url: `${url.protocol}//${url.hostname}/wp-json/load-more/v1/posts/?data=${JSON.stringify($args)}`,
 				method: 'GET',
 				dataType: 'JSON',
 				beforeSend: function () {
