@@ -6,7 +6,7 @@
 	top: 0;
 	right: 0;
 
-	@include media-breakpoint-up(lg) {
+	@include media-breakpoint-up($menu-desktop-width) {
 		position: static;
 		align-content: center;
 	}
@@ -56,46 +56,46 @@
 	& ul ul li {
 		padding-left: 1em;
 
-		@include media-breakpoint-up(md) {
+		@include media-breakpoint-up($menu-desktop-width) {
 			padding-left: 0;
 			margin-left: 0;
 		}
 	}
 
 	& ul li a {
-		@include media-breakpoint-up(md) {
+		@include media-breakpoint-up($menu-desktop-width) {
 			padding: 0.4em 0.5em;
 		}
 	}
 
 	& ul li {
-		@include media-breakpoint-up(md) {
+		@include media-breakpoint-up($menu-desktop-width) {
 			margin: 0 0 0 0.5em;
 		}
 	}
 
 	& ul li:first-child {
-		@include media-breakpoint-up(md) {
+		@include media-breakpoint-up($menu-desktop-width) {
 			margin-left: 0;
 		}
 	}
 
 	& ul ul a {
-		@include media-breakpoint-up(md) {
+		@include media-breakpoint-up($menu-desktop-width) {
 			width: rem(200);
 		}
 	}
 
 
 	& ul ul li a {
-		@include media-breakpoint-up(md) {
+		@include media-breakpoint-up($menu-desktop-width) {
 			width: rem(218);
 			background: none;
 		}
 	}
 
 	& ul ul ul {
-		@include media-breakpoint-up(md) {
+		@include media-breakpoint-up($menu-desktop-width) {
 			top: 0;
 			left: 100%;
 			min-height: 100%;
@@ -116,19 +116,19 @@
 	}
 
 	&.main-nav--toggled-on .menu {
-		@include media-breakpoint-down(lg) {
+		@include media-breakpoint-down($menu-desktop-width) {
 			display: block;
 		}
 	}
 
 	& .main-nav__toggle {
-		@include media-breakpoint-up(lg) {
+		@include media-breakpoint-up($menu-desktop-width) {
 		display: none;
 		}
 	}
 
 	& .menu {
-		@include media-breakpoint-up(lg) {
+		@include media-breakpoint-up($menu-desktop-width) {
 			display: flex;
 			flex-wrap: wrap;
 			justify-content: center;
@@ -139,7 +139,7 @@
 
 .main-nav--toggle-sub {
 	& ul ul {
-		@include media-breakpoint-up(lg) {
+		@include media-breakpoint-up($menu-desktop-width) {
 			display: none;
 			position: absolute;
 			top: 100%;
@@ -152,7 +152,7 @@
 	}
 
 	& .dropdown-toggle {
-		@include media-breakpoint-up(lg) {
+		@include media-breakpoint-up($menu-desktop-width) {
 			display: block;
 			background: transparent;
 			position: absolute;
@@ -172,7 +172,7 @@
 	}
 
 	& .dropdown-symbol {
-		@include media-breakpoint-up(lg) {
+		@include media-breakpoint-up($menu-desktop-width) {
 			display: block;
 			background: transparent;
 			position: absolute;
@@ -188,21 +188,21 @@
 
 	& ul ul .dropdown,
 	& ul ul .dropdown-toggle {
-		@include media-breakpoint-up(lg) {
+		@include media-breakpoint-up($menu-desktop-width) {
 			top: 40%;
 			right: 0.2em;
 		}
 	}
 
 	& ul ul .dropdown-symbol {
-		@include media-breakpoint-up(lg) {
+		@include media-breakpoint-up($menu-desktop-width) {
 			transform: rotate(-45deg);
 		}
 	}
 
 	& .dropdown-toggle:hover,
 	& .menu-item--has-toggle:hover .dropdown-toggle {
-		@include media-breakpoint-up(lg) {
+		@include media-breakpoint-up($menu-desktop-width) {
 			//pointer-events: none;
 		}
 	}
@@ -210,7 +210,7 @@
 	/* Need menu-item-has-children for non-JS */
 	& li.menu-item-has-children,
 	& li.menu-item--has-toggle {
-		@include media-breakpoint-up(lg) {
+		@include media-breakpoint-up($menu-desktop-width) {
 			position: relative;
 			padding-right: $dropdown-symbol-width;
 		}
@@ -223,7 +223,7 @@
 	& li:hover > ul,
 	& li.menu-item--toggled-on > ul,
 	& li:not(.menu-item--has-toggle):focus > ul {
-		@include media-breakpoint-up(lg) {
+		@include media-breakpoint-up($menu-desktop-width) {
 			display: block;
 		}
 	}
@@ -237,7 +237,7 @@
 	 * will not be displayed with IE/Edge.
 	 */
 	& li:not(.menu-item--has-toggle):focus-within > ul {
-		@include media-breakpoint-up(lg) {
+		@include media-breakpoint-up($menu-desktop-width) {
 			display: block;
 		}
 	}
