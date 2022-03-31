@@ -1,4 +1,4 @@
-/*! skeleton_WP v3.0.0 | (c) 2021  |  License | https://github.com/AcidHardcore/skeleton_WP */
+/*! skeleton_WP v3.0.0 | (c) 2022  |  License | https://github.com/AcidHardcore/skeleton_WP */
 jQuery(document).ready((function ($) {
 	"use strict";
 	/**
@@ -11,7 +11,6 @@ jQuery(document).ready((function ($) {
 	let $mainBox = $('.posts-wrap');
 	let $pagination = $('.navigation');
 	let $loadMore = $('.load-more');
-	const url = new URL(window.location);
 
 	if ($pagination.length) {
 		let $pageLinks = $pagination.find('.page-link');
@@ -38,7 +37,7 @@ jQuery(document).ready((function ($) {
 
 			$.ajax({
 
-				url: `${url.protocol}//${url.hostname}/wp-json/load-more/v1/posts/?data=${JSON.stringify($args)}`,
+				url: 'http://skeleton-wp/wp-json/load-more/v1/posts/?data=' + JSON.stringify($args) ,
 				method: 'GET',
 				dataType: 'JSON',
 				beforeSend: function () {
@@ -61,7 +60,7 @@ jQuery(document).ready((function ($) {
 					let $pagination = $('.navigation');
 					let $pageLinks = $pagination.find('.page-link');
 					$pageLinks.on('click', (function (e) {
-						const $self = $(this);
+						$self = $(this);
 						ajaxLoadMore(e, $self);
 					}));
 
@@ -90,7 +89,7 @@ jQuery(document).ready((function ($) {
 
 			$.ajax({
 
-				url: `${url.protocol}//${url.hostname}/wp-json/load-more/v1/posts/?data=${JSON.stringify($args)}`,
+				url: 'http://skeleton-wp/wp-json/load-more/v1/posts/?data=' + JSON.stringify($args) ,
 				method: 'GET',
 				dataType: 'JSON',
 				beforeSend: function () {

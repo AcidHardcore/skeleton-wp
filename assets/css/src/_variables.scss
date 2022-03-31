@@ -70,7 +70,8 @@ $grid-breakpoints: (
         md: rem(768),
         lg: rem(992),
         xl: rem(1200),
-        xxl: rem(1440)
+        xxl: rem(1440),
+		xxxl: rem(1800)
 );
 
 $container-sm: 100%;
@@ -78,7 +79,7 @@ $container-md: 100%;
 $container-lg: (map-get($grid-breakpoints, "lg") - 2rem);
 $container-xl: (map-get($grid-breakpoints, "xl") - 4rem);
 $container-xxl: (map-get($grid-breakpoints, "xxl") - rem(140));
-$container-xxxl: (map-get($grid-breakpoints, "xxl") - rem(140));
+$container-xxxl: (map-get($grid-breakpoints, "xxxl") - rem(360));
 
 
 $grid-columns: 12;

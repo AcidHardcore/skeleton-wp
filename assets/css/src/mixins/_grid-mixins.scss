@@ -22,68 +22,77 @@ $grid-gutter-width: 30px !default;
 //------------------------------------------------------------------------------
 
 @mixin container(
-  $xs-grid-gutter:  $grid-gutter-width,
-  $sm-grid-gutter:  $grid-gutter-width,
-  $md-grid-gutter:  $grid-gutter-width,
-  $lg-grid-gutter:  $grid-gutter-width,
-  $xl-grid-gutter:  $grid-gutter-width,
-  $xxl-grid-gutter: $grid-gutter-width,
-  $xxxl-grid-gutter: $grid-gutter-width
+	$xs-grid-gutter:  $grid-gutter-width,
+	$sm-grid-gutter:  $grid-gutter-width,
+	$md-grid-gutter:  $grid-gutter-width,
+	$lg-grid-gutter:  $grid-gutter-width,
+	$xl-grid-gutter:  $grid-gutter-width,
+	$xxl-grid-gutter: $grid-gutter-width,
+	$xxxl-grid-gutter: $grid-gutter-width
 ) {
-  display: block;
-  width: 100%;
-  margin-left: auto;
-  margin-right: auto;
+	display: block;
+	width: 100%;
+	margin-left: auto;
+	margin-right: auto;
 
-  @if ($xs-grid-gutter != 0) {
-    padding-left: ($xs-grid-gutter / 2);
-    padding-right: ($xs-grid-gutter / 2);
-  }
+	@if ($xs-grid-gutter != 0) {
+		padding-left: ($xs-grid-gutter / 2);
+		padding-right: ($xs-grid-gutter / 2);
+	}
 
-  @include media-breakpoint-up(sm) {
-    width: $container-sm;
+	@include media-breakpoint-up(sm) {
+		width: $container-sm;
 
-    @if ($sm-grid-gutter != $xs-grid-gutter) {
-      padding-left: ($sm-grid-gutter / 2);
-      padding-right: ($sm-grid-gutter / 2);
-    }
-  }
+		@if ($sm-grid-gutter != $xs-grid-gutter) {
+			padding-left: ($sm-grid-gutter / 2);
+			padding-right: ($sm-grid-gutter / 2);
+		}
+	}
 
-  @include media-breakpoint-up(md) {
-    width: $container-md;
+	@include media-breakpoint-up(md) {
+		width: $container-md;
 
-    @if ($md-grid-gutter != $sm-grid-gutter) {
-      padding-left: ($md-grid-gutter / 2);
-      padding-right: ($md-grid-gutter / 2);
-    }
-  }
+		@if ($md-grid-gutter != $sm-grid-gutter) {
+			padding-left: ($md-grid-gutter / 2);
+			padding-right: ($md-grid-gutter / 2);
+		}
+	}
 
-  @include media-breakpoint-up(lg) {
-    width: $container-lg;
+	@include media-breakpoint-up(lg) {
+		width: $container-lg;
 
-    @if ($lg-grid-gutter != $md-grid-gutter) {
-      padding-left: ($lg-grid-gutter / 2);
-      padding-right: ($lg-grid-gutter / 2);
-    }
-  }
+		@if ($lg-grid-gutter != $md-grid-gutter) {
+			padding-left: ($lg-grid-gutter / 2);
+			padding-right: ($lg-grid-gutter / 2);
+		}
+	}
 
-  @include media-breakpoint-up(xl) {
-    width: $container-xl;
+	@include media-breakpoint-up(xl) {
+		width: $container-xl;
 
-    @if ($xl-grid-gutter != $lg-grid-gutter) {
-      padding-left: ($xl-grid-gutter / 2);
-      padding-right: ($xl-grid-gutter / 2);
-    }
-  }
+		@if ($xl-grid-gutter != $lg-grid-gutter) {
+			padding-left: ($xl-grid-gutter / 2);
+			padding-right: ($xl-grid-gutter / 2);
+		}
+	}
 
-  @include media-breakpoint-up(xxl) {
-    width: $container-xxl;
+	@include media-breakpoint-up(xxl) {
+		width: $container-xxl;
 
-    @if ($xxl-grid-gutter != $xl-grid-gutter) {
-      padding-left: ($xxl-grid-gutter / 2);
-      padding-right: ($xxl-grid-gutter / 2);
-    }
-  }
+		@if ($xxl-grid-gutter != $xl-grid-gutter) {
+			padding-left: ($xxl-grid-gutter / 2);
+			padding-right: ($xxl-grid-gutter / 2);
+		}
+	}
+
+	@include media-breakpoint-up(xxxl) {
+		width: $container-xxxl;
+
+		@if ($xxxl-grid-gutter != $xxl-grid-gutter) {
+			padding-left: ($xxxl-grid-gutter / 2);
+			padding-right: ($xxxl-grid-gutter / 2);
+		}
+	}
 }
 
 

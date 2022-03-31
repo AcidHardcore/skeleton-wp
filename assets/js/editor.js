@@ -1,4 +1,4 @@
-/*! skeleton_WP v3.0.0 | (c) 2021  |  License | https://github.com/AcidHardcore/skeleton_WP */
+/*! skeleton_WP v3.0.0 | (c) 2022  |  License | https://github.com/AcidHardcore/skeleton_WP */
 wp.domReady(() => {
 
 	/**
@@ -27,9 +27,7 @@ wp.domReady(() => {
 	// 		label: 'Block',
 	// 	}
 	// ]);
-	/**
-	 * Default Buttons classes
-	 */
+
 	wp.domReady( () => {
 		wp.blocks.unregisterBlockStyle(
 			'core/button',
