@@ -1,49 +1,43 @@
 .social {
 
-  $block-name:                &; // #{$block-name}__
+	$block-name: &; // #{$block-name}__
 
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  margin-top: $typo-margin-vertical;
-  margin-bottom: $typo-margin-vertical;
-  padding: 0;
-  list-style: none;
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	padding: 0;
+	margin: 0;
+	list-style: none;
 
-  &__link-wrap {
-    margin-right: 10px;
-  }
+	&__link-wrap {
+	}
 
-  &__link {
-    display: block;
-    padding: 5px;
-    background-color: $gray-500;
+	&__link {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		width: 2rem;
+		height: 2rem;
+		background-color: $gray-200;
+		border: 2px solid $white;
+		border-radius: 50%;
 
-    #{$block-name}__link-wrap--fb & {
-      background-color: $color-fb;
-    }
+		svg {
+			display: block;
+			width: 1rem;
+			height: 1rem;
+		}
 
-    // #{$block-name}__link-wrap--vk & {
-    //   background-color: $color-vk;
-    // }
+		&:hover {
+			border-color: $link-color--hover;
 
-    // #{$block-name}__link-wrap--tw & {
-    //   background-color: $color-tw;
-    // }
+			svg {
+				color: $link-color--hover;
+			}
+		}
+	}
 
-    // #{$block-name}__link-wrap--gh & {
-    //   background-color: $color-gh;
-    // }
-
-    svg {
-      display: block;
-      width: 16px;
-      height: 16px;
-      fill: #fff;
-    }
-  }
-
-  &__text {
-    @include hide-text;
-  }
+	&__text {
+		@include hide-text;
+	}
 }

@@ -2082,38 +2082,47 @@ input:checked:disabled ~ .field-radio__name-text:after {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
-  margin-top: 1rem;
-  margin-bottom: 1rem;
   padding: 0;
+  margin: 0;
   list-style: none;
 }
 
-/* line 13, assets/css/src/_social.scss */
-.social__link-wrap {
-  margin-right: 10px;
-}
-
-/* line 17, assets/css/src/_social.scss */
+/* line 15, assets/css/src/_social.scss */
 .social__link {
-  display: block;
-  padding: 5px;
-  background-color: gray;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  width: 2rem;
+  height: 2rem;
+  background-color: #333333;
+  border: 2px solid white;
+  border-radius: 50%;
 }
 
-/* line 22, assets/css/src/_social.scss */
-.social__link-wrap--fb .social__link {
-  background-color: #4267b2;
-}
-
-/* line 38, assets/css/src/_social.scss */
+/* line 25, assets/css/src/_social.scss */
 .social__link svg {
   display: block;
-  width: 16px;
-  height: 16px;
-  fill: #fff;
+  width: 1rem;
+  height: 1rem;
 }
 
-/* line 46, assets/css/src/_social.scss */
+/* line 31, assets/css/src/_social.scss */
+.social__link:hover {
+  border-color: #014c8d;
+}
+
+/* line 34, assets/css/src/_social.scss */
+.social__link:hover svg {
+  color: #014c8d;
+}
+
+/* line 40, assets/css/src/_social.scss */
 .social__text {
   position: absolute;
   width: 1px;

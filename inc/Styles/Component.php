@@ -211,9 +211,9 @@ class Component implements Component_Interface, Templating_Component_Interface {
 			$css_version
 		);
 
-		$css_version = skeleton_wp()->get_asset_version(get_template_directory() . '/assets/css/common.css');
-		wp_enqueue_style( 'skeleton-wp-common',
-			get_stylesheet_directory_uri() . '/assets/css/common.css' ,
+		$css_version = skeleton_wp()->get_asset_version(get_template_directory() . '/assets/css/content.css');
+		wp_enqueue_style( 'skeleton-wp-content',
+			get_stylesheet_directory_uri() . '/assets/css/content.css' ,
 			array(),
 			$css_version
 		);

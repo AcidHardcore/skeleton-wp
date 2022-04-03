@@ -15,6 +15,7 @@ namespace Skeleton_WP\Skeleton_WP;
 
 <footer id="colophon" class="site-footer">
 	<?php get_template_part( 'template-parts/footer/info' ); ?>
+	<?php get_template_part( 'template-parts/footer/socials' ); ?>
 </footer><!-- #colophon -->
 </div><!-- #page -->
 
