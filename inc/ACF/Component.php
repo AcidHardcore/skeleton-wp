@@ -120,6 +120,36 @@ class Component implements Component_Interface {
 				wp_enqueue_script('load-more-scripts', get_template_directory_uri() . '/assets/js/load-more.js', array('jquery'), $js_version, true);
 			},
 		));
+
+		acf_register_block_type(array(
+			'name' => 'slider',
+			'title' => __('Slider'),
+			'description' => __('Slider hero block'),
+			'render_template' => 'template-parts/blocks/slider.php',
+			'category' => 'skeleton-wp',
+			'icon' => 'wordpress',
+			'align' => 'full',
+			'keywords' => array('common', 'slider'),
+			'mode' => 'edit',
+			'supports'		=> [
+				'anchor'		=> true,
+				'customClassName'	=> true,
+				'jsx' 			=> true,
+			],
+			'enqueue_assets' => function() {
+				$css_version = skeleton_wp()->get_asset_version(get_template_directory() . '/assets/css/swiper.css');
+				wp_enqueue_style('swiper-styles', get_template_directory_uri() . '/assets/css/swiper.css', array(), $css_version);
+
+				$css_version = skeleton_wp()->get_asset_version(get_template_directory() . '/assets/css/block-slider.css');
+				wp_enqueue_style('block-slider-styles', get_template_directory_uri() . '/assets/css/block-slider.css', array(), $css_version);
+
+				$js_version = skeleton_wp()->get_asset_version(get_template_directory() . '/assets/js/swiper-bundle.js');
+				wp_enqueue_script('swiper-scripts', get_template_directory_uri() . '/assets/js/swiper-bundle.js', array(), $js_version, true);
+
+				$js_version = skeleton_wp()->get_asset_version(get_template_directory() . '/assets/js/slider.js');
+				wp_enqueue_script('slider-scripts', get_template_directory_uri() . '/assets/js/slider.js', array('jquery'), $js_version, true);
+			},
+		));
 	}
 
 	/**
