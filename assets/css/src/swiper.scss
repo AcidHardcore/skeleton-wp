@@ -23,7 +23,7 @@
 	padding: 0;
 	/* Fix of Webkit flickering */
 	z-index: 1;
-	width: 100vw;
+	width: 100%;
 	height: clamp-slope($font-scale-start, rem(1920), rem(410), rem(970));
 }
 .swiper-vertical > .swiper-wrapper {

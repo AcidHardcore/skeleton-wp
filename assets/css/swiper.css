@@ -75,7 +75,7 @@
   padding: 0;
   /* Fix of Webkit flickering */
   z-index: 1;
-  width: 100vw;
+  width: 100%;
   height: clamp(25.625rem, 10.625rem + 41.66667vw, 60.625rem);
 }
 
