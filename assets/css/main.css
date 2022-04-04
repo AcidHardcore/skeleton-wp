@@ -508,7 +508,7 @@ html {
 /* line 11, assets/css/src/_typo.scss */
 body {
   margin: 0;
-  height: 100%;
+  min-height: 100%;
   word-break: break-word;
   font-family: -apple-system, BlinkMacSystemFont, "Roboto", "Ubuntu", "Droid Sans", "Helvetica Neue", "Arial", sans-serif;
   font-size: clamp(1rem, 0.83333rem + 0.46296vw, 1.25rem);
