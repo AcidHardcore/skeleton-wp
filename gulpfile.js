@@ -19,7 +19,7 @@ var settings = {
 *
  */
 var browserSyncOptions = {
-	proxy: "gorilla-grip",
+	proxy: "skeleton-wp",
 	notify: false
 };
 
