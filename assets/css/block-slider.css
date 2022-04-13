@@ -1,45 +1,35 @@
 /*! skeleton_WP v3.0.0 | (c) 2022  |  License | https://github.com/AcidHardcore/skeleton_WP */
-/* line 12, assets/css/src/mixins/_display.scss */
 .d-none {
   display: none !important;
 }
 
-/* line 12, assets/css/src/mixins/_display.scss */
 .d-inline {
   display: inline !important;
 }
 
-/* line 12, assets/css/src/mixins/_display.scss */
 .d-inline-block {
   display: inline-block !important;
 }
 
-/* line 12, assets/css/src/mixins/_display.scss */
 .d-block {
   display: block !important;
 }
 
-/* line 12, assets/css/src/mixins/_display.scss */
 .d-flex {
   display: -webkit-box !important;
   display: -ms-flexbox !important;
   display: flex !important;
 }
 
-/* line 12, assets/css/src/mixins/_display.scss */
 .d-inline-flex {
   display: -webkit-inline-box !important;
   display: -ms-inline-flexbox !important;
   display: inline-flex !important;
 }
-
-/* line 4, assets/css/src/block-slider.scss */
 .block-slider {
   padding-bottom: 4rem;
   position: relative;
 }
-
-/* line 8, assets/css/src/block-slider.scss */
 .block-slider__slide {
   position: relative;
   display: -webkit-box;
@@ -53,14 +43,10 @@
       -ms-flex-pack: center;
           justify-content: center;
 }
-
-/* line 15, assets/css/src/block-slider.scss */
 .block-slider__content {
   position: relative;
   z-index: 2;
 }
-
-/* line 20, assets/css/src/block-slider.scss */
 .block-slider__bg {
   position: absolute;
   top: 0;
@@ -70,8 +56,6 @@
   display: grid;
   grid-template-rows: 1fr auto;
 }
-
-/* line 30, assets/css/src/block-slider.scss */
 .block-slider__image {
   grid-row: 1/3;
   grid-column: 1/1;
@@ -80,45 +64,40 @@
   -o-object-fit: cover;
      object-fit: cover;
 }
-
-/* line 38, assets/css/src/block-slider.scss */
 .block-slider__content {
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
-  margin-bottom: clamp(1.5rem, -1.5rem + 8.33333vw, 6rem);
+  margin-bottom: clamp(1.5rem, -1.5rem + 8.3333333333vw, 6rem);
 }
-
-/* line 48, assets/css/src/block-slider.scss */
 .block-slider .btn {
-  margin-top: clamp(1.5rem, 0.36667rem + 3.14815vw, 3.2rem);
+  margin-top: clamp(1.5rem, 0.3666666667rem + 3.1481481481vw, 3.2rem);
   width: -webkit-max-content;
   width: -moz-max-content;
   width: max-content;
 }
 @media (min-width: 36rem) {
-  /* line 12, assets/css/src/mixins/_display.scss */
   .d-sm-none {
     display: none !important;
   }
-  /* line 12, assets/css/src/mixins/_display.scss */
+
   .d-sm-inline {
     display: inline !important;
   }
-  /* line 12, assets/css/src/mixins/_display.scss */
+
   .d-sm-inline-block {
     display: inline-block !important;
   }
-  /* line 12, assets/css/src/mixins/_display.scss */
+
   .d-sm-block {
     display: block !important;
   }
-  /* line 12, assets/css/src/mixins/_display.scss */
+
   .d-sm-flex {
     display: -webkit-box !important;
     display: -ms-flexbox !important;
     display: flex !important;
   }
-  /* line 12, assets/css/src/mixins/_display.scss */
+
   .d-sm-inline-flex {
     display: -webkit-inline-box !important;
     display: -ms-inline-flexbox !important;
@@ -126,29 +105,28 @@
   }
 }
 @media (min-width: 48rem) {
-  /* line 12, assets/css/src/mixins/_display.scss */
   .d-md-none {
     display: none !important;
   }
-  /* line 12, assets/css/src/mixins/_display.scss */
+
   .d-md-inline {
     display: inline !important;
   }
-  /* line 12, assets/css/src/mixins/_display.scss */
+
   .d-md-inline-block {
     display: inline-block !important;
   }
-  /* line 12, assets/css/src/mixins/_display.scss */
+
   .d-md-block {
     display: block !important;
   }
-  /* line 12, assets/css/src/mixins/_display.scss */
+
   .d-md-flex {
     display: -webkit-box !important;
     display: -ms-flexbox !important;
     display: flex !important;
   }
-  /* line 12, assets/css/src/mixins/_display.scss */
+
   .d-md-inline-flex {
     display: -webkit-inline-box !important;
     display: -ms-inline-flexbox !important;
@@ -156,29 +134,28 @@
   }
 }
 @media (min-width: 62rem) {
-  /* line 12, assets/css/src/mixins/_display.scss */
   .d-lg-none {
     display: none !important;
   }
-  /* line 12, assets/css/src/mixins/_display.scss */
+
   .d-lg-inline {
     display: inline !important;
   }
-  /* line 12, assets/css/src/mixins/_display.scss */
+
   .d-lg-inline-block {
     display: inline-block !important;
   }
-  /* line 12, assets/css/src/mixins/_display.scss */
+
   .d-lg-block {
     display: block !important;
   }
-  /* line 12, assets/css/src/mixins/_display.scss */
+
   .d-lg-flex {
     display: -webkit-box !important;
     display: -ms-flexbox !important;
     display: flex !important;
   }
-  /* line 12, assets/css/src/mixins/_display.scss */
+
   .d-lg-inline-flex {
     display: -webkit-inline-box !important;
     display: -ms-inline-flexbox !important;
@@ -186,29 +163,28 @@
   }
 }
 @media (min-width: 75rem) {
-  /* line 12, assets/css/src/mixins/_display.scss */
   .d-xl-none {
     display: none !important;
   }
-  /* line 12, assets/css/src/mixins/_display.scss */
+
   .d-xl-inline {
     display: inline !important;
   }
-  /* line 12, assets/css/src/mixins/_display.scss */
+
   .d-xl-inline-block {
     display: inline-block !important;
   }
-  /* line 12, assets/css/src/mixins/_display.scss */
+
   .d-xl-block {
     display: block !important;
   }
-  /* line 12, assets/css/src/mixins/_display.scss */
+
   .d-xl-flex {
     display: -webkit-box !important;
     display: -ms-flexbox !important;
     display: flex !important;
   }
-  /* line 12, assets/css/src/mixins/_display.scss */
+
   .d-xl-inline-flex {
     display: -webkit-inline-box !important;
     display: -ms-inline-flexbox !important;
@@ -216,29 +192,28 @@
   }
 }
 @media (min-width: 90rem) {
-  /* line 12, assets/css/src/mixins/_display.scss */
   .d-xxl-none {
     display: none !important;
   }
-  /* line 12, assets/css/src/mixins/_display.scss */
+
   .d-xxl-inline {
     display: inline !important;
   }
-  /* line 12, assets/css/src/mixins/_display.scss */
+
   .d-xxl-inline-block {
     display: inline-block !important;
   }
-  /* line 12, assets/css/src/mixins/_display.scss */
+
   .d-xxl-block {
     display: block !important;
   }
-  /* line 12, assets/css/src/mixins/_display.scss */
+
   .d-xxl-flex {
     display: -webkit-box !important;
     display: -ms-flexbox !important;
     display: flex !important;
   }
-  /* line 12, assets/css/src/mixins/_display.scss */
+
   .d-xxl-inline-flex {
     display: -webkit-inline-box !important;
     display: -ms-inline-flexbox !important;
@@ -246,29 +221,28 @@
   }
 }
 @media (min-width: 112.5rem) {
-  /* line 12, assets/css/src/mixins/_display.scss */
   .d-xxxl-none {
     display: none !important;
   }
-  /* line 12, assets/css/src/mixins/_display.scss */
+
   .d-xxxl-inline {
     display: inline !important;
   }
-  /* line 12, assets/css/src/mixins/_display.scss */
+
   .d-xxxl-inline-block {
     display: inline-block !important;
   }
-  /* line 12, assets/css/src/mixins/_display.scss */
+
   .d-xxxl-block {
     display: block !important;
   }
-  /* line 12, assets/css/src/mixins/_display.scss */
+
   .d-xxxl-flex {
     display: -webkit-box !important;
     display: -ms-flexbox !important;
     display: flex !important;
   }
-  /* line 12, assets/css/src/mixins/_display.scss */
+
   .d-xxxl-inline-flex {
     display: -webkit-inline-box !important;
     display: -ms-inline-flexbox !important;
@@ -276,29 +250,28 @@
   }
 }
 @media print {
-  /* line 24, assets/css/src/mixins/_display.scss */
   .d-print-none {
     display: none !important;
   }
-  /* line 24, assets/css/src/mixins/_display.scss */
+
   .d-print-inline {
     display: inline !important;
   }
-  /* line 24, assets/css/src/mixins/_display.scss */
+
   .d-print-inline-block {
     display: inline-block !important;
   }
-  /* line 24, assets/css/src/mixins/_display.scss */
+
   .d-print-block {
     display: block !important;
   }
-  /* line 24, assets/css/src/mixins/_display.scss */
+
   .d-print-flex {
     display: -webkit-box !important;
     display: -ms-flexbox !important;
     display: flex !important;
   }
-  /* line 24, assets/css/src/mixins/_display.scss */
+
   .d-print-inline-flex {
     display: -webkit-inline-box !important;
     display: -ms-inline-flexbox !important;
