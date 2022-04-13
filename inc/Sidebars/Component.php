@@ -42,7 +42,7 @@ class Component implements Component_Interface, Templating_Component_Interface {
 	 * Adds the action and filter hooks to integrate with WordPress.
 	 */
 	public function initialize() {
-		add_action( 'widgets_init', array( $this, 'action_register_sidebars' ) );
+//		add_action( 'widgets_init', array( $this, 'action_register_sidebars' ) );
 		add_filter( 'body_class', array( $this, 'filter_body_classes' ) );
 	}
 

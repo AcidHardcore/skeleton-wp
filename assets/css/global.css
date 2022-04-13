@@ -686,9 +686,6 @@ pre code {
   max-width: 1920px;
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
-  display: grid;
-  grid-template-rows: -webkit-min-content auto -webkit-min-content;
-  grid-template-rows: min-content auto min-content;
   height: 100%;
 }
 
@@ -696,6 +693,7 @@ pre code {
   -ms-flex-item-align: end;
       align-self: end;
 }
+
 .site-header {
   padding: 1rem;
   display: grid;
@@ -1173,26 +1171,6 @@ a.btn--disabled {
     display: -webkit-inline-box !important;
     display: -ms-inline-flexbox !important;
     display: inline-flex !important;
-  }
-  .has-sidebar .site {
-    display: grid;
-    grid-template-columns: 3fr 1fr;
-    grid-gap: 2rem;
-  }
-
-  .site-header,
-.site-footer {
-    grid-column: 1/-1;
-  }
-
-  .site-main {
-    grid-column: 1;
-    min-width: 0;
-  }
-
-  .primary-sidebar {
-    grid-column: 2;
-    min-width: 0;
   }
   .container {
     width: 60rem;
