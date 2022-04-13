@@ -1,31 +1,4 @@
 /*! skeleton_WP v3.0.0 | (c) 2022  |  License | https://github.com/AcidHardcore/skeleton_WP */
-/* line 342, assets/css/src/mixins/_grid-mixins.scss */
-.container {
-  display: block;
-  width: 100%;
-  margin-left: auto;
-  margin-right: auto;
-  padding-left: 1rem;
-  padding-right: 1rem;
-}
-
-/* line 346, assets/css/src/mixins/_grid-mixins.scss */
-.row {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -ms-flex-wrap: wrap;
-      flex-wrap: wrap;
-  margin-left: -1rem;
-  margin-right: -1rem;
-}
-
-/* line 136, assets/css/src/mixins/_grid-mixins.scss */
-.row > * {
-  -ms-flex-preferred-size: 100%;
-      flex-basis: 100%;
-}
-
 /* line 12, assets/css/src/mixins/_display.scss */
 .d-none {
   display: none !important;
@@ -549,10 +522,6 @@ button.swiper-pagination-bullet {
   display: none;
 }
 @media (min-width: 36rem) {
-  /* line 342, assets/css/src/mixins/_grid-mixins.scss */
-  .container {
-    width: 100%;
-  }
   /* line 12, assets/css/src/mixins/_display.scss */
   .d-sm-none {
     display: none !important;
@@ -583,10 +552,6 @@ button.swiper-pagination-bullet {
   }
 }
 @media (min-width: 48rem) {
-  /* line 342, assets/css/src/mixins/_grid-mixins.scss */
-  .container {
-    width: 100%;
-  }
   /* line 12, assets/css/src/mixins/_display.scss */
   .d-md-none {
     display: none !important;
@@ -617,10 +582,6 @@ button.swiper-pagination-bullet {
   }
 }
 @media (min-width: 62rem) {
-  /* line 342, assets/css/src/mixins/_grid-mixins.scss */
-  .container {
-    width: 60rem;
-  }
   /* line 12, assets/css/src/mixins/_display.scss */
   .d-lg-none {
     display: none !important;
@@ -651,10 +612,6 @@ button.swiper-pagination-bullet {
   }
 }
 @media (min-width: 75rem) {
-  /* line 342, assets/css/src/mixins/_grid-mixins.scss */
-  .container {
-    width: 71rem;
-  }
   /* line 12, assets/css/src/mixins/_display.scss */
   .d-xl-none {
     display: none !important;
@@ -685,10 +642,6 @@ button.swiper-pagination-bullet {
   }
 }
 @media (min-width: 90rem) {
-  /* line 342, assets/css/src/mixins/_grid-mixins.scss */
-  .container {
-    width: 81.25rem;
-  }
   /* line 12, assets/css/src/mixins/_display.scss */
   .d-xxl-none {
     display: none !important;
@@ -719,10 +672,6 @@ button.swiper-pagination-bullet {
   }
 }
 @media (min-width: 112.5rem) {
-  /* line 342, assets/css/src/mixins/_grid-mixins.scss */
-  .container {
-    width: 90rem;
-  }
   /* line 12, assets/css/src/mixins/_display.scss */
   .d-xxxl-none {
     display: none !important;

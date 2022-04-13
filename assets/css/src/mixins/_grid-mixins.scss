@@ -338,11 +338,3 @@ $grid-gutter-width: 30px !default;
     }
   }
 }
-
-.container {
-  @include container();
-}
-
-.row {
-  @include row();
-}

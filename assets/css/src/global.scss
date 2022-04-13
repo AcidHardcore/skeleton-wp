@@ -12,3 +12,7 @@
 @import "site-footer";
 @import "btn";
 
+.container {
+	@include container();
+}
+

@@ -37,7 +37,7 @@ jQuery(document).ready((function ($) {
 
 			$.ajax({
 
-				url: 'http://skeleton-wp/wp-json/load-more/v1/posts/?data=' + JSON.stringify($args) ,
+				url: '/wp-json/load-more/v1/posts/?data=' + JSON.stringify($args) ,
 				method: 'GET',
 				dataType: 'JSON',
 				beforeSend: function () {
@@ -89,7 +89,7 @@ jQuery(document).ready((function ($) {
 
 			$.ajax({
 
-				url: 'http://skeleton-wp/wp-json/load-more/v1/posts/?data=' + JSON.stringify($args) ,
+				url: '/wp-json/load-more/v1/posts/?data=' + JSON.stringify($args) ,
 				method: 'GET',
 				dataType: 'JSON',
 				beforeSend: function () {
