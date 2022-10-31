@@ -11,19 +11,34 @@
 	 * @return  void
 	 */
 	var initializeBlock = function( $block ) {
-		console.log('block here');
+
+		const swiper = new Swiper('.block-slider .swiper', {
+			direction: 'horizontal',
+			loop: true,
+			autoplay: {
+				delay: 5000,
+			pauseOnMouseEnter: true
+			},
+			pagination: {
+				el: '.swiper-pagination',
+				clickable: true
+			},
+
+		});
+
 	};
 
 	// Initialize each block on page load (front end).
-	$(document).ready((function(){
-		$('.block').each((function(){
+	$(document).ready(function(){
+		$('.block-slider').each(function(){
 			initializeBlock( $(this) );
-		}));
-	}));
+		});
+	});
 
 	// Initialize dynamic block preview (editor).
 	if( window.acf ) {
-		window.acf.addAction( 'render_block_preview/type=block', initializeBlock );
+		window.acf.addAction( 'render_block_preview', initializeBlock );
 	}
 
 })(jQuery);
+
