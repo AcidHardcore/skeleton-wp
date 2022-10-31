@@ -45,8 +45,9 @@ class Component implements Component_Interface {
 	 */
 	public function initialize() {
 		add_filter('block_categories_all', array($this, 'action_block_category'), 10, 2);
-		add_action('acf/init', array($this, 'action_register_acf_block_types'));
+		add_action('acf/init', array($this, 'action_load_blocks'), 5);
 		add_action('acf/init', array($this, 'action_register_acf_option_page'));
+		add_filter( 'should_load_separate_core_block_assets', '__return_true' );
 	}
 
 
@@ -72,84 +73,63 @@ class Component implements Component_Interface {
 	}
 
 	/**
-	 * Register ACF blocks
-	 **/
-	public function action_register_acf_block_types() {
+	 * Load Blocks
+	 */
+	function action_load_blocks() {
+		$blocks = $this->get_blocks();
 
-		acf_register_block_type(array(
-			'name' => 'block',
-			'title' => __('Block'),
-			'description' => __('Block description'),
-			'render_template' => 'template-parts/blocks/block.php',
-			'category' => 'skeleton-wp',
-			'icon' => 'wordpress',
-			'align'			=> 'full',
-			'supports'		=> [
-				'anchor'		=> true,
-				'customClassName'	=> true,
-				'jsx' 			=> true,
-			],
-			'keywords' => array('news'),
-			//'mode' => 'edit',
-			'enqueue_assets' => function() {
+		if(!empty($blocks)) {
+			foreach ($blocks as $block) {
+				if (file_exists($this->set_file_path($block, 'block.json'))) {
+					register_block_type($this->set_file_path($block, 'block.json'));
 
-				$css_version = skeleton_wp()->get_asset_version(get_template_directory() . '/assets/css/block.min.css');
-				wp_enqueue_style('block', get_template_directory_uri() . '/assets/css/block.min.css', array(), $css_version);
+					if (file_exists($this->set_file_path($block, 'style.css'))) {
+						$css_version = skeleton_wp()->get_asset_version($this->set_file_path($block, 'style.css'));
+						wp_register_style(
+							'block-' . $block,
+							$this->set_file_uri($block, 'style.css'),
+							null,
+							$css_version
+						);
+					}
 
-				$js_version = skeleton_wp()->get_asset_version(get_template_directory() . '/assets/js/block.min.js');
-				wp_enqueue_script('block', get_template_directory_uri() . '/assets/js/block.min.js', array('jquery'), $js_version, true);
+					if (file_exists($this->set_file_path($block, 'script.js'))) {
+						$js_version = skeleton_wp()->get_asset_version($this->set_file_path($block, 'script.js'));
+						file_exists($this->set_file_path($block, 'script.asset.php'))
+							? $deps = require_once $this->set_file_path($block, 'script.asset.php')
+							: $deps = array();
 
-				wp_localize_script('block', 'jsData', array(
-					'ajaxUrl' => admin_url('admin-ajax.php'),
-				));
-			},
-		));
+						wp_register_script(
+							'block-' . $block,
+							$this->set_file_uri($block, 'script.js'),
+							$deps['dependencies'],
+							$js_version,
+							true
+						);
+					}
 
-		acf_register_block_type(array(
-			'name' => 'posts',
-			'title' => __('Posts'),
-			'description' => __('Posts with Load More button or AJAX pagination'),
-			'render_template' => 'template-parts/blocks/posts.php',
-			'category' => 'skeleton-wp',
-			'icon' => 'wordpress',
-			'align' => 'full',
-			'keywords' => array('common', 'posts'),
-			'mode' => 'edit',
-			'enqueue_assets' => function() {
-				$js_version = skeleton_wp()->get_asset_version(get_template_directory() . '/assets/js/load-more.js');
-				wp_enqueue_script('load-more-scripts', get_template_directory_uri() . '/assets/js/load-more.js', array('jquery'), $js_version, true);
-			},
-		));
+					if (file_exists($this->set_file_path($block, 'init.php'))) {
+						require_once $this->set_file_path($block, 'init.php');
+					}
+				}
+			}
+		}
+	}
 
-		acf_register_block_type(array(
-			'name' => 'slider',
-			'title' => __('Slider'),
-			'description' => __('Slider hero block'),
-			'render_template' => 'template-parts/blocks/slider.php',
-			'category' => 'skeleton-wp',
-			'icon' => 'wordpress',
-			'align' => 'full',
-			'keywords' => array('common', 'slider'),
-			'mode' => 'edit',
-			'supports'		=> [
-				'anchor'		=> true,
-				'customClassName'	=> true,
-				'jsx' 			=> true,
-			],
-			'enqueue_assets' => function() {
-				$css_version = skeleton_wp()->get_asset_version(get_template_directory() . '/assets/css/swiper.css');
-				wp_enqueue_style('swiper-styles', get_template_directory_uri() . '/assets/css/swiper.css', array(), $css_version);
+	/**
+	 * Get Blocks
+	 */
+	function get_blocks() {
+		$blocks  = get_option( 'skeleton-wp_blocks' );
+		$version = get_option( 'skeleton-wp_blocks_version' );
+		if ( empty( $blocks ) || version_compare( skeleton_wp()->get_asset_version($this->set_file_path()), $version )) {
+			$blocks = scandir( $this->set_file_path() );
+			$blocks = array_values( array_diff( $blocks, array( '..', '.', '.DS_Store', 'block' ) ) );
 
-				$css_version = skeleton_wp()->get_asset_version(get_template_directory() . '/assets/css/block-slider.css');
-				wp_enqueue_style('block-slider-styles', get_template_directory_uri() . '/assets/css/block-slider.css', array(), $css_version);
-
-				$js_version = skeleton_wp()->get_asset_version(get_template_directory() . '/assets/js/swiper-bundle.js');
-				wp_enqueue_script('swiper-scripts', get_template_directory_uri() . '/assets/js/swiper-bundle.js', array(), $js_version, true);
-
-				$js_version = skeleton_wp()->get_asset_version(get_template_directory() . '/assets/js/slider.js');
-				wp_enqueue_script('slider-scripts', get_template_directory_uri() . '/assets/js/slider.js', array('jquery'), $js_version, true);
-			},
-		));
+			update_option( 'skeleton-wp_blocks', $blocks );
+			update_option( 'skeleton-wp_blocks_version', skeleton_wp()->get_asset_version($this->set_file_path()) );
+		}
+		return $blocks;
 	}
 
 	/**
@@ -176,5 +156,21 @@ class Component implements Component_Interface {
 			'menu_title' => 'Footer',
 			'parent_slug' => 'global-settings',
 		));
+	}
+
+
+	protected function set_file_path(string $block_name = '', string $file_name = ''): string
+	{
+		if(!empty($file_name)) {
+			$file_name = '/' . $file_name;
+		}
+		return get_theme_file_path('blocks/' . $block_name . $file_name);
+
+	}
+
+	protected function set_file_uri(string $block_name, string $file_name): string
+	{
+		return get_theme_file_uri('blocks/' . $block_name . '/' . $file_name);
+
 	}
 }
