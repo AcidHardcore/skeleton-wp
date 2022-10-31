@@ -174,7 +174,8 @@ class Theme {
 			new Customizer\Component(),
 			new Styles\Component(),
 			new Emoji\Component(),
-			new Shortcodes\Component()
+			new Shortcodes\Component(),
+			new Enqueue\Component()
 		);
 
 		if ( defined( 'JETPACK__VERSION' ) ) {
