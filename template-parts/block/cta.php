@@ -11,7 +11,7 @@ if ($link) {
 }
 $classes = $args['classes'] ?? [];
 
-array_unshift($classes, 'as-b');
+array_unshift($classes, 'btn');
 
 if ($link): ?>
 	<a href="<?php echo esc_url($link_url); ?>" class="<?= join(' ', $classes) ?>" target="<?php echo esc_attr($link_target); ?>"><?php echo esc_html($link_title); ?></a>

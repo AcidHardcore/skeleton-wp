@@ -1,9 +1,9 @@
 {
-  "name": "acf/block",
-  "title": "Block",
+  "name": "acf/slider",
+  "title": "Slider",
   "description": "A custom block.",
   "style": [],
-  "script": "block-block",
+  "script": "block-slider",
   "category": "skeleton-wp",
   "icon": "carrot",
   "keywords": [],

@@ -37,7 +37,7 @@
 
 	// Initialize dynamic block preview (editor).
 	if( window.acf ) {
-		window.acf.addAction( 'render_block_preview', initializeBlock );
+		window.acf.addAction( 'render_block_preview/type=slider', initializeBlock );
 	}
 
 })(jQuery);

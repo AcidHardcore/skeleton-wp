@@ -42,22 +42,21 @@ class Component implements Component_Interface {
 //			skeleton_wp()->get_asset_version( get_theme_file_path( '/assets/js/wow.js' ) ),
 //			true
 //		);
-//
-//		wp_register_script(
-//			'skeleton-wp-slick',
-//			get_theme_file_uri( '/assets/js/slick.js' ),
-//			array(),
-//			skeleton_wp()->get_asset_version( get_theme_file_path( '/assets/js/slick.js' ) ),
-//			true
-//		);
 
-//		wp_register_script(
-//			'skeleton-wp-google-api-map',
-//			'https://maps.googleapis.com/maps/api/js?language=en&key=' . $this->googleAPIkey,
-//			array(),
-//			'1.0',
-//			true
-//		);
+		wp_register_style(
+			'skeleton-wp-swiper',
+			get_theme_file_uri( '/assets/css/swiper.css' ),
+			array(),
+			skeleton_wp()->get_asset_version( get_theme_file_path( '/assets/css/swiper.css' ) ),
+		);
+
+		wp_register_script(
+			'skeleton-wp-swiper',
+			get_theme_file_uri( '/assets/js/swiper-bundle.js' ),
+			array(),
+			skeleton_wp()->get_asset_version( get_theme_file_path( '/assets/js/swiper-bundle.js' ) ),
+			true
+		);
 
 	}
 

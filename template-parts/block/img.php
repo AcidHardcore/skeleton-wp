@@ -9,6 +9,7 @@ $is_cover = $args['is_cover'] ?? false;
 $is_contain = $args['is_contain'] ?? false;
 $classes = $args['classes'] ?? [];
 $size = $args['size'] ?? 'full';
+$args = $args['args'] ?? [];
 
 array_unshift($classes,'image-wrap');
 if ( $is_cover ) {
@@ -17,14 +18,14 @@ if ( $is_cover ) {
 if ( $is_contain ) {
 	$classes[] = 'image-wrap--contain';
 }
-$image_args = [];
+$args = [];
 if(!$is_lazy) {
-$image_args = ['loading' => 'eager'];
+$args[] = ['loading' => 'eager'];
 }
 
 
 if ( $image ): ?>
-<div class="<?= join(' ', $classes ) ?>">
-	<?= wp_get_attachment_image($image, $size, false, $image_args) ?>
-</div>
+<figure class="<?= join(' ', $classes ) ?>">
+	<?= wp_get_attachment_image($image, $size, false, $args) ?>
+</figure>
 <?php endif;

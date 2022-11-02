@@ -85,10 +85,13 @@ class Component implements Component_Interface {
 
 					if (file_exists($this->set_file_path($block, 'style.css'))) {
 						$css_version = skeleton_wp()->get_asset_version($this->set_file_path($block, 'style.css'));
+						file_exists($this->set_file_path($block, 'style.asset.php'))
+							? $deps = require_once $this->set_file_path($block, 'style.asset.php')
+							: $deps = array();
 						wp_register_style(
 							'block-' . $block,
 							$this->set_file_uri($block, 'style.css'),
-							null,
+							$deps['dependencies'],
 							$css_version
 						);
 					}
