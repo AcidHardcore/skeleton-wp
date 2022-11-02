@@ -29,10 +29,26 @@ if (!empty($block['align'])) {
 	$class_name .= ' align' . $block['align'];
 }
 
+$allowed_blocks = array( 'core/heading', 'core/paragraph', 'core/image' );
+
+$template = array(
+	array('core/heading', array(
+		'level' => 2,
+		'content' => 'Title Goes Here',
+	)),
+	array( 'core/paragraph', array(
+		'content' => '<strong>Colorway:</strong> <br /><strong>Style Code:</strong>  <br /><strong>Release Date:</strong> <br /><strong>MSRP:</strong> ',
+	) ),
+	array('core/image', array(
+
+	))
+);
+
+?>
 ?>
 
 <div <?php echo $anchor; ?> class="<?php echo esc_attr($class_name); ?>">
-
+	<InnerBlocks template="<?= esc_attr( wp_json_encode( $template ) ) ?>" allowedBlocks="<?= esc_attr( wp_json_encode( $allowed_blocks ) ) ?>" templateLock="insert"/>
 </div>
 
 
