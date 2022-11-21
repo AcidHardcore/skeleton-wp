@@ -126,19 +126,6 @@ class Component implements Component_Interface {
 			'type'     => 'textarea'
 		] );
 
-		$setting = 'above_head';
-
-		$wp_customize->add_setting( $setting, [
-			'default'            => '',
-			'transport'          => 'postMessage'
-		] );
-
-		$wp_customize->add_control( $setting, [
-			'section'  => 'custom_code',
-			'label'    => 'Add a custom code above the head close tag',
-			'type'     => 'textarea'
-		] );
-
 		$setting = 'after_body';
 
 		$wp_customize->add_setting( $setting, [
