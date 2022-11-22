@@ -87,7 +87,7 @@ class Component implements Component_Interface {
 						$css_version = skeleton_wp()->get_asset_version($this->set_file_path($block, 'style.css'));
 						file_exists($this->set_file_path($block, 'style.asset.php'))
 							? $deps = require_once $this->set_file_path($block, 'style.asset.php')
-							: $deps = array();
+							: $deps['dependencies'] = array();
 						wp_register_style(
 							'block-' . $block,
 							$this->set_file_uri($block, 'style.css'),
@@ -100,7 +100,7 @@ class Component implements Component_Interface {
 						$js_version = skeleton_wp()->get_asset_version($this->set_file_path($block, 'script.js'));
 						file_exists($this->set_file_path($block, 'script.asset.php'))
 							? $deps = require_once $this->set_file_path($block, 'script.asset.php')
-							: $deps = array();
+							: $deps['dependencies'] = array();
 
 						wp_register_script(
 							'block-' . $block,
