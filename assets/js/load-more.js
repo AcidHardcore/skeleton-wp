@@ -50,7 +50,7 @@ jQuery(document).ready((function ($) {
 						$mainBox.html(response.posts).animate({opacity: 1}, 300); // insert new posts
 						$pagination.find('ul').html(response.pagination).animate({opacity: 1}, 300);
 
-						$args.paged = $page;
+						// $args.paged = $page;
 
 					} else {
 						console.log('pagination: no AJAX data');
