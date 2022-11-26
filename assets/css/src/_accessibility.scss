@@ -22,12 +22,7 @@ button:focus:not(:focus-visible) {
  * words as they would appear visually.
  */
 .screen-reader-text {
-	clip: rect(1px, 1px, 1px, 1px);
-	position: absolute !important;
-	height: 1px;
-	width: 1px;
-	overflow: hidden;
-	word-wrap: normal !important;
+	@include hide-text
 }
 
 .screen-reader-text:focus {
