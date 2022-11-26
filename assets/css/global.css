@@ -690,6 +690,7 @@ pre code {
   left: 0;
   top: 0;
   right: 0;
+  z-index: 99;
 }
 .main-nav__toggle {
   border: none;
@@ -764,6 +765,10 @@ pre code {
 .logo {
   position: relative;
   z-index: 100;
+  width: -webkit-max-content;
+  width: -moz-max-content;
+  width: max-content;
+  max-width: calc(100% - 30px);
 }
 
 .burger {
