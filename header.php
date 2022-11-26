@@ -22,7 +22,10 @@ namespace Skeleton_WP\Skeleton_WP;
 	<?php
 	if ( ! skeleton_wp()->is_amp() ) {
 		?>
-		<script>document.documentElement.classList.remove('no-js');</script>
+		<script>
+			document.documentElement.classList.remove('no-js');
+			document.documentElement.classList.add('js');
+		</script>
 		<?php
 	}
 	?>

@@ -84,13 +84,13 @@ class Component implements Component_Interface {
 					register_block_type($this->set_file_path($block, 'block.json'));
 
 					if (file_exists($this->set_file_path($block, 'style.css'))) {
-						$css_version = skeleton_wp()->get_asset_version($this->set_file_path($block, 'style.css'));
+						$css_version = skeleton_wp()->get_asset_version($this->set_file_path($block, 'style.min.css'));
 						file_exists($this->set_file_path($block, 'style.asset.php'))
 							? $deps = require_once $this->set_file_path($block, 'style.asset.php')
 							: $deps['dependencies'] = array();
 						wp_register_style(
 							'block-' . $block,
-							$this->set_file_uri($block, 'style.css'),
+							$this->set_file_uri($block, 'style.min.css'),
 							$deps['dependencies'],
 							$css_version
 						);

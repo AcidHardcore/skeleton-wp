@@ -4,15 +4,15 @@
  */
 
 let settings = {
-  scripts: true,
-  libs: true,
-  polyfills: false,
-  styles: true,
-  reload: true
+	scripts: true,
+	libs: true,
+	polyfills: false,
+	styles: true,
+	reload: true
 };
 
 /** BrowserSync Options
-*
+ *
  */
 let browserSyncOptions = {
 	proxy: "skeleton-wp",
@@ -25,37 +25,26 @@ let browserSyncOptions = {
  */
 
 let paths = {
-  php: '**/*.php',
-  scripts: {
-    input: 'assets/js/src/*',
-    watchPath: 'assets/js/src/*.js',
-    polyfills: '.polyfill.js',
-    output: 'assets/js/'
-  },
-  libs: {
-    input: 'assets/js/libs/*',
-    output: 'assets/js/'
-  },
-  styles: {
-    input: 'assets/css/src/**/*.{scss,sass}',
-    output: 'assets/css/'
-  },
-  reload: './dist/'
-};
-
-
-/**
- * Template for banner to add to file headers
- */
-
-let banner = {
-  main:
-    '/*!' +
-    ' <%= pkg.name %> v<%= pkg.version %>' +
-    ' | (c) ' + new Date().getFullYear() + ' <%= pkg.author.name %>' +
-    ' | <%= pkg.license %> License' +
-    ' | <%= pkg.repository.url %>' +
-    ' */\n'
+	php: '**/*.php',
+	scripts: {
+		input: 'assets/js/src/*',
+		watchPath: 'assets/js/src/*.js',
+		polyfills: '.polyfill.js',
+		output: 'assets/js/'
+	},
+	libs: {
+		input: 'assets/js/libs/*',
+		output: 'assets/js/'
+	},
+	styles: {
+		input: 'assets/css/src/**/*.{scss,sass}',
+		output: 'assets/css/'
+	},
+	blockStyles: {
+		input: 'blocks/**/*.{scss,sass}',
+		output: 'blocks/'
+	},
+	reload: './dist/'
 };
 
 
@@ -94,58 +83,56 @@ let browserSync = require('browser-sync');
 
 // Repeated JavaScript tasks
 let jsTasks = lazypipe()
-  .pipe(header, banner.main, {pkg: pkg})
-  .pipe(optimizejs)
-  .pipe(dest, paths.scripts.output)
-  .pipe(rename, {suffix: '.min'})
-  .pipe(uglify)
-  .pipe(optimizejs)
-  .pipe(header, banner.main, {pkg: pkg})
-  .pipe(dest, paths.scripts.output);
+	.pipe(optimizejs)
+	.pipe(dest, paths.scripts.output)
+	.pipe(rename, {suffix: '.min'})
+	.pipe(uglify)
+	.pipe(optimizejs)
+	.pipe(dest, paths.scripts.output);
 
 // Lint, minify, and concatenate scripts
 let buildScripts = function (done) {
 
-  // Make sure this feature is activated before running
-  if (!settings.scripts) return done();
+	// Make sure this feature is activated before running
+	if (!settings.scripts) return done();
 
-  // Run tasks on script files
-  return src(paths.scripts.input)
-    .pipe(flatmap(function (stream, file) {
+	// Run tasks on script files
+	return src(paths.scripts.input)
+		.pipe(flatmap(function (stream, file) {
 
-      // If the file is a directory
-      if (file.isDirectory()) {
+			// If the file is a directory
+			if (file.isDirectory()) {
 
-        // Setup a suffix letiable
-        let suffix = '';
+				// Setup a suffix letiable
+				let suffix = '';
 
-        // If separate polyfill files enabled
-        if (settings.polyfills) {
+				// If separate polyfill files enabled
+				if (settings.polyfills) {
 
-          // Update the suffix
-          suffix = '.polyfills';
+					// Update the suffix
+					suffix = '.polyfills';
 
-          // Grab files that aren't polyfills, concatenate them, and process them
-          src([file.path + '/*.js', '!' + file.path + '/*' + paths.scripts.polyfills])
-            .pipe(concat(file.relative + '.js'))
-            .pipe(jsTasks());
+					// Grab files that aren't polyfills, concatenate them, and process them
+					src([file.path + '/*.js', '!' + file.path + '/*' + paths.scripts.polyfills])
+						.pipe(concat(file.relative + '.js'))
+						.pipe(jsTasks());
 
-        }
+				}
 
-        // Grab all files and concatenate them
-        // If separate polyfills enabled, this will have .polyfills in the filename
-        src(file.path + '/*.js')
-          .pipe(concat(file.relative + suffix + '.js'))
-          .pipe(jsTasks());
+				// Grab all files and concatenate them
+				// If separate polyfills enabled, this will have .polyfills in the filename
+				src(file.path + '/*.js')
+					.pipe(concat(file.relative + suffix + '.js'))
+					.pipe(jsTasks());
 
-        return stream;
+				return stream;
 
-      }
+			}
 
-      // Otherwise, process the file
-      return stream.pipe(jsTasks());
+			// Otherwise, process the file
+			return stream.pipe(jsTasks());
 
-    }));
+		}));
 
 };
 
@@ -153,76 +140,108 @@ let buildScripts = function (done) {
 // Process, lint, and minify Sass files
 let buildStyles = function (done) {
 
-  // Make sure this feature is activated before running
-  if (!settings.styles) return done();
+	// Make sure this feature is activated before running
+	if (!settings.styles) return done();
 
-  // Run tasks on all Sass files
-  return src(paths.styles.input)
-    .pipe(sass({
-      outputStyle: 'expanded',
-      sourceComments: true
-    }))
-    .pipe(postcss([
-      prefix({
-        cascade: true,
-        remove: true
-      }),
-      mqpacker({
-        sort: true
-      }),
-      inlineSVG()
-    ]))
-    .pipe(header(banner.main, {pkg: pkg}))
-    .pipe(dest(paths.styles.output))
-    .pipe(rename({suffix: '.min'}))
-    .pipe(postcss([
-      minify({
-        preset: ["default", { discardComments: { removeAll: true } }],
-      })
-    ]))
-    .pipe(dest(paths.styles.output));
+	// Run tasks on all Sass files
+	return src(paths.styles.input)
+		.pipe(sass({
+			outputStyle: 'expanded',
+			sourceComments: true
+		}))
+		.pipe(postcss([
+			prefix({
+				cascade: true,
+				remove: true
+			}),
+			mqpacker({
+				sort: true
+			}),
+			inlineSVG()
+		]))
+		.pipe(dest(paths.styles.output))
+		.pipe(rename({suffix: '.min'}))
+		.pipe(postcss([
+			minify({
+				preset: ["default", { discardComments: { removeAll: true } }],
+			})
+		]))
+		.pipe(dest(paths.styles.output));
+
+};
+
+// Process, lint, and minify Sass files
+let buildBlockStyles = function (done) {
+
+	// Make sure this feature is activated before running
+	if (!settings.styles) return done();
+
+	// Run tasks on all Sass files
+	return src(paths.blockStyles.input)
+		.pipe(sass({
+			outputStyle: 'expanded',
+			sourceComments: true
+		}))
+		.pipe(postcss([
+			prefix({
+				cascade: true,
+				remove: true
+			}),
+			mqpacker({
+				sort: true
+			}),
+		]))
+		.pipe(dest(paths.blockStyles.output))
+		.pipe(rename({suffix: '.min'}))
+		.pipe(postcss([
+			minify({
+				preset: ["default", { discardComments: { removeAll: true } }],
+			})
+		]))
+		.pipe(dest(paths.blockStyles.output))
 
 };
 
 let copyJSLibs = function (done) {
 
-  // Make sure this feature is activated before running
-  if (!settings.libs) return done();
+	// Make sure this feature is activated before running
+	if (!settings.libs) return done();
 
-  // Copy static files
-  return src(paths.libs.input)
-    .pipe(dest(paths.libs.output));
+	// Copy static files
+	return src(paths.libs.input)
+		.pipe(dest(paths.libs.output));
 
 };
 
 // Watch for changes to the src directory
 let startServer = function (done) {
 
-  // Make sure this feature is activated before running
-  if (!settings.reload) return done();
+	// Make sure this feature is activated before running
+	if (!settings.reload) return done();
 
-  // Initialize BrowserSync
-  browserSync.init(browserSyncOptions);
+	// Initialize BrowserSync
+	browserSync.init(browserSyncOptions);
 
-  // Signal completion
-  done();
+	// Signal completion
+	done();
 
 };
 
 // Reload the browser when files change
 let reloadBrowser = function (done) {
-  if (!settings.reload) return done();
-  browserSync.reload();
-  done();
+	if (!settings.reload) return done();
+	browserSync.reload();
+	done();
 };
 
 // Watch for changes
 let watchSource = function (done) {
-  watch(paths.scripts.watchPath, series(exports.scripts, reloadBrowser));
-  watch(paths.libs.input, series(exports.copyJSLibs, reloadBrowser));
-  watch(paths.styles.input, series(exports.styles, reloadBrowser));
-  watch(paths.php, reloadBrowser);
-  done();
+	watch(paths.scripts.watchPath, series(exports.scripts, reloadBrowser));
+	watch(paths.libs.input, series(exports.copyJSLibs, reloadBrowser));
+	watch(paths.styles.input, series(exports.styles, reloadBrowser));
+	watch(paths.blockStyles.input, series(exports.blockStyles, reloadBrowser));
+	watch(paths.php, reloadBrowser);
+	done();
 };
 
 
@@ -233,19 +252,20 @@ let watchSource = function (done) {
 // Default task
 // gulp
 exports.default = series(
-  parallel(
-    buildScripts,
-    buildStyles,
-    copyJSLibs
-  )
+	parallel(
+		buildScripts,
+		buildStyles,
+		buildBlockStyles,
+		copyJSLibs
+	)
 );
 
 // Watch and reload
 // gulp watch
 exports.watch = series(
-  exports.default,
-  startServer,
-  watchSource
+	exports.default,
+	startServer,
+	watchSource
 );
 
 //Build and link scripts
@@ -253,9 +273,12 @@ exports.scripts = buildScripts;
 
 //Compile styles
 exports.styles = buildStyles;
+//Compile Block styles
+exports.blockStyles = buildBlockStyles;
 
 //Copy Libs
 exports.copyJSLibs = copyJSLibs;
+
 
 
 
