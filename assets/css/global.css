@@ -660,15 +660,11 @@ pre code {
   height: 100%;
 }
 
-.site-footer {
-  -ms-flex-item-align: end;
-      align-self: end;
-}
-
 .site-header {
   padding: 1rem;
   display: grid;
 }
+
 .site-title {
   position: relative;
   z-index: 1;
@@ -679,7 +675,6 @@ pre code {
   font-weight: 700;
   line-height: 1.2;
 }
-
 .site-title a {
   text-decoration: none;
   color: inherit;

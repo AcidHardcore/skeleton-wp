@@ -15,10 +15,10 @@
   }
 
   &__inner {
-    background-color: #fff;
+    background-color: $white;
     margin: 15vh auto;
     padding: 20px;
-    border: 1px solid #888;
+    border: 1px solid $gray-500;
     width: 1300px;
     max-width: 100%;
   }
