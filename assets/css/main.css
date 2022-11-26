@@ -1532,8 +1532,8 @@ input:disabled ~ .field-radio__name-text {
   position: absolute;
   top: 5px;
   left: 0;
-  width: 14px;
-  height: 14px;
+  width: 0.875rem;
+  height: 0.875rem;
   border: 2px solid currentColor;
   border-radius: 50%;
 }
@@ -1551,10 +1551,10 @@ input:disabled ~ .field-radio__name-text:before {
 .field-radio__name-text:after {
   content: "";
   position: absolute;
-  top: 9px;
-  left: 4px;
-  width: 6px;
-  height: 6px;
+  top: 0.5625rem;
+  left: 0.25rem;
+  width: 0.375rem;
+  height: 0.375rem;
   opacity: 0;
   border-radius: 50%;
   background-color: currentColor;

@@ -94,10 +94,10 @@
   &:after {
     content: '';
     position: absolute;
-    top: 7px;
-    right: 16px;
-    width: 14px;
-    height: 14px;
+    top: rem(7);
+    right: 1rem;
+    width: rem(14);
+    height: rem(14);
     border-left: 1px solid $border-color;
     border-bottom: 1px solid $border-color;
     pointer-events: none;

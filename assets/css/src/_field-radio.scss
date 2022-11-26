@@ -66,8 +66,8 @@
       position: absolute;
       top: 5px;
       left: 0;
-      width: 14px;
-      height: 14px;
+      width: rem(14);
+      height: rem(14);
       border: 2px solid currentColor;
       border-radius: 50%;
     }
@@ -84,10 +84,10 @@
     &:after {
       content: '';
       position: absolute;
-      top: 9px;
-      left: 4px;
-      width: 6px;
-      height: 6px;
+      top: rem(9);
+      left: rem(4);
+      width: rem(6);
+      height: rem(6);
       opacity: 0;
       border-radius: 50%;
       background-color: currentColor;
