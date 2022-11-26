@@ -2,10 +2,10 @@
   display: inline-block;
   position: relative;
   z-index: 1;
-  width: 30px;
+  width: rem(30);
   border: none;
   padding: 0;
-  line-height: 30px;
+  line-height: rem(30);
   background: transparent;
   user-select: none;
   cursor: pointer;
@@ -45,8 +45,8 @@
 
   //   $toggler-part-height:     1px;
 
-  //   width: 30px;
-  //   line-height: 30px;
+  //   width: rem(30);
+  //   line-height: rem(30);
 
   //   span {
   //     width: 60%;

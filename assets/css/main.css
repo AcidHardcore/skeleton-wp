@@ -712,8 +712,8 @@ a.btn--disabled {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
-  width: 30px;
-  height: 30px;
+  width: 1.875rem;
+  height: 1.875rem;
   -webkit-user-select: none;
      -moz-user-select: none;
       -ms-user-select: none;
@@ -775,10 +775,10 @@ a.btn--disabled {
   display: inline-block;
   position: relative;
   z-index: 1;
-  width: 30px;
+  width: 1.875rem;
   border: none;
   padding: 0;
-  line-height: 30px;
+  line-height: 1.875rem;
   background: transparent;
   -webkit-user-select: none;
      -moz-user-select: none;
@@ -1646,13 +1646,12 @@ input:checked:disabled ~ .field-radio__name-text:after {
   color: #014c8d;
 }
 .social__text {
-  position: absolute;
-  width: 1px;
+  clip: rect(1px, 1px, 1px, 1px);
+  position: absolute !important;
   height: 1px;
-  margin: -1px;
-  padding: 0;
-  clip: rect(0 0 0 0);
+  width: 1px;
   overflow: hidden;
+  word-wrap: normal !important;
 }
 
 .breadcrumbs {
