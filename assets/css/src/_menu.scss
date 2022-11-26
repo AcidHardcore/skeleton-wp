@@ -35,11 +35,11 @@
 		padding: 0.5rem 1rem 0.5rem 1rem;
 		text-decoration: none;
 		color: $link-color;
-	}
 
-	& a:hover,
-	& a:focus {
-		text-decoration: underline;
+		&:hover,
+		&:focus {
+			text-decoration: underline;
+		}
 	}
 
 	& .current-menu-item > a,
@@ -52,63 +52,71 @@
 		list-style: none;
 		margin: 0;
 		padding: 0;
+
+		& li {
+			@include media-breakpoint-up($menu-desktop-width) {
+				margin: 0 0 0 0.5em;
+			}
+
+			& li:first-child {
+				@include media-breakpoint-up($menu-desktop-width) {
+					margin-left: 0;
+				}
+			}
+
+			& a {
+				@include media-breakpoint-up($menu-desktop-width) {
+					padding: 0.4em 0.5em;
+				}
+			}
+		}
+
 	}
 
-	& ul ul li {
-		padding-left: 1em;
+	& ul ul {
 
-		@include media-breakpoint-up($menu-desktop-width) {
-			padding-left: 0;
-			margin-left: 0;
+		& ul {
+			@include media-breakpoint-up($menu-desktop-width) {
+				top: 0;
+				left: 100%;
+				min-height: 100%;
+			}
+		}
+
+		& li {
+			padding-left: 1em;
+
+			@include media-breakpoint-up($menu-desktop-width) {
+				padding-left: 0;
+				margin-left: 0;
+			}
+
+			& a {
+				@include media-breakpoint-up($menu-desktop-width) {
+					width: rem(218);
+					background: none;
+				}
+			}
+		}
+
+		& a {
+			@include media-breakpoint-up($menu-desktop-width) {
+				width: rem(200);
+			}
 		}
 	}
-
-	& ul li a {
-		@include media-breakpoint-up($menu-desktop-width) {
-			padding: 0.4em 0.5em;
-		}
-	}
-
-	& ul li {
-		@include media-breakpoint-up($menu-desktop-width) {
-			margin: 0 0 0 0.5em;
-		}
-	}
-
-	& ul li:first-child {
-		@include media-breakpoint-up($menu-desktop-width) {
-			margin-left: 0;
-		}
-	}
-
-	& ul ul a {
-		@include media-breakpoint-up($menu-desktop-width) {
-			width: rem(200);
-		}
-	}
-
-
-	& ul ul li a {
-		@include media-breakpoint-up($menu-desktop-width) {
-			width: rem(218);
-			background: none;
-		}
-	}
-
-	& ul ul ul {
-		@include media-breakpoint-up($menu-desktop-width) {
-			top: 0;
-			left: 100%;
-			min-height: 100%;
-		}
-	}
-
 }
 
 .main-nav--toggle-small {
 	& .menu {
 		display: none;
 		background-color: $white;
+
+		@include media-breakpoint-up($menu-desktop-width) {
+			display: flex;
+			flex-wrap: wrap;
+			justify-content: center;
+		}
 	}
 
 	& .dropdown,
@@ -124,34 +132,12 @@
 
 	& .main-nav__toggle {
 		@include media-breakpoint-up($menu-desktop-width) {
-		display: none;
+			display: none;
 		}
 	}
-
-	& .menu {
-		@include media-breakpoint-up($menu-desktop-width) {
-			display: flex;
-			flex-wrap: wrap;
-			justify-content: center;
-		}
-	}
-
 }
 
 .main-nav--toggle-sub {
-	& ul ul {
-		@include media-breakpoint-up($menu-desktop-width) {
-			display: none;
-			position: absolute;
-			top: 100%;
-			flex-direction: column;
-			background: #ffffff;
-			margin-left: 0;
-			box-shadow: 0 3px 3px rgba(0, 0, 0, 0.2);
-			z-index: 100;
-		}
-	}
-
 	& .dropdown-toggle {
 		@include media-breakpoint-up($menu-desktop-width) {
 			display: block;
@@ -184,20 +170,7 @@
 			border: solid $black;
 			border-width: 0 2px 2px 0;
 			transform: translateY(-50%) rotate(45deg);
-		}
-	}
-
-	& ul ul .dropdown,
-	& ul ul .dropdown-toggle {
-		@include media-breakpoint-up($menu-desktop-width) {
-			top: 40%;
-			right: 0.2em;
-		}
-	}
-
-	& ul ul .dropdown-symbol {
-		@include media-breakpoint-up($menu-desktop-width) {
-			transform: rotate(-45deg);
+			transition: transform $transition-time;
 		}
 	}
 
@@ -229,6 +202,12 @@
 		}
 	}
 
+	& .menu > li:hover {
+		& > .dropdown-toggle .dropdown-symbol {
+			transform: rotate(225deg);
+		}
+	}
+
 	/*
 	 * "focus-within" is an alternative to focus class for
 	 * supporting browsers (all but IE/Edge) for no-JS context
@@ -240,6 +219,33 @@
 	& li:not(.menu-item--has-toggle):focus-within > ul {
 		@include media-breakpoint-up($menu-desktop-width) {
 			display: block;
+		}
+	}
+
+	& ul ul {
+		@include media-breakpoint-up($menu-desktop-width) {
+			display: none;
+			position: absolute;
+			top: 100%;
+			flex-direction: column;
+			background: #ffffff;
+			margin-left: 0;
+			box-shadow: 0 3px 3px rgba(0, 0, 0, 0.2);
+			z-index: 100;
+		}
+
+		& .dropdown,
+		& .dropdown-toggle {
+			@include media-breakpoint-up($menu-desktop-width) {
+				top: 40%;
+				right: 0.2em;
+			}
+		}
+
+		& .dropdown-symbol {
+			@include media-breakpoint-up($menu-desktop-width) {
+				transform: rotate(-45deg);
+			}
 		}
 	}
 }

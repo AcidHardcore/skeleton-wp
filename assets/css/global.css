@@ -763,6 +763,10 @@ pre code {
    * will not be displayed with IE/Edge.
    */
 }
+.main-nav--toggle-sub .menu > li:hover > .dropdown-toggle .dropdown-symbol {
+  -webkit-transform: rotate(225deg);
+          transform: rotate(225deg);
+}
 
 .logo {
   position: relative;
@@ -1004,33 +1008,30 @@ a.btn--disabled {
     -ms-flex-line-pack: center;
         align-content: center;
   }
-  .main-nav ul ul li {
-    padding-left: 0;
+  .main-nav ul li {
+    margin: 0 0 0 0.5em;
+  }
+  .main-nav ul li li:first-child {
     margin-left: 0;
   }
   .main-nav ul li a {
     padding: 0.4em 0.5em;
-  }
-  .main-nav ul li {
-    margin: 0 0 0 0.5em;
-  }
-  .main-nav ul li:first-child {
-    margin-left: 0;
-  }
-  .main-nav ul ul a {
-    width: 12.5rem;
-  }
-  .main-nav ul ul li a {
-    width: 13.625rem;
-    background: none;
   }
   .main-nav ul ul ul {
     top: 0;
     left: 100%;
     min-height: 100%;
   }
-  .main-nav--toggle-small .main-nav__toggle {
-    display: none;
+  .main-nav ul ul li {
+    padding-left: 0;
+    margin-left: 0;
+  }
+  .main-nav ul ul li a {
+    width: 13.625rem;
+    background: none;
+  }
+  .main-nav ul ul a {
+    width: 12.5rem;
   }
   .main-nav--toggle-small .menu {
     display: -webkit-box;
@@ -1042,19 +1043,8 @@ a.btn--disabled {
         -ms-flex-pack: center;
             justify-content: center;
   }
-  .main-nav--toggle-sub ul ul {
+  .main-nav--toggle-small .main-nav__toggle {
     display: none;
-    position: absolute;
-    top: 100%;
-    -webkit-box-orient: vertical;
-    -webkit-box-direction: normal;
-        -ms-flex-direction: column;
-            flex-direction: column;
-    background: #ffffff;
-    margin-left: 0;
-    -webkit-box-shadow: 0 3px 3px rgba(0, 0, 0, 0.2);
-            box-shadow: 0 3px 3px rgba(0, 0, 0, 0.2);
-    z-index: 100;
   }
   .main-nav--toggle-sub .dropdown-toggle {
     display: block;
@@ -1086,14 +1076,10 @@ a.btn--disabled {
     border-width: 0 2px 2px 0;
     -webkit-transform: translateY(-50%) rotate(45deg);
             transform: translateY(-50%) rotate(45deg);
-  }
-  .main-nav--toggle-sub ul ul .dropdown, .main-nav--toggle-sub ul ul .dropdown-toggle {
-    top: 40%;
-    right: 0.2em;
-  }
-  .main-nav--toggle-sub ul ul .dropdown-symbol {
-    -webkit-transform: rotate(-45deg);
-            transform: rotate(-45deg);
+    -webkit-transition: -webkit-transform 0.3s;
+    transition: -webkit-transform 0.3s;
+    transition: transform 0.3s;
+    transition: transform 0.3s, -webkit-transform 0.3s;
   }
   .main-nav--toggle-sub li.menu-item-has-children, .main-nav--toggle-sub li.menu-item--has-toggle {
     position: relative;
@@ -1104,6 +1090,28 @@ a.btn--disabled {
   }
   .main-nav--toggle-sub li:not(.menu-item--has-toggle):focus-within > ul {
     display: block;
+  }
+  .main-nav--toggle-sub ul ul {
+    display: none;
+    position: absolute;
+    top: 100%;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+    background: #ffffff;
+    margin-left: 0;
+    -webkit-box-shadow: 0 3px 3px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 3px 3px rgba(0, 0, 0, 0.2);
+    z-index: 100;
+  }
+  .main-nav--toggle-sub ul ul .dropdown, .main-nav--toggle-sub ul ul .dropdown-toggle {
+    top: 40%;
+    right: 0.2em;
+  }
+  .main-nav--toggle-sub ul ul .dropdown-symbol {
+    -webkit-transform: rotate(-45deg);
+            transform: rotate(-45deg);
   }
   .container {
     width: 100%;
