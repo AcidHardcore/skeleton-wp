@@ -59,6 +59,10 @@ class Component implements Component_Interface, Templating_Component_Interface {
 		remove_filter('render_block', 'wp_render_duotone_support');
 		remove_filter('render_block', 'wp_restore_group_inner_container');
 		remove_filter('render_block', 'wp_render_layout_support_flag');
+
+		//excerpt
+		add_filter('excerpt_length', array($this, 'excerpt_length'));
+		add_filter( 'excerpt_more', array($this,'custom_excerpt_more') );
 	}
 
 	/**
@@ -212,5 +216,28 @@ class Component implements Component_Interface, Templating_Component_Interface {
 		}
 
 		return $this->get_version();
+	}
+
+	/**
+	 * Change post excerp length
+	 * @param integer $length The excerpt length.
+	 *
+	 * @return integer
+	 */
+	public function excerpt_length($length)
+	{
+		return 35;
+	}
+
+	/**
+	 * @param string $more The excerpt.
+	 * @return string
+	 */
+	public function custom_excerpt_more($more)
+	{
+		if (!is_admin()) {
+			$more = '...';
+		}
+		return $more;
 	}
 }
