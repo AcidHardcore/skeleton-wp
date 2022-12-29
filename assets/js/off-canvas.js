@@ -1,7 +1,6 @@
-/*! skeleton_WP v3.0.0 | (c) 2022  |  License | https://github.com/AcidHardcore/skeleton_WP */
 (function(){
 "use strict";
-  document.addEventListener('click', (function(event) {
+  document.addEventListener('click', function(event) {
     if(event.target.dataset.toggle === 'off-canvas') {
       event.preventDefault();
       offCanvasToggle();
@@ -10,7 +9,7 @@
     if(event.target.dataset.toggleNative === 'off-canvas') {
       offCanvasToggle();
     }
-  }));
+  });
 
   function offCanvasToggle() {
     document.getElementById('off-canvas').classList.toggle('off-canvas--open');

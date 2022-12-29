@@ -1,4 +1,3 @@
-/*! skeleton_WP v3.0.0 | (c) 2022  |  License | https://github.com/AcidHardcore/skeleton_WP */
 /**
  * File customizer.js.
  *
@@ -8,22 +7,22 @@
  */
 "use strict";
 
-( (function( $ ) {
+( function( $ ) {
 	// Site title and description.
-	wp.customize( 'blogname', (function( value ) {
-		value.bind( (function( to ) {
+	wp.customize( 'blogname', function( value ) {
+		value.bind( function( to ) {
 			$( '.site-title a' ).text( to );
-		}) );
-	}) );
-	wp.customize( 'blogdescription', (function( value ) {
-		value.bind( (function( to ) {
+		} );
+	} );
+	wp.customize( 'blogdescription', function( value ) {
+		value.bind( function( to ) {
 			$( '.site-description' ).text( to );
-		}) );
-	}) );
+		} );
+	} );
 
 	// Header text color.
-	wp.customize( 'header_textcolor', (function( value ) {
-		value.bind( (function( to ) {
+	wp.customize( 'header_textcolor', function( value ) {
+		value.bind( function( to ) {
 			if ( 'blank' === to ) {
 				$( '.site-title, .site-description' ).css( {
 					clip: 'rect(1px, 1px, 1px, 1px)',
@@ -38,6 +37,6 @@
 					color: to,
 				} );
 			}
-		}) );
-	}) );
-})( jQuery ) );
+		} );
+	} );
+}( jQuery ) );

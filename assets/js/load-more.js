@@ -1,4 +1,3 @@
-/*! skeleton_WP v3.0.0 | (c) 2022  |  License | https://github.com/AcidHardcore/skeleton_WP */
 jQuery(document).ready((function ($) {
 	"use strict";
 	/**
@@ -84,7 +83,7 @@ jQuery(document).ready((function ($) {
 		/*
 		 * Load More
 		 */
-		$loadMore.on('click', (function (e) {
+		$loadMore.on('click', function (e) {
 			e.preventDefault();
 
 			$.ajax({
@@ -117,6 +116,6 @@ jQuery(document).ready((function ($) {
 				}
 			});
 			return false;
-		}));
+		});
 	}
 }));

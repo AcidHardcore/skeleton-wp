@@ -29,7 +29,6 @@ let paths = {
 	scripts: {
 		input: 'assets/js/src/*',
 		watchPath: 'assets/js/src/*.js',
-		polyfills: '.polyfill.js',
 		output: 'assets/js/'
 	},
 	libs: {
@@ -44,7 +43,11 @@ let paths = {
 		input: 'blocks/**/*.{scss,sass}',
 		output: 'blocks/'
 	},
-	reload: './dist/'
+	blockScripts: {
+		input: 'blocks/**/*.js',
+		watchPath: 'blocks/**/*.js',
+		output: 'blocks/'
+	},
 };
 
 
@@ -57,13 +60,11 @@ let {gulp, src, dest, watch, series, parallel} = require('gulp');
 let flatmap = require('gulp-flatmap');
 let lazypipe = require('lazypipe');
 let rename = require('gulp-rename');
-let header = require('gulp-header');
-let pkg = require('./package.json');
 
 // Scripts
 let concat = require('gulp-concat');
 let uglify = require('gulp-terser');
-let optimizejs = require('gulp-optimize-js');
+// let optimizejs = require('gulp-optimize-js');
 
 // Styles
 const sass = require('gulp-sass')(require('sass'));
@@ -71,7 +72,6 @@ let postcss = require('gulp-postcss');
 let prefix = require('autoprefixer');
 let minify = require('cssnano');
 let mqpacker = require("css-mqpacker");
-let inlineSVG = require('postcss-inline-svg');
 
 // BrowserSync
 let browserSync = require('browser-sync');
@@ -83,11 +83,11 @@ let browserSync = require('browser-sync');
 
 // Repeated JavaScript tasks
 let jsTasks = lazypipe()
-	.pipe(optimizejs)
+	// .pipe(optimizejs)
 	.pipe(dest, paths.scripts.output)
 	.pipe(rename, {suffix: '.min'})
 	.pipe(uglify)
-	.pipe(optimizejs)
+	// .pipe(optimizejs)
 	.pipe(dest, paths.scripts.output);
 
 // Lint, minify, and concatenate scripts
@@ -102,31 +102,12 @@ let buildScripts = function (done) {
 
 			// If the file is a directory
 			if (file.isDirectory()) {
-
-				// Setup a suffix letiable
-				let suffix = '';
-
-				// If separate polyfill files enabled
-				if (settings.polyfills) {
-
-					// Update the suffix
-					suffix = '.polyfills';
-
-					// Grab files that aren't polyfills, concatenate them, and process them
-					src([file.path + '/*.js', '!' + file.path + '/*' + paths.scripts.polyfills])
-						.pipe(concat(file.relative + '.js'))
-						.pipe(jsTasks());
-
-				}
-
 				// Grab all files and concatenate them
-				// If separate polyfills enabled, this will have .polyfills in the filename
 				src(file.path + '/*.js')
 					.pipe(concat(file.relative + suffix + '.js'))
 					.pipe(jsTasks());
 
 				return stream;
-
 			}
 
 			// Otherwise, process the file
@@ -134,6 +115,38 @@ let buildScripts = function (done) {
 
 		}));
 
+};
+
+let jsBlockTasks = lazypipe()
+	// .pipe(optimizejs)
+	.pipe(dest, paths.blockScripts.output)
+	.pipe(rename, {suffix: '.min'})
+	.pipe(uglify)
+	// .pipe(optimizejs)
+	.pipe(dest, paths.blockScripts.output);
+
+let buildBlockScripts = function (done) {
+
+	// Make sure this feature is activated before running
+	if (!settings.scripts) return done();
+
+	// Run tasks on script files
+	return src(paths.blockScripts.input)
+		.pipe(flatmap(function (stream, file) {
+
+			// If the file is a directory
+			if (file.isDirectory()) {
+
+				src(file.path + '/*.js')
+					.pipe(jsBlockTasks());
+
+				return stream;
+			}
+
+			// Otherwise, process the file
+			return stream.pipe(jsBlockTasks());
+
+		}));
 };
 
 
@@ -157,7 +170,6 @@ let buildStyles = function (done) {
 			mqpacker({
 				sort: true
 			}),
-			inlineSVG()
 		]))
 		.pipe(dest(paths.styles.output))
 		.pipe(rename({suffix: '.min'}))
@@ -237,6 +249,7 @@ let reloadBrowser = function (done) {
 // Watch for changes
 let watchSource = function (done) {
 	watch(paths.scripts.watchPath, series(exports.scripts, reloadBrowser));
+	watch(paths.blockScripts.watchPath, series(exports.blockScripts, reloadBrowser));
 	watch(paths.libs.input, series(exports.copyJSLibs, reloadBrowser));
 	watch(paths.styles.input, series(exports.styles, reloadBrowser));
 	watch(paths.blockStyles.input, series(exports.blockStyles, reloadBrowser));
@@ -256,6 +269,7 @@ exports.default = series(
 		buildScripts,
 		buildStyles,
 		buildBlockStyles,
+		buildScripts,
 		copyJSLibs
 	)
 );
@@ -270,6 +284,8 @@ exports.watch = series(
 
 //Build and link scripts
 exports.scripts = buildScripts;
+//Build and link block scripts
+exports.blockScripts = buildBlockScripts;
 
 //Compile styles
 exports.styles = buildStyles;

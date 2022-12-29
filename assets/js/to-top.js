@@ -1,9 +1,8 @@
-/*! skeleton_WP v3.0.0 | (c) 2022  |  License | https://github.com/AcidHardcore/skeleton_WP */
 (function(){
 
   if(document.getElementById('to-top')) {
 
-    document.getElementById('to-top').addEventListener('click', (function(e) {
+    document.getElementById('to-top').addEventListener('click', function(e) {
       e.preventDefault();
       var scroll = window.pageYOffset;
       var targetTop = 0;
@@ -18,7 +17,7 @@
           window.scrollTo(0,scrollNow);
         }
       });
-    }), false);
+    }, false);
 
     window.addEventListener('scroll', visibilityToggle);
     visibilityToggle();
@@ -39,7 +38,7 @@
         draw = _ref.draw,
         duration = _ref.duration;
     var start = performance.now();
-    requestAnimationFrame((function animate(time) {
+    requestAnimationFrame(function animate(time) {
       var timeFraction = (time - start) / duration;
       if (timeFraction > 1) timeFraction = 1;
       var progress = timing(timeFraction);
@@ -47,7 +46,7 @@
       if (timeFraction < 1) {
         requestAnimationFrame(animate);
       }
-    }));
+    });
   }
 
 })();

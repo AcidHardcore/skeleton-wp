@@ -1,9 +1,8 @@
-/*! skeleton_WP v3.0.0 | (c) 2022  |  License | https://github.com/AcidHardcore/skeleton_WP */
 (function(){
 
   var links = document.querySelectorAll('[href^="#"][data-scroll-link]');
   for (var i = 0; i < links.length; i++) {
-    links[i].addEventListener('click', (function(e) {
+    links[i].addEventListener('click', function(e) {
       var hash = this.href.replace(/[^#]*(.*)/, '$1');
       if(hash && hash !== '#') {
         e.preventDefault();
@@ -21,7 +20,7 @@
           }
         });
       }
-    }), false);
+    }, false);
   }
 
   function animate(_ref) {
@@ -29,7 +28,7 @@
         draw = _ref.draw,
         duration = _ref.duration;
     var start = performance.now();
-    requestAnimationFrame((function animate(time) {
+    requestAnimationFrame(function animate(time) {
       var timeFraction = (time - start) / duration;
       if (timeFraction > 1) timeFraction = 1;
       var progress = timing(timeFraction);
@@ -37,7 +36,7 @@
       if (timeFraction < 1) {
         requestAnimationFrame(animate);
       }
-    }));
+    });
   }
 
   function getOffsetRect(elem) {

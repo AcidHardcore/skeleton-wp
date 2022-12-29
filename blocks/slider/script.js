@@ -29,11 +29,11 @@
 	};
 
 	// Initialize each block on page load (front end).
-	$(document).ready(function(){
-		$('.block-slider').each(function(){
+	$(document).ready((function(){
+		$('.block-slider').each((function(){
 			initializeBlock( $(this) );
-		});
-	});
+		}));
+	}));
 
 	// Initialize dynamic block preview (editor).
 	if( window.acf ) {

@@ -1,13 +1,12 @@
-/*! skeleton_WP v3.0.0 | (c) 2022  |  License | https://github.com/AcidHardcore/skeleton_WP */
 
-document.addEventListener('DOMContentLoaded', (function(){
+document.addEventListener('DOMContentLoaded', function(){
 
   if(location.hash) {
     showTab(location.hash);
   }
 
   // track for the next clicks
-  document.addEventListener('click', (function(event) {
+  document.addEventListener('click', function(event) {
     if(event.target.dataset.toggle === 'tab') {
       event.preventDefault();
       var target = event.target.hash === undefined ? event.target.dataset.target : event.target.hash;
@@ -23,7 +22,7 @@ document.addEventListener('DOMContentLoaded', (function(){
         }
       }
     }
-  }));
+  });
 
   /**
    * Show tab
@@ -36,15 +35,15 @@ document.addEventListener('DOMContentLoaded', (function(){
       var activeTabClassName = 'tabs__link-wrap--active';
       var activeTabContentClassName = 'tabs__content-item--active';
       // tab
-      tabsParent.querySelectorAll('.'+activeTabClassName).forEach((function(item){
+      tabsParent.querySelectorAll('.'+activeTabClassName).forEach(function(item){
         item.classList.remove(activeTabClassName);
-      }));
+      });
       var activeTab = tabsParent.querySelector('[href="'+tabId+'"]') ? tabsParent.querySelector('[href="'+tabId+'"]') : tabsParent.querySelector('[data-target="'+tabId+'"]');
       activeTab.closest('.tabs__link-wrap').classList.add(activeTabClassName);
       // tab content
-      tabsParent.querySelectorAll('.'+activeTabContentClassName).forEach((function(item){
+      tabsParent.querySelectorAll('.'+activeTabContentClassName).forEach(function(item){
         item.classList.remove(activeTabContentClassName);
-      }));
+      });
       tabsParent.querySelector(tabId).classList.add(activeTabContentClassName);
     }
   }
@@ -65,4 +64,4 @@ document.addEventListener('DOMContentLoaded', (function(){
     };
   })(Element.prototype);
 
-}));
+});

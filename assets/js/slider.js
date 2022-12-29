@@ -1,4 +1,3 @@
-/*! skeleton_WP v3.0.0 | (c) 2022  |  License | https://github.com/AcidHardcore/skeleton_WP */
 (function($){
 	"use strict";
 	/**
@@ -30,11 +29,11 @@
 	};
 
 	// Initialize each block on page load (front end).
-	$(document).ready((function(){
-		$('.block-slider').each((function(){
+	$(document).ready(function(){
+		$('.block-slider').each(function(){
 			initializeBlock( $(this) );
-		}));
-	}));
+		});
+	});
 
 	// Initialize dynamic block preview (editor).
 	if( window.acf ) {

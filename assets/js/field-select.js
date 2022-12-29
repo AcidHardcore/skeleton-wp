@@ -1,4 +1,3 @@
-/*! skeleton_WP v3.0.0 | (c) 2022  |  License | https://github.com/AcidHardcore/skeleton_WP */
 /* global document */
 (function(){
 
@@ -30,11 +29,11 @@
 
   // or find all Choices
   const selects = document.querySelectorAll('.field-select__select');
-  selects.forEach((function(item){
+  selects.forEach(function(item){
     new Choices(item, {
       searchEnabled: false,
       placeholderValue: 'Choice',
     });
-  }));
+  });
 
 }());
