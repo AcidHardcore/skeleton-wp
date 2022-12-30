@@ -6,7 +6,6 @@
 let settings = {
 	scripts: true,
 	libs: true,
-	polyfills: false,
 	styles: true,
 	reload: true
 };
@@ -44,7 +43,7 @@ let paths = {
 		output: 'blocks/'
 	},
 	blockScripts: {
-		input: 'blocks/**/*.js',
+		input: 'blocks/**/script.js',
 		watchPath: 'blocks/**/*.js',
 		output: 'blocks/'
 	},
@@ -64,7 +63,6 @@ let rename = require('gulp-rename');
 // Scripts
 let concat = require('gulp-concat');
 let uglify = require('gulp-terser');
-// let optimizejs = require('gulp-optimize-js');
 
 // Styles
 const sass = require('gulp-sass')(require('sass'));
@@ -118,11 +116,9 @@ let buildScripts = function (done) {
 };
 
 let jsBlockTasks = lazypipe()
-	// .pipe(optimizejs)
 	.pipe(dest, paths.blockScripts.output)
 	.pipe(rename, {suffix: '.min'})
 	.pipe(uglify)
-	// .pipe(optimizejs)
 	.pipe(dest, paths.blockScripts.output);
 
 let buildBlockScripts = function (done) {
@@ -133,19 +129,7 @@ let buildBlockScripts = function (done) {
 	// Run tasks on script files
 	return src(paths.blockScripts.input)
 		.pipe(flatmap(function (stream, file) {
-
-			// If the file is a directory
-			if (file.isDirectory()) {
-
-				src(file.path + '/*.js')
-					.pipe(jsBlockTasks());
-
-				return stream;
-			}
-
-			// Otherwise, process the file
 			return stream.pipe(jsBlockTasks());
-
 		}));
 };
 
