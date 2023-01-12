@@ -188,29 +188,31 @@ class Component implements Component_Interface, Templating_Component_Interface {
 		return $items;
 	}
 
+	function populate_children($menu_array, $menu_item)
+	{
+		$children = array();
+		if (!empty($menu_array)){
+			foreach ($menu_array as $k=>$m) {
+				if ($m->menu_item_parent == $menu_item->ID) {
+					$children[$m->ID] = array();
+					$children[$m->ID]['ID'] = $m->ID;
+					$children[$m->ID]['title'] = $m->title;
+					$children[$m->ID]['url'] = $m->url;
+					unset($menu_array[$k]);
+					$children[$m->ID]['children'] = $this->populate_children($menu_array, $m);
+				}
+			}
+		};
+		return $children;
+	}
+
 	public function wp_get_menu_array($current_menu='primary') {
 
 		$menu_array = wp_get_nav_menu_items($current_menu);
 
 		$menu = array();
 
-		function populate_children($menu_array, $menu_item)
-		{
-			$children = array();
-			if (!empty($menu_array)){
-				foreach ($menu_array as $k=>$m) {
-					if ($m->menu_item_parent == $menu_item->ID) {
-						$children[$m->ID] = array();
-						$children[$m->ID]['ID'] = $m->ID;
-						$children[$m->ID]['title'] = $m->title;
-						$children[$m->ID]['url'] = $m->url;
-						unset($menu_array[$k]);
-						$children[$m->ID]['children'] = populate_children($menu_array, $m);
-					}
-				}
-			};
-			return $children;
-		}
+
 
 		foreach ($menu_array as $m) {
 			if (empty($m->menu_item_parent)) {
@@ -218,7 +220,7 @@ class Component implements Component_Interface, Templating_Component_Interface {
 				$menu[$m->ID]['ID'] = $m->ID;
 				$menu[$m->ID]['title'] = $m->title;
 				$menu[$m->ID]['url'] = $m->url;
-				$menu[$m->ID]['children'] = populate_children($menu_array, $m);
+				$menu[$m->ID]['children'] = $this->populate_children($menu_array, $m);
 			}
 		}
 
