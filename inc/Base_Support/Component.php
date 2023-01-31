@@ -19,6 +19,7 @@ use function get_bloginfo;
 use function wp_scripts;
 use function wp_get_theme;
 use function get_template;
+use SimpleXMLElement;
 
 /**
  * Class for adding basic theme support, most of which is mandatory to be implemented by all themes.
@@ -49,6 +50,10 @@ class Component implements Component_Interface, Templating_Component_Interface {
 		add_filter( 'theme_scandir_exclusions', array( $this, 'filter_scandir_exclusions_for_optional_templates' ) );
 		add_filter( 'script_loader_tag', array( $this, 'filter_script_loader_tag' ), 10, 2 );
 
+		//SVG Support
+		add_filter('upload_mimes', array( $this, 'cc_mime_types'));
+		add_filter('wp_prepare_attachment_for_js', array( $this, 'common_svg_media_thumbnails'), 10, 3);
+
 		// Remove SVG Dutones
 		remove_action( 'wp_body_open', 'wp_global_styles_render_svg_filters' );
 
@@ -76,6 +81,7 @@ class Component implements Component_Interface, Templating_Component_Interface {
 		return array(
 			'get_version'       => array( $this, 'get_version' ),
 			'get_asset_version' => array( $this, 'get_asset_version' ),
+			'inline_svg' => array( $this, 'inline_svg' ),
 		);
 	}
 
@@ -240,4 +246,54 @@ class Component implements Component_Interface, Templating_Component_Interface {
 		}
 		return $more;
 	}
+
+	public function inline_svg ( $id) {
+		static $i = 0;
+		$i ++;
+		$path = wp_get_original_image_path($id);
+		$svg = file_get_contents ( $path );
+		$svg = preg_replace ( '#^.*<svg#si', '<svg', $svg );
+		if ( preg_match_all ( '#id="([^"]+)"#si', $svg, $m )) {
+			foreach ( $m[1] as $id ) {
+				$id_new = $id.'--'.$i;
+				$svg = str_replace ($id, $id_new, $svg);
+			}
+		}
+		$svg = '<!-- inline SVG '.$path.' -->'.PHP_EOL.$svg;
+		return $svg;
+	}
+
+	public function cc_mime_types($mimes) {
+		$mimes['svg'] = 'image/svg+xml';
+		return $mimes;
+	}
+
+	public function common_svg_media_thumbnails($response, $attachment, $meta){
+		if($response['type'] === 'image' && $response['subtype'] === 'svg+xml' && class_exists('SimpleXMLElement'))
+		{
+			try {
+				$path = get_attached_file($attachment->ID);
+				if(@file_exists($path))
+				{
+					$svg = new SimpleXMLElement(@file_get_contents($path));
+					$src = $response['url'];
+					$width = (int) $svg['width'];
+					$height = (int) $svg['height'];
+					//media gallery
+					$response['image'] = compact( 'src', 'width', 'height' );
+					$response['thumb'] = compact( 'src', 'width', 'height' );
+					//media single
+					$response['sizes']['full'] = array(
+						'height'        => $height,
+						'width'         => $width,
+						'url'           => $src,
+						'orientation'   => $height > $width ? 'portrait' : 'landscape',
+					);
+				}
+			}
+			catch(Exception $e){}
+		}
+		return $response;
+	}
+
 }
