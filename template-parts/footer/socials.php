@@ -22,7 +22,7 @@ $socials = get_field('socials', 'option');
 					<span class="social__text"><?= esc_html($title) ?></span>
 				<?php endif; ?>
 				<?php if (isset($social['link'])) : ?>
-					<a class="social__link" href="<?= esc_url($social['link']) ?>">
+					<a class="social__link" href="<?= esc_url($social['link']) ?>" target="_blank" rel="noopener">
 						<?php if (isset($social['image'])) : ?>
 							<?php echo $image_source ?>
 						<?php endif; ?>
