@@ -32,7 +32,7 @@ $class_name .= ' align' . $block['align'];
 $slides = get_field('slides');
 ?>
 
-<section <?= esc_attr($anchor) ?> class="<?= esc_attr($class_name); ?>">
+<section <?= $anchor ?> class="<?= esc_attr($class_name); ?>">
 
 	<div class="block__content">
 
