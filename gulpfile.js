@@ -66,6 +66,7 @@ let uglify = require('gulp-terser');
 
 // Styles
 const sass = require('gulp-sass')(require('sass'));
+const sourcemaps = require('gulp-sourcemaps');
 let postcss = require('gulp-postcss');
 let prefix = require('autoprefixer');
 let minify = require('cssnano');
@@ -142,6 +143,7 @@ let buildStyles = function (done) {
 
 	// Run tasks on all Sass files
 	return src(paths.styles.input)
+		.pipe(sourcemaps.init())
 		.pipe(sass({
 			outputStyle: 'expanded',
 			sourceComments: true
@@ -155,6 +157,7 @@ let buildStyles = function (done) {
 				sort: true
 			}),
 		]))
+		.pipe(sourcemaps.write({includeContent: false}))
 		.pipe(dest(paths.styles.output))
 		.pipe(rename({suffix: '.min'}))
 		.pipe(postcss([
@@ -174,6 +177,7 @@ let buildBlockStyles = function (done) {
 
 	// Run tasks on all Sass files
 	return src(paths.blockStyles.input)
+		.pipe(sourcemaps.init())
 		.pipe(sass({
 			outputStyle: 'expanded',
 			sourceComments: true
@@ -187,6 +191,7 @@ let buildBlockStyles = function (done) {
 				sort: true
 			}),
 		]))
+		.pipe(sourcemaps.write({includeContent: false}))
 		.pipe(dest(paths.blockStyles.output))
 		.pipe(rename({suffix: '.min'}))
 		.pipe(postcss([
