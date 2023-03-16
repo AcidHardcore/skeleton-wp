@@ -191,7 +191,6 @@ let buildBlockStyles = function (done) {
 				sort: true
 			}),
 		]))
-		.pipe(sourcemaps.write({includeContent: false}))
 		.pipe(dest(paths.blockStyles.output))
 		.pipe(rename({suffix: '.min'}))
 		.pipe(postcss([
@@ -199,6 +198,7 @@ let buildBlockStyles = function (done) {
 				preset: ["default", { discardComments: { removeAll: true } }],
 			})
 		]))
+		.pipe(sourcemaps.write({includeContent: false}))
 		.pipe(dest(paths.blockStyles.output))
 
 };
