@@ -258,7 +258,7 @@ exports.default = series(
 		buildScripts,
 		buildStyles,
 		buildBlockStyles,
-		buildScripts,
+		buildBlockScripts,
 		copyJSLibs
 	)
 );
