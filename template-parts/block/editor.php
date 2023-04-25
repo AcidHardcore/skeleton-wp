@@ -1,6 +1,7 @@
 <?php /**
  * @var array $args
  */
+namespace Skeleton_WP\Skeleton_WP;
 
 $html = $args['html'] ?? '';
 $classes = $args['classes'] ?? [];

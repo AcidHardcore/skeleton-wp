@@ -1,6 +1,8 @@
-<?php /**
+<?php
+/**
  * @var array $args
  */
+namespace Skeleton_WP\Skeleton_WP;
 
 $ctas    = $args['ctas'] ?? [];
 $classes = $args['classes'] ?? [];

@@ -1,6 +1,9 @@
-<?php /**
+<?php
+/**
  * @var array $args
  */
+
+namespace Skeleton_WP\Skeleton_WP;
 
 $text_align = $args['text_align'] ?? '';
 $title_pre = $args['title_pre'] ?? '';

@@ -1,4 +1,7 @@
 <?php
+
+namespace Skeleton_WP\Skeleton_WP;
+
 /**
  * Posts Block Template.
  *

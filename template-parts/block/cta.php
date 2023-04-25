@@ -1,7 +1,8 @@
-<?php /**
+<?php
+/**
  * @var array $args
  */
-
+namespace Skeleton_WP\Skeleton_WP;
 
 $link = $args['cta'];
 if ($link) {

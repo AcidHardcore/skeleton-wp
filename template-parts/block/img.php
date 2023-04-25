@@ -1,7 +1,8 @@
-<?php /**
+<?php
+/**
  * @var array $args
-
  */
+namespace Skeleton_WP\Skeleton_WP;
 
 $image = $args['image'] ?? false;
 $is_lazy = $args['is_lazy'] ?? true;
