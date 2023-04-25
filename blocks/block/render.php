@@ -17,16 +17,16 @@ wp_print_styles('block-block');
 
 $anchor = '';
 if (!empty($block['anchor'])) {
-	$anchor = 'id="' . esc_attr($block['anchor']) . '" ';
+	$anchor = esc_attr($block['anchor']);
 }
 
-$class_name = 'block';
+$class_name = [];
 
 if (!empty($block['className'])) {
-	$class_name .= ' ' . $block['className'];
+	$class_name[] = $block['className'];
 }
 if (!empty($block['align'])) {
-	$class_name .= ' align' . $block['align'];
+	$class_name[] = ' align' . $block['align'];
 }
 
 $allowed_blocks = array( 'core/heading', 'core/paragraph', 'core/image' );
@@ -44,12 +44,22 @@ $template = array(
 	))
 );
 
-?>
+ob_start();
 ?>
 
-<div <?php echo $anchor; ?> class="<?php echo esc_attr($class_name); ?>">
+<div>
 	<InnerBlocks template="<?= esc_attr( wp_json_encode( $template ) ) ?>" allowedBlocks="<?= esc_attr( wp_json_encode( $allowed_blocks ) ) ?>" templateLock="insert"/>
 </div>
+
+  <?php $content = ob_get_clean();
+get_template_part('template-parts/block/full', null, [
+  'id' => $anchor,
+  'is_pad' => true,
+  'is_fullscreen' => true,
+  'bg' => 'transparent',
+  'content' => $content,
+  'classes' => $class_name,
+]);
 
 
 

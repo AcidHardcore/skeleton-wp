@@ -55,6 +55,7 @@ class Component implements Component_Interface, Templating_Component_Interface {
 			'youtube_short_id'       => array( $this, 'youtube_short_id' ),
 			'get_adjacent_post_link' => array( $this, 'get_adjacent_post_link' ),
 			'calendly_check'         => array( $this, 'calendly_check' ),
+			'mytheme_color_is_dark'         => array( $this, 'mytheme_color_is_dark' ),
 		);
 	}
 
@@ -243,6 +244,8 @@ class Component implements Component_Interface, Templating_Component_Interface {
 			'blue',
 		] );
 	}
+
+
 
 
 }
