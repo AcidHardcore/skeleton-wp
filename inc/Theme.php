@@ -161,6 +161,7 @@ class Theme {
 		$components = array(
 			new Localization\Component(),
 			new Base_Support\Component(),
+			new Helpers\Component(),
 			new Editor\Component(),
 			new Accessibility\Component(),
 			new Image_Sizes\Component(),
