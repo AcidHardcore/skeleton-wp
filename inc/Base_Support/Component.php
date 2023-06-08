@@ -28,7 +28,7 @@ use SimpleXMLElement;
  * * `skeleton_wp()->get_version()`
  * * `skeleton_wp()->get_asset_version( string $filepath )`
  */
-class Component implements Component_Interface, Templating_Component_Interface {
+class Component implements Component_Interface {
 
 	/**
 	 * Gets the unique identifier for the theme component.
@@ -68,21 +68,6 @@ class Component implements Component_Interface, Templating_Component_Interface {
 		//excerpt
 		add_filter('excerpt_length', array($this, 'excerpt_length'));
 		add_filter( 'excerpt_more', array($this,'custom_excerpt_more') );
-	}
-
-	/**
-	 * Gets template tags to expose as methods on the Template_Tags class instance, accessible through `skeleton_wp()`.
-	 *
-	 * @return array Associative array of $method_name => $callback_info pairs. Each $callback_info must either be
-	 *               a callable or an array with key 'callable'. This approach is used to reserve the possibility of
-	 *               adding support for further arguments in the future.
-	 */
-	public function template_tags() : array {
-		return array(
-			'get_version'       => array( $this, 'get_version' ),
-			'get_asset_version' => array( $this, 'get_asset_version' ),
-			'inline_svg' => array( $this, 'inline_svg' ),
-		);
 	}
 
 	/**
@@ -191,33 +176,6 @@ class Component implements Component_Interface, Templating_Component_Interface {
 		}
 
 		return $tag;
-	}
-
-	/**
-	 * Gets the theme version.
-	 *
-	 * @return string Theme version number.
-	 */
-	public function get_version() : string {
-		static $theme_version = null;
-
-		if ( null === $theme_version ) {
-			$theme_version = wp_get_theme( get_template() )->get( 'Version' );
-		}
-
-		return $theme_version;
-	}
-
-	/**
-	 * Gets the version for a given asset.
-	 *
-	 * Returns filemtime when WP_DEBUG is true, otherwise the theme version.
-	 *
-	 * @param string $filepath Asset file path.
-	 * @return string Asset version number.
-	 */
-	public function get_asset_version( string $filepath ) : string {
-			return (string) filemtime( $filepath );
 	}
 
 	/**
