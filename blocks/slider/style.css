@@ -1,3 +1,33 @@
+/* Adjusted columns width */
+/* Fixed columns width */
+/* Grid systems
+$min-cols: 3;
+$max-cols: 7;
+$cols-min-width: 7.5rem;
+$row-gap: 1.5rem;
+$col-gap: 1rem;
+&--adjusted-width {
+  @include grid-cols-adjusted($min-cols, $max-cols, $cols-min-width, $row-gap, $col-gap);
+}
+&--fixed-width {
+  @include grid-cols-fixed($min-cols, $max-cols, $cols-min-width, $row-gap, $col-gap);
+}
+*/
+/* Adjusted columns width */
+/* Fixed columns width */
+/* Flexbox systems
+$min-cols: 3;
+$max-cols: 7;
+$cols-min-width: 7.5rem;
+$row-gap: 1.5rem;
+$col-gap: 1rem;
+&--adjusted-width {
+  @include flexbox-cols-adjusted($min-cols, $max-cols, $cols-min-width, $row-gap, $col-gap);
+}
+&--fixed-width {
+  @include flexbox-cols-fixed($min-cols, $max-cols, $cols-min-width, $row-gap, $col-gap);
+}
+ */
 .block-slider {
   padding-bottom: 4rem;
   position: relative;
