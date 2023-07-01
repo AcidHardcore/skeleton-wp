@@ -238,9 +238,9 @@ class Component implements Component_Interface, Templating_Component_Interface {
 	 */
 	public function filter_nav_menu_item_title( $title, $item, $args, $depth ) {
 
-		if($args->theme_location === static::PRIMARY_NAV_MENU_SLUG) {
-			$title = '<span>' . $title . '</span><b>' . $title . '</b>';
-		}
+//		if($args->theme_location === static::PRIMARY_NAV_MENU_SLUG) {
+//			$title = '<span>' . $title . '</span><b>' . $title . '</b>';
+//		}
 
 		return $title;
 	}
