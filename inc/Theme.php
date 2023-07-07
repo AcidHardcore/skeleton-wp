@@ -183,7 +183,7 @@ class Theme {
 			$components[] = new Jetpack\Component();
 		}
 
-		if ( function_exists( 'acf_register_block_type' ) ) {
+		if ( class_exists( 'ACF' ) ) {
 			$components[] = new ACF\Component();
 			$components[] = new Load_More\Component();
 		} else {
