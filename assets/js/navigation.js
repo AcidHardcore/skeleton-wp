@@ -123,7 +123,7 @@ function initNavToggleSmall() {
  */
 function initEachNavToggleSmall(nav) {
 	const menuTOGGLE = nav.querySelector('.main-nav__toggle');
-
+  const siteHeader = document.querySelector('.site-header');
 	// Return early if MENUTOGGLE is missing.
 	if (!menuTOGGLE) {
 		return;
@@ -134,6 +134,7 @@ function initEachNavToggleSmall(nav) {
 
 	menuTOGGLE.addEventListener('click', (e) => {
 		nav.classList.toggle('main-nav--toggled-on');
+    siteHeader.classList.toggle('site-header--menu-open');
 		menuTOGGLE.classList.toggle('burger--close');
 		e.target.setAttribute('aria-expanded', 'false' === e.target.getAttribute('aria-expanded') ? 'true' : 'false');
 	}, false);

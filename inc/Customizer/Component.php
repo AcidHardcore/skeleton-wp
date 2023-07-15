@@ -89,7 +89,7 @@ class Component implements Component_Interface {
 		$setting = 'sticky_header';
 
 		$wp_customize->add_setting( $setting, [
-			'default'            => false,
+			'default'            => true,
 			'transport'          => 'postMessage'
 		] );
 

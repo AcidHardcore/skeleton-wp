@@ -176,7 +176,8 @@ class Theme {
 			new Styles\Component(),
 			new Emoji\Component(),
 			new Shortcodes\Component(),
-			new Enqueue\Component()
+			new Enqueue\Component(),
+			new Header\Component()
 		);
 
 		if ( defined( 'JETPACK__VERSION' ) ) {
