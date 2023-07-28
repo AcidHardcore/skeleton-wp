@@ -214,17 +214,17 @@ class Component implements Component_Interface, Templating_Component_Interface {
 
 		$menu = array();
 
-
-
-		foreach ($menu_array as $m) {
-			if (empty($m->menu_item_parent)) {
-				$menu[$m->ID] = array();
-				$menu[$m->ID]['ID'] = $m->ID;
-				$menu[$m->ID]['title'] = $m->title;
-				$menu[$m->ID]['url'] = $m->url;
-				$menu[$m->ID]['children'] = $this->populate_children($menu_array, $m);
-			}
-		}
+    if ($menu_array) {
+      foreach ($menu_array as $m) {
+        if (empty($m->menu_item_parent)) {
+          $menu[$m->ID] = array();
+          $menu[$m->ID]['ID'] = $m->ID;
+          $menu[$m->ID]['title'] = $m->title;
+          $menu[$m->ID]['url'] = $m->url;
+          $menu[$m->ID]['children'] = $this->populate_children($menu_array, $m);
+        }
+      }
+    }
 
 		return $menu;
 	}
