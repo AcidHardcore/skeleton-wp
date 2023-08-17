@@ -96,15 +96,15 @@ class Component implements Component_Interface {
 						);
 					}
 
-					if (file_exists($this->set_file_path($block, 'script.js'))) {
-						$js_version = skeleton_wp()->get_asset_version($this->set_file_path($block, 'script.js'));
+					if (file_exists($this->set_file_path($block, 'script.min.js'))) {
+						$js_version = skeleton_wp()->get_asset_version($this->set_file_path($block, 'script.min.js'));
 						file_exists($this->set_file_path($block, 'script.asset.php'))
 							? $deps = require_once $this->set_file_path($block, 'script.asset.php')
 							: $deps['dependencies'] = array();
 
 						wp_register_script(
 							'block-' . $block,
-							$this->set_file_uri($block, 'script.js'),
+							$this->set_file_uri($block, 'script.min.js'),
 							$deps['dependencies'],
 							$js_version,
 							true

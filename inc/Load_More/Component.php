@@ -96,7 +96,7 @@ class Component implements Component_Interface {
 		$this->input->orderby = !empty($this->input->orderby) ? esc_attr($this->input->orderby) : 0;
 		$this->input->order = !empty($this->input->order) ? esc_attr($this->input->order) : 0;
 		$this->input->posts_per_page = !empty($this->input->posts_per_page) ? esc_attr($this->input->posts_per_page) : 0;
-		$this->input->category = !empty($this->input->category) ? array_map('esc_attr', $this->input->category) : array();
+//		$this->input->category = !empty($this->input->category) ? array_map('esc_attr', $this->input->category) : array();
 		$this->input->load_more_type = !empty($this->input->load_more_type) ? esc_attr($this->input->load_more_type) : 0;
 		$this->input->current_url = !empty($this->input->current_url) ? esc_attr($this->input->current_url) : 0;
 	}
@@ -121,8 +121,8 @@ class Component implements Component_Interface {
 			'paged' => $this->input->paged,
 		);
 
-		if(!empty($category)) {
-			$args['category__in'] = $this->input->category;
+		if(!empty($this->input->cat)) {
+			$args['cat'] = intval($this->input->cat);
 		}
 
 
@@ -194,6 +194,8 @@ class Component implements Component_Interface {
 		if($this->input->load_more_type === 'pagination') {
 			$info['pagination'] = $this->pagination();
 		}
+    $info['maxPage'] = $this->query->max_num_pages;
+    $info['found'] = $this->query->found_posts;
 
 		if(!empty($info)) {
 			$response = rest_ensure_response($info);
