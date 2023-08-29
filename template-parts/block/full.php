@@ -5,7 +5,7 @@
 
 namespace Skeleton_WP\Skeleton_WP;
 
-$id = $aegs['id'] ?? null;
+$id = $args['id'] ?? null;
 $classes = $args['classes'] ?? [];
 $is_pad = $args['is_pad'] ?? false;
 $is_fullscreen = $args['is_fullscreen'] ?? false;
