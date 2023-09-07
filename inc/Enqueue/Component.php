@@ -40,7 +40,10 @@ class Component implements Component_Interface {
 //			get_theme_file_uri( '/assets/js/wow.js' ),
 //			array(),
 //			skeleton_wp()->get_asset_version( get_theme_file_path( '/assets/js/wow.js' ) ),
-//			true
+//			array(
+//        'strategy'  => 'defer',
+//        'in_footer' => true
+//      )
 //		);
 
 		wp_register_style(
@@ -55,7 +58,10 @@ class Component implements Component_Interface {
 			get_theme_file_uri( '/assets/js/swiper-bundle.js' ),
 			array(),
 			skeleton_wp()->get_asset_version( get_theme_file_path( '/assets/js/swiper-bundle.js' ) ),
-			true
+      array(
+        'strategy'  => 'defer',
+        'in_footer' => true
+      )
 		);
 
 	}
