@@ -23,9 +23,9 @@ if ( $is_contain ) {
 if ( $is_center ) {
 	$classes[] = 'image-wrap--center';
 }
-$args = [];
+
 if(!$is_lazy) {
-	$args[] = ['loading' => 'eager'];
+  $image_args[] = ['loading' => 'eager'];
 }
 
 
