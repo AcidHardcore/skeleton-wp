@@ -21,7 +21,8 @@
     "gulp-terser": "^2.1.0",
     "gulp-sourcemaps": "^3.0.0",
     "lazypipe": "^1.0.2",
-    "sass": "^1.59.3"
+    "sass": "^1.59.3",
+    "gulp-optimize-js": "^1.1.0"
   },
   "dependencies": {
     "lodash.template": ">=4.5.0",

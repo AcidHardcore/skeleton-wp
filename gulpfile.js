@@ -1,21 +1,10 @@
-/**
- * Settings
- * Turn on/off build features
- */
-
-let settings = {
-	scripts: true,
-	libs: true,
-	styles: true,
-	reload: true
-};
-
 /** BrowserSync Options
  *
  */
 let browserSyncOptions = {
 	proxy: "skeleton-wp",
-	notify: false
+	notify: false,
+  open: "local"
 };
 
 
@@ -26,8 +15,7 @@ let browserSyncOptions = {
 let paths = {
 	php: '**/*.php',
 	scripts: {
-		input: 'assets/js/src/*',
-		watchPath: 'assets/js/src/*.js',
+		input: ['assets/js/*.js', '!assets/js/*.min.js'],
 		output: 'assets/js/'
 	},
 	libs: {
@@ -35,7 +23,7 @@ let paths = {
 		output: 'assets/js/'
 	},
 	styles: {
-		input: 'assets/css/src/**/*.{scss,sass}',
+		input: 'assets/css/**/*.{scss,sass}',
 		output: 'assets/css/'
 	},
 	blockStyles: {
@@ -43,12 +31,10 @@ let paths = {
 		output: 'blocks/'
 	},
 	blockScripts: {
-		input: 'blocks/**/script.js',
-		watchPath: 'blocks/**/*.js',
+		input: ['blocks/**/script.js', '!blocks/**/script.min.js'],
 		output: 'blocks/'
 	},
 };
-
 
 /**
  * Gulp Packages
@@ -60,9 +46,11 @@ let flatmap = require('gulp-flatmap');
 let lazypipe = require('lazypipe');
 let rename = require('gulp-rename');
 
+
 // Scripts
 let concat = require('gulp-concat');
 let uglify = require('gulp-terser');
+const optimizejs = require('gulp-optimize-js');
 
 // Styles
 const sass = require('gulp-sass')(require('sass'));
@@ -80,52 +68,54 @@ let browserSync = require('browser-sync');
  * Gulp Tasks
  */
 
+/**
+ * Starts Browser Sync server
+ * @param done
+ */
+let startServer = function (done) {
+
+  // Initialize BrowserSync
+  browserSync.init(browserSyncOptions);
+
+  // Signal completion
+  done();
+
+};
+
+/**
+ * Reloads Browser Sync browser
+ * @param done
+ */
+let reloadBrowser = function (done) {
+  browserSync.reload();
+  done();
+};
+
 // Repeated JavaScript tasks
 let jsTasks = lazypipe()
-	// .pipe(optimizejs)
-	.pipe(dest, paths.scripts.output)
 	.pipe(rename, {suffix: '.min'})
 	.pipe(uglify)
-	// .pipe(optimizejs)
+  // .pipe(optimizejs)
 	.pipe(dest, paths.scripts.output);
 
 // Lint, minify, and concatenate scripts
 let buildScripts = function (done) {
 
-	// Make sure this feature is activated before running
-	if (!settings.scripts) return done();
-
 	// Run tasks on script files
 	return src(paths.scripts.input)
 		.pipe(flatmap(function (stream, file) {
-
-			// If the file is a directory
-			if (file.isDirectory()) {
-				// Grab all files and concatenate them
-				src(file.path + '/*.js')
-					.pipe(concat(file.relative + suffix + '.js'))
-					.pipe(jsTasks());
-
-				return stream;
-			}
-
-			// Otherwise, process the file
 			return stream.pipe(jsTasks());
-
 		}));
 
 };
 
 let jsBlockTasks = lazypipe()
-	.pipe(dest, paths.blockScripts.output)
 	.pipe(rename, {suffix: '.min'})
 	.pipe(uglify)
+  .pipe(optimizejs)
 	.pipe(dest, paths.blockScripts.output);
 
 let buildBlockScripts = function (done) {
-
-	// Make sure this feature is activated before running
-	if (!settings.scripts) return done();
 
 	// Run tasks on script files
 	return src(paths.blockScripts.input)
@@ -137,9 +127,6 @@ let buildBlockScripts = function (done) {
 
 // Process, lint, and minify Sass files
 let buildStyles = function (done) {
-
-	// Make sure this feature is activated before running
-	if (!settings.styles) return done();
 
 	// Run tasks on all Sass files
 	return src(paths.styles.input)
@@ -172,9 +159,6 @@ let buildStyles = function (done) {
 // Process, lint, and minify Sass files
 let buildBlockStyles = function (done) {
 
-	// Make sure this feature is activated before running
-	if (!settings.styles) return done();
-
 	// Run tasks on all Sass files
 	return src(paths.blockStyles.input)
 		.pipe(sourcemaps.init())
@@ -205,40 +189,16 @@ let buildBlockStyles = function (done) {
 
 let copyJSLibs = function (done) {
 
-	// Make sure this feature is activated before running
-	if (!settings.libs) return done();
-
 	// Copy static files
 	return src(paths.libs.input)
 		.pipe(dest(paths.libs.output));
 
 };
 
-// Watch for changes to the src directory
-let startServer = function (done) {
-
-	// Make sure this feature is activated before running
-	if (!settings.reload) return done();
-
-	// Initialize BrowserSync
-	browserSync.init(browserSyncOptions);
-
-	// Signal completion
-	done();
-
-};
-
-// Reload the browser when files change
-let reloadBrowser = function (done) {
-	if (!settings.reload) return done();
-	browserSync.reload();
-	done();
-};
-
 // Watch for changes
 let watchSource = function (done) {
-	watch(paths.scripts.watchPath, series(exports.scripts, reloadBrowser));
-	watch(paths.blockScripts.watchPath, series(exports.blockScripts, reloadBrowser));
+	watch(paths.scripts.input, series(exports.scripts, reloadBrowser));
+	watch(paths.blockScripts.input, series(exports.blockScripts, reloadBrowser));
 	watch(paths.libs.input, series(exports.copyJSLibs, reloadBrowser));
 	watch(paths.styles.input, series(exports.styles, reloadBrowser));
 	watch(paths.blockStyles.input, series(exports.blockStyles, reloadBrowser));

@@ -204,19 +204,19 @@ class Component implements Component_Interface, Templating_Component_Interface {
 			true
 		);
 
-		$css_version = skeleton_wp()->get_asset_version(get_template_directory() . '/assets/css/global.css');
-		wp_enqueue_style( 'skeleton-wp-global',
-			get_stylesheet_directory_uri() . '/assets/css/global.css' ,
-			array(),
-			$css_version
-		);
+    $css_version = skeleton_wp()->get_asset_version(get_template_directory() . '/assets/css/global.css');
+    wp_enqueue_style( 'skeleton-wp-admin-global',
+      get_stylesheet_directory_uri() . '/assets/css/admin-global.min.css' ,
+      array(),
+      $css_version
+    );
 
-		$css_version = skeleton_wp()->get_asset_version(get_template_directory() . '/assets/css/content.css');
-		wp_enqueue_style( 'skeleton-wp-content',
-			get_stylesheet_directory_uri() . '/assets/css/content.css' ,
-			array(),
-			$css_version
-		);
+    $css_version = skeleton_wp()->get_asset_version(get_template_directory() . '/assets/css/content.css');
+    wp_enqueue_style( 'skeleton-wp-admin-content',
+      get_stylesheet_directory_uri() . '/assets/css/admin-content.min.css' ,
+      array(),
+      $css_version
+    );
 	}
 
 	/**
