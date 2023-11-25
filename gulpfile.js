@@ -50,7 +50,6 @@ let rename = require('gulp-rename');
 // Scripts
 let concat = require('gulp-concat');
 let uglify = require('gulp-terser');
-const optimizejs = require('gulp-optimize-js');
 
 // Styles
 const sass = require('gulp-sass')(require('sass'));
@@ -95,7 +94,6 @@ let reloadBrowser = function (done) {
 let jsTasks = lazypipe()
 	.pipe(rename, {suffix: '.min'})
 	.pipe(uglify)
-  // .pipe(optimizejs)
 	.pipe(dest, paths.scripts.output);
 
 // Lint, minify, and concatenate scripts
@@ -112,7 +110,6 @@ let buildScripts = function (done) {
 let jsBlockTasks = lazypipe()
 	.pipe(rename, {suffix: '.min'})
 	.pipe(uglify)
-  .pipe(optimizejs)
 	.pipe(dest, paths.blockScripts.output);
 
 let buildBlockScripts = function (done) {

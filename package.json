@@ -8,26 +8,25 @@
     "url": "https://github.com/AcidHardcore/skeleton_WP"
   },
   "devDependencies": {
-    "autoprefixer": "^10.4.14",
-    "browser-sync": "^2.28.3",
+    "autoprefixer": "^10.4.16",
+    "browser-sync": "^2.29.3",
     "css-mqpacker": "^7.0.0",
-    "cssnano": "5.1.15",
+    "cssnano": "6.0.1",
     "gulp": "4.0.2",
     "gulp-concat": "2.6.1",
     "gulp-flatmap": "1.0.2",
     "gulp-postcss": "^9.0.1",
     "gulp-rename": "2.0.0",
     "gulp-sass": "^5.1.0",
-    "gulp-terser": "^2.1.0",
     "gulp-sourcemaps": "^3.0.0",
+    "gulp-terser": "^2.1.0",
     "lazypipe": "^1.0.2",
-    "sass": "^1.59.3",
-    "gulp-optimize-js": "^1.1.0"
+    "sass": "^1.69.5"
   },
   "dependencies": {
     "lodash.template": ">=4.5.0",
     "normalize.css": "^8.0.1",
-    "socket.io-parser": ">=4.2.2",
-    "swiper": "^9.1.0"
+    "socket.io-parser": ">=4.2.4",
+    "swiper": "^11.0.5"
   }
 }
