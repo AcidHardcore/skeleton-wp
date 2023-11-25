@@ -1,0 +1,14 @@
+{
+  "name": "acf/articles-filter-aside",
+  "title": "Articles filter aside",
+  "description": "A custom block.",
+  "style": [ "block-style-articles-filter-aside" ],
+  "script": "skeleton-wp-filter-aside",
+  "category": "pavion",
+  "icon": "admin-comments",
+  "keywords": ["articles-filter-aside"],
+  "acf": {
+    "mode": "edit",
+    "renderTemplate": "articles-filter-aside.php"
+  }
+}

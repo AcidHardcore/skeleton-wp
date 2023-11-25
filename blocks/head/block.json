@@ -1,0 +1,32 @@
+{
+  "name": "acf/head",
+  "title": "Head",
+  "description": "A custom block.",
+  "style": [
+    "block-head"
+  ],
+  "editorStyle": "editor-head",
+  "script" : "block-head",
+  "category": "skeleton-wp",
+  "icon": "carrot",
+  "keywords": [],
+  "acf": {
+    "mode": "preview",
+    "renderTemplate": "render.php"
+  },
+  "styles": [],
+  "supports": {
+    "align": false,
+    "anchor": true,
+    "alignContent": false,
+    "color": {
+      "text": false,
+      "background": false,
+      "link": false
+    },
+    "alignText": false,
+    "fullHeight": false
+  },
+  "attributes": {
+  }
+}

@@ -1,0 +1,137 @@
+@use "sass:math";
+@import "../../assets/css/mixins/mixins";
+
+$w1024: 'screen and (max-width: 1023px)';
+$color-white: #FFFBF6;
+$color-whitesmoke: #FFF3E3;
+
+.team-slider {
+  overflow-x: hidden;
+}
+
+.team-slider__wrap {
+  margin: 0 em(-25) 0;
+  position: relative;
+  @media #{$w1024} {
+    width: em(300);
+    margin: 0 auto;
+  }
+
+  .slider-arrow {
+    margin-top: 0;
+    top: em(225);
+    @media #{$w1024} {
+      top: em(120);
+    }
+  }
+
+  .slider-arrow--prev {
+    left: 13.5em;
+    @media #{$w1024} {
+      left: em(-16);
+    }
+  }
+
+  .slider-arrow--next {
+    right: 13.5em;
+    @media #{$w1024} {
+      right: em(-16);
+    }
+  }
+}
+
+.team-slider__slider {
+  position: relative;
+  margin: 0 -17.4em;
+  @media #{$w1024} {
+    margin: 0 em(-200);
+  }
+
+  .slick-list {
+    padding: 0 em(500) !important;
+    @media #{$w1024} {
+      padding: 0 em(190) !important;
+    }
+  }
+
+  .slick-slide {
+    text-align: center;
+  }
+
+  .slick-dots {
+    margin-top: 0;
+  }
+}
+
+.team-slider__slider__slides {
+  //display: flex;
+}
+
+.team-slider__member {
+  width: em(550) !important;
+  margin: 0 auto em(50) !important;
+  flex-shrink: 0;
+  text-align: center;
+  display: none;
+
+  &:first-child {
+    display: block;
+  }
+
+  @media #{$w1024} {
+    width: em(300) !important;
+    margin: 0 em(10) em(30);
+  }
+}
+
+.team-slider__member__image-border {
+  border: em(20) solid $color-white;
+  margin-bottom: em(50);
+  @media #{$w1024} {
+    border-width: em(12);
+    margin-bottom: em(30);
+  }
+}
+
+.team-slider__member__image {
+  padding-bottom: 100%;
+  position: relative;
+  background: $color-whitesmoke;
+}
+
+.team-slider__member__name {
+  margin: 0 em(20) em(20);
+}
+
+.team-slider__member__text {
+  margin: 0 em(20);
+}
+
+.team-slider:not(.team-slider--open) .team-slider__show-less {
+  display: none;
+}
+
+.team-slider--open {
+  .team-slider__slider {
+    display: flex;
+    flex-wrap: wrap;
+    margin: 0 -4.6em;
+    @media #{$w1024} {
+      margin: 0;
+    }
+  }
+
+  .team-slider__member {
+    display: block;
+    margin-left: em(24) !important;
+    margin-right: em(24) !important;
+    @media #{$w1024} {
+      margin-left: 0 !important;
+      margin-right: 0 !important;
+    }
+  }
+
+  .team-slider__show-all {
+    display: none;
+  }
+}

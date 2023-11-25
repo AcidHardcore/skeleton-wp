@@ -1,0 +1,13 @@
+{
+  "name": "acf/articles-list",
+  "title": "Articles list",
+  "description": "A custom block.",
+  "style": [ "block-style-articles-list" ],
+  "category": "pavion",
+  "icon": "admin-comments",
+  "keywords": ["articles-list"],
+  "acf": {
+    "mode": "edit",
+    "renderTemplate": "articles-list.php"
+  }
+}

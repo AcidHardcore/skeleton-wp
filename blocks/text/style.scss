@@ -1,0 +1,42 @@
+@use "sass:math";
+$block-pad: 150;
+
+$color-white: #FFFBF6;
+$color-whitesmoke: #FFF3E3;
+$color-red: #FF3F09;
+$color-yellow: #FFD000;
+$color-blue: #002E6D;
+
+$color-blueberry: #2cabb5;
+$color-strawberry: $color-red;
+$color-raspberry: #ff007b;
+$color-blackberry: #2d3197;
+
+$colors: (
+  'white': $color-white,
+  'whitesmoke': $color-whitesmoke,
+  'red': $color-red,
+  'yellow': $color-yellow,
+  'blue': $color-blue,
+
+  'blueberry': $color-blueberry,
+  'strawberry': $color-strawberry,
+  'raspberry': $color-raspberry,
+  'blackberry': $color-blackberry,
+);
+
+.text {
+  &__bg {
+    padding-top: em(math.div($block-pad,2));
+    padding-bottom: em(math.div($block-pad,2));
+
+    @each $c-name,$c-color in $colors {
+      &--#{$c-name} {
+        background-color: $c-color;
+      }
+    }
+
+  }
+}
+
+

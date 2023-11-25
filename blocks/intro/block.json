@@ -1,0 +1,27 @@
+{
+  "name": "acf/intro",
+  "title": "Intro",
+  "description": "A custom block.",
+  "category": "skeleton-wp",
+  "icon": "carrot",
+  "keywords": [],
+  "acf": {
+    "mode": "preview",
+    "renderTemplate": "render.php"
+  },
+  "styles": [],
+  "supports": {
+    "align": false,
+    "anchor": false,
+    "alignContent": false,
+    "color": {
+      "text": false,
+      "background": false,
+      "link": false
+    },
+    "alignText": false,
+    "fullHeight": false
+  },
+  "attributes": {
+  }
+}

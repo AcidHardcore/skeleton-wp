@@ -1,0 +1,31 @@
+.text__bg {
+  padding-top: em(75);
+  padding-bottom: em(75);
+}
+.text__bg--white {
+  background-color: #FFFBF6;
+}
+.text__bg--whitesmoke {
+  background-color: #FFF3E3;
+}
+.text__bg--red {
+  background-color: #FF3F09;
+}
+.text__bg--yellow {
+  background-color: #FFD000;
+}
+.text__bg--blue {
+  background-color: #002E6D;
+}
+.text__bg--blueberry {
+  background-color: #2cabb5;
+}
+.text__bg--strawberry {
+  background-color: #FF3F09;
+}
+.text__bg--raspberry {
+  background-color: #ff007b;
+}
+.text__bg--blackberry {
+  background-color: #2d3197;
+}

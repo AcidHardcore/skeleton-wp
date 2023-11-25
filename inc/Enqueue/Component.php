@@ -64,6 +64,17 @@ class Component implements Component_Interface {
       )
 		);
 
+    wp_register_script(
+      'skeleton-wp-slick',
+      get_theme_file_uri( '/assets/js/slick.min.js' ),
+      array(),
+      skeleton_wp()->get_asset_version( get_theme_file_path( '/assets/js/slick.min.js' ) ),
+      array(
+        'strategy'  => 'defer',
+        'in_footer' => true
+      )
+    );
+
 	}
 
 }

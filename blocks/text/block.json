@@ -1,0 +1,31 @@
+{
+  "name": "acf/text",
+  "title": "Text",
+  "description": "A custom block.",
+  "style": [
+    "block-text"
+  ],
+  "editorStyle": "editor-text",
+  "category": "skeleton-wp",
+  "icon": "carrot",
+  "keywords": [],
+  "acf": {
+    "mode": "preview",
+    "renderTemplate": "render.php"
+  },
+  "styles": [],
+  "supports": {
+    "align": false,
+    "anchor": true,
+    "alignContent": false,
+    "color": {
+      "text": false,
+      "background": false,
+      "link": false
+    },
+    "alignText": false,
+    "fullHeight": false
+  },
+  "attributes": {
+  }
+}
