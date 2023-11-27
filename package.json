@@ -27,6 +27,7 @@
     "lodash.template": ">=4.5.0",
     "normalize.css": "^8.0.1",
     "socket.io-parser": ">=4.2.4",
-    "swiper": "^11.0.5"
+    "swiper": "^11.0.5",
+    "axios": "^1.6.2"
   }
 }
