@@ -14,7 +14,7 @@ $socials = get_field('socials', 'footer');
 			<?php
 			$title = $social['name'] ?? '';
 			if (isset($social['image'])) {
-				$image_source = file_get_contents(wp_get_original_image_path($social['image']));
+        $image_source = skeleton_wp()->inline_svg($social['image']);
 			}
 			?>
 			<li class="btn btn--link social__link-wrap " title="<?= esc_attr($title) ?>">
