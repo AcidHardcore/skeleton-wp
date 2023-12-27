@@ -6,7 +6,7 @@
  */
 
 namespace Skeleton_WP\Skeleton_WP;
-$socials = get_field('socials', 'option');
+$socials = get_field('socials', 'footer');
 ?>
 <?php if (is_array($socials)) : ?>
 	<ul class="social">
