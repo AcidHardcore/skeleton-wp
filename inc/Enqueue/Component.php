@@ -30,6 +30,7 @@ class Component implements Component_Interface {
 
 	public function initialize() {
 		add_action( 'wp_enqueue_scripts', array( $this, 'action_enqueue' ) );
+    add_action( 'admin_enqueue_scripts', array( $this, 'action_enqueue' ) );
 	}
 
 
