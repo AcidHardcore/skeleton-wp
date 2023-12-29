@@ -96,6 +96,19 @@ class Component implements Component_Interface {
 						);
 					}
 
+          if (file_exists($this->set_file_path($block, 'editor.css'))) {
+            $css_version = skeleton_wp()->get_asset_version($this->set_file_path($block, 'editor.min.css'));
+            file_exists($this->set_file_path($block, 'editor.asset.php'))
+              ? $deps = require_once $this->set_file_path($block, 'editor.asset.php')
+              : $deps['dependencies'] = array();
+            wp_register_style(
+              'editor-' . $block,
+              $this->set_file_uri($block, 'editor.min.css'),
+              $deps['dependencies'],
+              $css_version
+            );
+          }
+
 					if (file_exists($this->set_file_path($block, 'script.min.js'))) {
 						$js_version = skeleton_wp()->get_asset_version($this->set_file_path($block, 'script.min.js'));
 						file_exists($this->set_file_path($block, 'script.asset.php'))
