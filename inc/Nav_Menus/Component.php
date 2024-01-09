@@ -63,8 +63,8 @@ class Component implements Component_Interface, Templating_Component_Interface {
 	 */
 	public function template_tags(): array {
 		return array(
-			'is_primary_nav_menu_active' => array($this, 'is_primary_nav_menu_active'),
-			'display_primary_nav_menu' => array($this, 'display_primary_nav_menu'),
+			'is_nav_menu_active' => array($this, 'is_nav_menu_active'),
+			'display_nav_menu' => array($this, 'display_nav_menu'),
 			'wp_get_menu_array' => array($this, 'wp_get_menu_array'),
 		);
 	}
@@ -119,9 +119,9 @@ class Component implements Component_Interface, Templating_Component_Interface {
 	 *
 	 * @return bool True if the primary navigation menu is active, false otherwise.
 	 */
-	public function is_primary_nav_menu_active(): bool {
-		return (bool)has_nav_menu(static::PRIMARY_NAV_MENU_SLUG);
-	}
+  public function is_nav_menu_active($slug): bool {
+    return (bool)has_nav_menu($slug);
+  }
 
 	/**
 	 * Displays the primary navigation menu.
@@ -129,15 +129,15 @@ class Component implements Component_Interface, Templating_Component_Interface {
 	 * @param array $args Optional. Array of arguments. See `wp_nav_menu()` documentation for a list of supported
 	 *                    arguments.
 	 */
-	public function display_primary_nav_menu(array $args = array()) {
-		if(!isset($args['container'])) {
-			$args['container'] = '';
-		}
-
-		$args['theme_location'] = static::PRIMARY_NAV_MENU_SLUG;
-
-		wp_nav_menu($args);
-	}
+  public function display_nav_menu(array $args = array()) {
+    if(!isset($args['container'])) {
+      $args['container'] = '';
+    }
+    if(!isset($args['theme_location'])) {
+      $args['theme_location'] = static::PRIMARY_NAV_MENU_SLUG;
+    }
+    wp_nav_menu($args);
+  }
 
 	/**
 	 * Update li classes

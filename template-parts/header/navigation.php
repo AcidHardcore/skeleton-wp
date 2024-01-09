@@ -7,7 +7,7 @@
 
 namespace Skeleton_WP\Skeleton_WP;
 
-if ( ! skeleton_wp()->is_primary_nav_menu_active() ) {
+if ( ! skeleton_wp()->is_nav_menu_active('primary') ) {
 	return;
 }
 
@@ -19,8 +19,9 @@ if ( ! skeleton_wp()->is_primary_nav_menu_active() ) {
 		<span><?php esc_html_e( 'Menu', 'skeleton-wp' ); ?></span>
 	</button>
 
-	<?php skeleton_wp()->display_primary_nav_menu( array(
-		'menu_id' => 'primary-menu'
-	) ); ?>
+  <?php skeleton_wp()->display_nav_menu( array(
+    'menu_id'        => 'primary-menu',
+    'theme_location' => 'primary'
+  ) ); ?>
 
 </nav><!-- #site-navigation -->
