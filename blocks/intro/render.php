@@ -13,6 +13,11 @@
 
 namespace Skeleton_WP\Skeleton_WP;
 
+$id = '';
+if ( ! empty( $block['anchor'] ) ) {
+  $id = esc_attr( $block['anchor'] );
+}
+
 $classes = '';
 if ( ! empty( $block['className'] ) ) {
   $classes .= ' ' . $block['className'];
