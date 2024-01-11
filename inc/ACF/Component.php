@@ -48,8 +48,29 @@ class Component implements Component_Interface {
 		add_action('acf/init', array($this, 'action_load_blocks'), 5);
 		add_action('acf/init', array($this, 'action_register_acf_option_page'));
 		add_filter( 'should_load_separate_core_block_assets', '__return_true' );
+    //    add ID to the block
+    add_filter( 'acf/pre_save_block',
+      function( $attributes ) {
+        if ( empty( $attributes['id'] ) ) {
+          $attributes['id'] = 'block_acf-block-' . uniqid();
+        }
+        return $attributes;
+      }
+    );
 	}
 
+  /**
+   * Gets template tags to expose as methods on the Template_Tags class instance, accessible through `skeleton_wp()`.
+   *
+   * @return array Associative array of $method_name => $callback_info pairs. Each $callback_info must either be
+   *               a callable or an array with key 'callable'. This approach is used to reserve the possibility of
+   *               adding support for further arguments in the future.
+   */
+  public function template_tags(): array {
+    return array(
+      'get_first_block_id' => array( $this, 'get_first_block_id' ),
+    );
+  }
 
 	/**
 	 * Add Block categories
@@ -192,4 +213,20 @@ class Component implements Component_Interface {
 		return get_theme_file_uri('blocks/' . $block_name . '/' . $file_name);
 
 	}
+
+  /**
+   * Get ID of the first ACF block on the page
+   */
+  public function get_first_block_id() {
+    $post = get_post();
+    if(has_blocks($post->post_content)) {
+      $blocks = parse_blocks($post->post_content);
+      $first_block_attrs = $blocks[0]['attrs'];
+//      error_log(print_r($blocks[0], true));
+      if(array_key_exists('id', $first_block_attrs)) {
+        return $first_block_attrs['id'];
+      }
+    }
+    return null;
+  }
 }
