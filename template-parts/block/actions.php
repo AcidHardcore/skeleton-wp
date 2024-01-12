@@ -17,7 +17,7 @@ if ( count( $ctas ) ): ?>
 	<div class="<?= join( ' ', $classes ) ?>">
 		<?php foreach ( $ctas as $cta ): ?>
 			<?php get_template_part( 'template-parts/block/cta', null, [
-				'cta' => $cta,
+				'cta' => $cta['cta'],
 			] ); ?>
 		<?php endforeach; ?>
 	</div>
