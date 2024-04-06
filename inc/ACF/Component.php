@@ -8,6 +8,7 @@
 namespace Skeleton_WP\Skeleton_WP\ACF;
 
 use Skeleton_WP\Skeleton_WP\Component_Interface;
+use Skeleton_WP\Skeleton_WP\Templating_Component_Interface;
 use WP_Block_Editor_Context;
 use function add_action;
 use function add_filter;
