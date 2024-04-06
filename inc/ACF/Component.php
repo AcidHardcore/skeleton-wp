@@ -29,7 +29,7 @@ use function admin_url;
  *
  * @link https://www.advancedcustomfields.com/resources/
  */
-class Component implements Component_Interface {
+class Component implements Component_Interface, Templating_Component_Interface {
 
 	/**
 	 * Gets the unique identifier for the theme component.
