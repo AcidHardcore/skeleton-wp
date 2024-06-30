@@ -91,7 +91,7 @@
 
   }
   var initializeBlock = function ($block) {
-    $('.team-slider').once('sw-team-slider').each(function() {
+    $('.team-slider').each(function() {
       const ts = new TeamSlider($(this));
     });
   }
