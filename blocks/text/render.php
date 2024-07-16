@@ -13,6 +13,8 @@
 
 namespace Skeleton_WP\Skeleton_WP;
 
+wp_print_styles( 'block-text' );
+
 $id = '';
 if ( ! empty( $block['anchor'] ) ) {
   $id = esc_attr( $block['anchor'] );
