@@ -15,6 +15,8 @@ $bg_image = $args['bg_image'] ?? null;
 
 $is_dark = skeleton_wp()->mytheme_color_is_dark($bg);
 
+$content_bg = $args['content_bg'] ?? null;
+
 if ($bg_image) {
   ob_start();
   get_template_part('template-parts/block/img', null, [
