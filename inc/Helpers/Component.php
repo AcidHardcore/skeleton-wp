@@ -57,6 +57,7 @@ class Component implements Component_Interface, Templating_Component_Interface {
 			'calendly_check'         => array( $this, 'calendly_check' ),
 			'mytheme_color_is_dark'  => array( $this, 'mytheme_color_is_dark' ),
 			'paginate_links_data'    => array( $this, 'paginate_links_data' ),
+      'get_taxonomy_terms'     => array( $this, 'get_taxonomy_terms' ),
 		);
 	}
 
@@ -405,6 +406,17 @@ class Component implements Component_Interface, Templating_Component_Interface {
     }
 
     return $pages;
+  }
+
+  public function get_taxonomy_terms($post, $taxonomy, $delimiter = ' ') {
+    $terms = get_the_terms($post, $taxonomy);
+    if(is_array($terms)) {
+      $names = wp_list_pluck($terms, 'name');
+      if(!empty($names)) {
+        return join( $delimiter, $names );
+      }
+    }
+    return false;
   }
 
 }
