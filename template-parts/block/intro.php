@@ -5,48 +5,59 @@
 
 namespace Skeleton_WP\Skeleton_WP;
 
-$text_align = $args['text_align'] ?? '';
 $title_pre = $args['title_pre'] ?? '';
-$title_pre_color = $args['title_pre_color'] ?? 'gold';
 $title = $args['title'] ?? '';
 $title_tag = $args['title_tag'] ?? 'h2';
+$title_as_tag = $args['title_as_tag'] ?? null;
+$title_color = $args['title_color'] ?? null;
+$html_size = $args['html_size'] ?? '';
 $html = $args['html'] ?? '';
-$cta = $args['cta'] ?? [];
+$ctas = $args['ctas'] ?? [];
 $classes = $args['classes'] ?? [];
+$is_wow = $args['is_wow'] ?? true;
 
-$title_pre_tag = $title_tag;
-$title_as_tag = $title_tag;
-if ($title_pre) {
-	$title_tag = preg_replace_callback('#^h([0-9])$#', function ($m) {
-		return 'h' . ($m[1] + 1);
-	}, $title_tag);
-}
+$classes[] = 'intro';
 
-if ($title_pre || $title || $html || $cta) : ?>
-	<div class="wow wow--fade-in <?= esc_attr($text_align) ?> <?= esc_attr(join(' ', $classes)) ?>">
+global $intro_wrap_i;
+$intro_wrap_i = $intro_wrap_i ?? 0;
+$intro_wrap_i ++;
+$id = 'intro-wrap-' . $intro_wrap_i;
+
+if ($title || $html || $ctas) : ?>
+	<div id="<?= $id ?>" class="<?= esc_attr(join(' ', $classes)) ?>">
 
 		<?php get_template_part('template-parts/block/title', null, [
-			'title' => $title_pre,
-			'tag' => $title_pre_tag,
-			'as_tag' => 'h6',
-			'color' => $title_pre_color,
+      'title' => $title_pre,
+      'tag' => 'div',
+      'as_tag' => 'h6',
+      'is_wow' => $is_wow,
+      'wow_sync' => $id,
 		]); ?>
 
 		<?php get_template_part('template-parts/block/title', null, [
-			'title' => $title,
-			'tag' => $title_tag,
-			'as_tag' => $title_as_tag,
+      'title' => $title,
+      'tag' => $title_tag,
+      'as_tag' => $title_as_tag,
+      'color' => $title_color,
+      'is_wow' => $is_wow,
+      'wow_sync' => $id,
+      'wow_delay' => 50,
 		]); ?>
 
 		<?php get_template_part('template-parts/block/editor', null, [
-			'html' => $html,
+      'html' => $html,
+      'size' => $html_size,
+      'is_wow' => $is_wow,
+      'wow_delay' => 100,
+      'wow_sync' => $id,
 		]); ?>
 
-		<?php if ($cta) : ?>
+		<?php if ($ctas) : ?>
 			<?php get_template_part('template-parts/block/actions', null, [
-				[
-					'cta' => $cta,
-				]
+        'ctas' => $ctas,
+        'is_wow' => $is_wow,
+        'wow_delay' => 150,
+        'wow_sync' => $id,
 			]); ?>
 		<?php endif; ?>
 

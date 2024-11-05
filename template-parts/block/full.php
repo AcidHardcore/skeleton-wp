@@ -7,57 +7,76 @@ namespace Skeleton_WP\Skeleton_WP;
 
 $id = $args['id'] ?? null;
 $classes = $args['classes'] ?? [];
-$is_pad = $args['is_pad'] ?? false;
-$is_fullscreen = $args['is_fullscreen'] ?? false;
-
-$bg = $args['bg'] ?? 'white';
+$pad = $args['pad'] ?? '';
+$pad_t = $args['pad_t'] ?? $pad;
+$pad_b = $args['pad_b'] ?? $pad;
+$pad_mt = $args['pad_mt'] ?? null;
+$pad_mb = $args['pad_mb'] ?? null;
+$bg = $args['bg'] ?? '';
+$bg_grad = $args['bg_grad'] ?? false;
 $bg_image = $args['bg_image'] ?? null;
-
+$bg_image_m = $args['bg_image_m'] ?? null;
+$content = $args['content'] ?? '';
+$content_bg = $args['content_bg'] ?? '';
+$image_srcset = $args['image_srcset'] ?? '';
 $is_dark = skeleton_wp()->mytheme_color_is_dark($bg);
 
-$content_bg = $args['content_bg'] ?? null;
+array_unshift($classes,'block-full');
+if ( $pad_t ) {
+  $classes[] = 'block-full--pad-top-'.$pad_t;
+}
+if ( $pad_b ) {
+  $classes[] = 'block-full--pad-bot-'.$pad_b;
+}
+if ( $pad_mt ) {
+  $classes[] = 'block-full--pad-mobile-top-'.$pad_mt;
+}
+if ( $pad_mb ) {
+  $classes[] = 'block-full--pad-mobile-bot-'.$pad_mb;
+}
 
-if ($bg_image) {
-  ob_start();
-  get_template_part('template-parts/block/img', null, [
+if ( $bg_image ) {
+  ob_start ();
+  ?>
+
+  <?php get_template_part ('template-parts/block/img', null, [
     'image' => $bg_image,
     'is_cover' => true,
-    'is_lazy' => false,
-  ]);
-  $content_bg = ob_get_clean();
+    'is_transparent' => true,
+    'classes' => $bg_image_m ? ['desktop'] : [],
+    'image_srcset' => $image_srcset
+  ]); ?>
+  <?php get_template_part ('template-parts/block/img', null, [
+    'image' => $bg_image_m,
+    'is_cover' => true,
+    'is_transparent' => true,
+    'classes' => ['mobile'],
+  ]); ?>
+
+  <?= $content_bg ?>
+  <?php
+  $content_bg = ob_get_clean ();
 }
 
-$content = $args['content'] ?? null;
-
-array_unshift($classes, 'block-full');
-if ($is_pad) {
-  $classes[] = 'block-full--pad';
+if ( $bg ) {
+  $classes[] = 'block-full--bg-'.$bg;
 }
-
-if ($is_fullscreen) {
-  $classes[] = 'block-full--fullscreen';
+if ( $bg_grad ) {
+  $classes[] = 'block-full--bg-grad-top';
 }
-if ($bg) {
-  $classes[] = 'block-full--bg-' . $bg;
-}
-if ($content_bg) {
+if ( $content_bg ) {
   $classes[] = 'block-full--with-bg';
 }
-if ($is_dark) {
-  $classes[] = 'bg-dark';
-}
-?>
-<section <?= $id ? 'id="' . $id . '"' : '' ?>
-  class="<?= join(' ', $classes) ?>"
->
 
-  <?php if ($content_bg): ?>
+?><section <?= $id ? 'id="'.$id.'"' : '' ?> class="<?= join(' ', $classes) ?>">
+
+  <?php if ( $content_bg ): ?>
     <div class="block-full__bg">
       <?= $content_bg ?>
     </div>
   <?php endif; ?>
 
-  <?php if ($content): ?>
+  <?php if ( $content ): ?>
     <div class="block-full__content">
       <?= $content ?>
     </div>
