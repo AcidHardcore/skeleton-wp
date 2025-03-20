@@ -58,6 +58,9 @@ class Component implements Component_Interface, Templating_Component_Interface {
 			'mytheme_color_is_dark'  => array( $this, 'mytheme_color_is_dark' ),
 			'paginate_links_data'    => array( $this, 'paginate_links_data' ),
       'get_taxonomy_terms'     => array( $this, 'get_taxonomy_terms' ),
+      'handle_attributes'      => array( $this, 'handle_attributes' ),
+      'current_url'            => array( $this, 'current_url' ),
+
 		);
 	}
 
@@ -417,6 +420,35 @@ class Component implements Component_Interface, Templating_Component_Interface {
       }
     }
     return false;
+  }
+
+  public function handle_attributes( $attrs ) {
+    $reducer = [];
+
+    if ( ! empty( $attrs ) && is_array( $attrs ) ) {
+
+      foreach ( $attrs as $key => $value ) {
+        $tail = '';
+        if ( is_array( $value ) ) {
+          if ( ! empty( $value ) ) {
+            $tail = '="' . esc_attr( json_encode( $value ) ) . '"';
+          }
+        } else {
+          $tail = $value !== null ? '="' . $value . '"' : '';
+        }
+        $reducer[] = $key . $tail;
+      }
+
+      return implode( ' ', $reducer );
+    }
+
+    return false;
+  }
+
+  public function current_url() {
+    global $wp;
+
+    return home_url( add_query_arg( array(), $wp->request ) ) . '/';
   }
 
 }
