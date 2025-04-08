@@ -184,6 +184,10 @@ class Theme {
 			$components[] = new Jetpack\Component();
 		}
 
+    if ( class_exists( 'GFCommon' ) ) {
+      $components[] =new Gravity\Component();
+    }
+
 		if ( class_exists( 'ACF' ) ) {
 			$components[] = new ACF\Component();
 			$components[] = new Load_More\Component();
