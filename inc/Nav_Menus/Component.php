@@ -200,6 +200,7 @@ class Component implements Component_Interface, Templating_Component_Interface {
 					$children[$m->ID]['ID'] = $m->ID;
 					$children[$m->ID]['title'] = $m->title;
 					$children[$m->ID]['url'] = $m->url;
+          $children[$m->ID]['target'] = $m->target;
 					unset($menu_array[$k]);
 					$children[$m->ID]['children'] = $this->populate_children($menu_array, $m);
 				}
@@ -221,6 +222,7 @@ class Component implements Component_Interface, Templating_Component_Interface {
           $menu[$m->ID]['ID'] = $m->ID;
           $menu[$m->ID]['title'] = $m->title;
           $menu[$m->ID]['url'] = $m->url;
+          $menu[$m->ID]['target'] = $m->target;
           $menu[$m->ID]['children'] = $this->populate_children($menu_array, $m);
         }
       }
