@@ -1,7 +1,7 @@
 /** BrowserSync Options
  *
  */
-let browserSyncOptions = {
+const browserSyncOptions = {
 	proxy: "skeleton-wp",
 	notify: false,
   open: "local"
@@ -12,7 +12,7 @@ let browserSyncOptions = {
  * Paths to project folders
  */
 
-let paths = {
+const paths = {
 	php: '**/*.php',
 	scripts: {
 		input: ['assets/js/*.js', '!assets/js/*.min.js'],
@@ -41,27 +41,36 @@ let paths = {
  */
 
 // General
-let {gulp, src, dest, watch, series, parallel} = require('gulp');
-let flatmap = require('gulp-flatmap');
-let lazypipe = require('lazypipe');
-let rename = require('gulp-rename');
+const {gulp, src, dest, watch, series, parallel} = require('gulp');
+const rename = require('gulp-rename');
+const plumber = require('gulp-plumber');
+const notify = require('gulp-notify');
 
 
 // Scripts
-let concat = require('gulp-concat');
-let uglify = require('gulp-terser');
+const uglify = require('gulp-terser');
 
 // Styles
 const sass = require('gulp-sass')(require('sass'));
 const sourcemaps = require('gulp-sourcemaps');
-let postcss = require('gulp-postcss');
-let prefix = require('autoprefixer');
-let minify = require('cssnano');
-let mqpacker = require("css-mqpacker");
+const postcss = require('gulp-postcss');
+const prefix = require('autoprefixer');
+const minify = require('cssnano');
+const mqpacker = require("css-mqpacker");
 
 // BrowserSync
-let browserSync = require('browser-sync');
+const browserSync = require('browser-sync');
 
+/**
+ * Error handler for gulp tasks
+ */
+const handleError = (err) => {
+	notify.onError({
+		title: 'Gulp Error',
+		message: 'Error: <%= error.message %>'
+	})(err);
+	this.emit('end');
+};
 
 /**
  * Gulp Tasks
@@ -71,7 +80,7 @@ let browserSync = require('browser-sync');
  * Starts Browser Sync server
  * @param done
  */
-let startServer = function (done) {
+const startServer = (done) => {
 
   // Initialize BrowserSync
   browserSync.init(browserSyncOptions);
@@ -85,120 +94,88 @@ let startServer = function (done) {
  * Reloads Browser Sync browser
  * @param done
  */
-let reloadBrowser = function (done) {
+const reloadBrowser = (done) => {
   browserSync.reload();
   done();
 };
 
-// Repeated JavaScript tasks
-let jsTasks = lazypipe()
-	.pipe(rename, {suffix: '.min'})
-	.pipe(uglify)
-	.pipe(dest, paths.scripts.output);
-
 // Lint, minify, and concatenate scripts
-let buildScripts = function (done) {
+const buildScripts = () => src(paths.scripts.input)
+	.pipe(plumber({ errorHandler: handleError }))
+	.pipe(rename({ suffix: '.min' }))
+	.pipe(uglify())
+	.pipe(dest(paths.scripts.output));
 
-	// Run tasks on script files
-	return src(paths.scripts.input)
-		.pipe(flatmap(function (stream, file) {
-			return stream.pipe(jsTasks());
-		}));
-
-};
-
-let jsBlockTasks = lazypipe()
-	.pipe(rename, {suffix: '.min'})
-	.pipe(uglify)
-	.pipe(dest, paths.blockScripts.output);
-
-let buildBlockScripts = function (done) {
-
-	// Run tasks on script files
-	return src(paths.blockScripts.input)
-		.pipe(flatmap(function (stream, file) {
-			return stream.pipe(jsBlockTasks());
-		}));
-};
-
+const buildBlockScripts = () => src(paths.blockScripts.input)
+	.pipe(plumber({ errorHandler: handleError }))
+	.pipe(rename({ suffix: '.min' }))
+	.pipe(uglify())
+	.pipe(dest(paths.blockScripts.output));
 
 // Process, lint, and minify Sass files
-let buildStyles = function (done) {
+const buildStyles = () => src(paths.styles.input)
+	.pipe(plumber({ errorHandler: handleError }))
+	.pipe(sourcemaps.init())
+	.pipe(sass({
+		outputStyle: 'expanded',
+		sourceComments: true
+	}))
+	.pipe(postcss([
+		prefix({
+			cascade: true,
+			remove: true
+		}),
+		mqpacker({
+			sort: true
+		}),
+	]))
+	.pipe(sourcemaps.write({ includeContent: false }))
+	.pipe(dest(paths.styles.output))
+	.pipe(rename({ suffix: '.min' }))
+	.pipe(postcss([
+		minify({
+			preset: ["default", { discardComments: { removeAll: true } }],
+		})
+	]))
+	.pipe(dest(paths.styles.output));
 
-	// Run tasks on all Sass files
-	return src(paths.styles.input)
-		.pipe(sourcemaps.init())
-		.pipe(sass({
-			outputStyle: 'expanded',
-			sourceComments: true
-		}))
-		.pipe(postcss([
-			prefix({
-				cascade: true,
-				remove: true
-			}),
-			mqpacker({
-				sort: true
-			}),
-		]))
-		.pipe(sourcemaps.write({includeContent: false}))
-		.pipe(dest(paths.styles.output))
-		.pipe(rename({suffix: '.min'}))
-		.pipe(postcss([
-			minify({
-				preset: ["default", { discardComments: { removeAll: true } }],
-			})
-		]))
-		.pipe(dest(paths.styles.output));
+const buildBlockStyles = () => src(paths.blockStyles.input)
+	.pipe(plumber({ errorHandler: handleError }))
+	.pipe(sourcemaps.init())
+	.pipe(sass({
+		outputStyle: 'expanded',
+		sourceComments: true
+	}))
+	.pipe(postcss([
+		prefix({
+			cascade: true,
+			remove: true
+		}),
+		mqpacker({
+			sort: true
+		}),
+	]))
+	.pipe(dest(paths.blockStyles.output))
+	.pipe(rename({ suffix: '.min' }))
+	.pipe(postcss([
+		minify({
+			preset: ["default", { discardComments: { removeAll: true } }],
+		})
+	]))
+	.pipe(sourcemaps.write({ includeContent: false }))
+	.pipe(dest(paths.blockStyles.output));
 
-};
-
-// Process, lint, and minify Sass files
-let buildBlockStyles = function (done) {
-
-	// Run tasks on all Sass files
-	return src(paths.blockStyles.input)
-		.pipe(sourcemaps.init())
-		.pipe(sass({
-			outputStyle: 'expanded',
-			sourceComments: true
-		}))
-		.pipe(postcss([
-			prefix({
-				cascade: true,
-				remove: true
-			}),
-			mqpacker({
-				sort: true
-			}),
-		]))
-		.pipe(dest(paths.blockStyles.output))
-		.pipe(rename({suffix: '.min'}))
-		.pipe(postcss([
-			minify({
-				preset: ["default", { discardComments: { removeAll: true } }],
-			})
-		]))
-		.pipe(sourcemaps.write({includeContent: false}))
-		.pipe(dest(paths.blockStyles.output))
-
-};
-
-let copyJSLibs = function (done) {
-
-	// Copy static files
-	return src(paths.libs.input)
-		.pipe(dest(paths.libs.output));
-
-};
+const copyJSLibs = () => src(paths.libs.input)
+	.pipe(plumber({ errorHandler: handleError }))
+	.pipe(dest(paths.libs.output));
 
 // Watch for changes
-let watchSource = function (done) {
-	watch(paths.scripts.input, series(exports.scripts, reloadBrowser));
-	watch(paths.blockScripts.input, series(exports.blockScripts, reloadBrowser));
-	watch(paths.libs.input, series(exports.copyJSLibs, reloadBrowser));
-	watch(paths.styles.input, series(exports.styles, reloadBrowser));
-	watch(paths.blockStyles.input, series(exports.blockStyles, reloadBrowser));
+const watchSource = (done) => {
+	watch(paths.scripts.input, series(buildScripts, reloadBrowser));
+	watch(paths.blockScripts.input, series(buildBlockScripts, reloadBrowser));
+	watch(paths.libs.input, series(copyJSLibs, reloadBrowser));
+	watch(paths.styles.input, series(buildStyles, reloadBrowser));
+	watch(paths.blockStyles.input, series(buildBlockStyles, reloadBrowser));
 	watch(paths.php, reloadBrowser);
 	done();
 };

@@ -200,7 +200,7 @@ dd {
 	}
 
 	& + dt {
-		margin-top: math.div($line-height, 2);
+		margin-top: math.div($line-height, 2) * 1rem;
 	}
 }
 
