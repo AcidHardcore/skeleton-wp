@@ -77,6 +77,50 @@ class Component implements Component_Interface {
       )
     );
 
+    wp_register_script(
+      'skeleton-wp-gsap',
+      get_theme_file_uri( '/assets/js/gsap.min.js' ),
+      array(),
+      skeleton_wp()->get_asset_version( get_theme_file_path( '/assets/js/gsap.min.js' ) ),
+      array(
+        'strategy'  => 'defer',
+        'in_footer' => true
+      )
+    );
+
+    wp_register_script(
+      'skeleton-wp-ScrollTrigger',
+      get_theme_file_uri( '/assets/js/ScrollTrigger.min.js' ),
+      array('skeleton-wp-gsap'),
+      skeleton_wp()->get_asset_version( get_theme_file_path( '/assets/js/ScrollTrigger.min.js' ) ),
+      array(
+        'strategy'  => 'defer',
+        'in_footer' => true
+      )
+    );
+
+    wp_register_script(
+      'skeleton-wp-SplitText',
+      get_theme_file_uri( '/assets/js/SplitText.min.js' ),
+      array('skeleton-wp-gsap'),
+      skeleton_wp()->get_asset_version( get_theme_file_path( '/assets/js/SplitText.min.js' ) ),
+      array(
+        'strategy'  => 'defer',
+        'in_footer' => true
+      )
+    );
+
+    wp_enqueue_script(
+      'skeleton-wp-gsap-client',
+      get_theme_file_uri( '/assets/js/gsap-client.min.js' ),
+      array('skeleton-wp-gsap', 'skeleton-wp-ScrollTrigger', 'skeleton-wp-SplitText'),
+      skeleton_wp()->get_asset_version( get_theme_file_path( '/assets/js/gsap-client.min.js' ) ),
+      array(
+        'strategy'  => 'defer',
+        'in_footer' => true
+      )
+    );
+
 	}
 
 }
