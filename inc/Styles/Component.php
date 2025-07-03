@@ -288,14 +288,12 @@ class Component implements Component_Interface, Templating_Component_Interface {
 	 * @return bool True if preloading stylesheets and injecting them is enabled, false otherwise.
 	 */
 	protected function preloading_styles_enabled() {
-		$preloading_styles_enabled = ! skeleton_wp()->is_amp();
-
 		/**
 		 * Filters whether to preload stylesheets and inject their link tags within the page content.
 		 *
 		 * @param bool $preloading_styles_enabled Whether preloading stylesheets and injecting them is enabled.
 		 */
-		return apply_filters( 'skeleton_wp_preloading_styles_enabled', $preloading_styles_enabled );
+		return apply_filters( 'skeleton_wp_preloading_styles_enabled', true );
 	}
 
 	/**

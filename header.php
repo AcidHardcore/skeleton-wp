@@ -19,16 +19,11 @@ namespace Skeleton_WP\Skeleton_WP;
   <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1">
   <link rel="profile" href="http://gmpg.org/xfn/11">
 
-  <?php
-  if (!skeleton_wp()->is_amp()) {
-    ?>
-    <script>
-      document.documentElement.classList.remove('no-js');
-      document.documentElement.classList.add('js');
-    </script>
-    <?php
-  }
-  ?>
+  <script>
+    document.documentElement.classList.remove('no-js');
+    document.documentElement.classList.add('js');
+  </script>
+
 
   <?php wp_head(); ?>
 </head>
@@ -41,7 +36,7 @@ namespace Skeleton_WP\Skeleton_WP;
   <?php
   $sticky_header = get_theme_mod('sticky_header');
   $header_class = 'site-header';
-  if($sticky_header) {
+  if ($sticky_header) {
     $header_class .= ' site-header--sticky';
   }
   ?>
