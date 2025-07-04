@@ -1,4 +1,4 @@
-/* global skeletonWpScreenReaderText */
+/* global skeletonWpScreenReaderText, gsap */
 /**
  * File navigation.js.
  *
@@ -11,6 +11,7 @@
  * - Improved submenu closing logic using 'focusout' for better accessibility and reliability.
  * - Enhanced accessibility with `aria-controls`.
  * - Refactored toggleSubMenu function for better clarity and maintainability.
+ * - GSAP animation for mobile menu toggle (mobile-only).
  */
 
 const KEYMAP = {
@@ -120,26 +121,112 @@ function initEachNavToggleSubmenu(nav) {
 
 /**
  * Initiate the script to process the small navigation toggle for a specific navigation menu.
+ * This function now includes GSAP animations that only run on mobile viewports.
  * @param {HTMLElement} nav - The navigation element.
  */
 function initEachNavToggleSmall(nav) {
   const menuToggle = nav.querySelector('.main-nav__toggle');
   const siteHeader = document.querySelector('.site-header');
+  const menuItems = nav.querySelectorAll('.main-nav--toggle-small li');
+  const menuContainer = nav.querySelector('.menu');
+  const mediaQuery = window.matchMedia('(max-width: 992px)'); // check $menu-desktop-width for consistency
 
-  if (!menuToggle) {
+  if (!menuToggle) return;
+
+  // Fallback if GSAP is not loaded
+  if (typeof gsap === 'undefined') {
+    console.warn('GSAP not found. Animations will be disabled.');
+    menuToggle.setAttribute('aria-expanded', 'false');
+    menuToggle.addEventListener('click', (e) => {
+      toggleMenu(e.currentTarget);
+    }, false);
     return;
   }
 
-  menuToggle.setAttribute('aria-expanded', 'false');
+  let menuTimeline;
 
-  menuToggle.addEventListener('click', (e) => {
+  function initializeGsapAnimation() {
+    if (menuTimeline) return;
+
+    gsap.set(menuContainer, {
+      height: 0,
+      opacity: 0,
+      display: 'none'
+    });
+
+    gsap.set(menuItems, {
+      opacity: 0,
+      y: -20,
+      rotationX: -90,
+      transformOrigin: '50% 0%',
+    });
+
+    menuTimeline = gsap.timeline({ paused: true })
+      .to(menuContainer, {
+        height: 'auto',
+        opacity: 1,
+        display: 'block',
+        duration: 0.3,
+        ease: 'power2.inOut'
+      })
+      .to(menuItems, {
+        opacity: 1,
+        y: 0,
+        rotationX: 0,
+        duration: 0.5,
+        ease: 'power3.out',
+        stagger: 0.08
+      }, '<0.2');
+
+    menuTimeline.reverse(0);
+  }
+
+  function toggleMenu(toggleButton = menuToggle) {
+    const isExpanding = !nav.classList.contains('main-nav--toggled-on');
+
     nav.classList.toggle('main-nav--toggled-on');
     siteHeader.classList.toggle('site-header--menu-open');
-    menuToggle.classList.toggle('burger--close');
-    const isExpanded = 'true' === e.currentTarget.getAttribute('aria-expanded');
-    e.currentTarget.setAttribute('aria-expanded', !isExpanded);
-  }, false);
+    toggleButton.classList.toggle('burger--close');
+    toggleButton.setAttribute('aria-expanded', isExpanding);
+
+    if (mediaQuery.matches) {
+      initializeGsapAnimation();
+
+      if (isExpanding) {
+        menuTimeline.play();
+        // Add click outside listener when menu opens
+        document.addEventListener('click', handleClickOutside);
+      } else {
+        gsap.delayedCall(0.1, () => {
+          menuTimeline.reverse();
+          // Remove click outside listener when menu closes
+          document.removeEventListener('click', handleClickOutside);
+        });
+      }
+    }
+  }
+
+  function handleClickOutside(event) {
+    // Check if click is outside the nav and menu is open
+    if (nav.classList.contains('main-nav--toggled-on') &&
+      !nav.contains(event.target) &&
+      event.target !== menuToggle) {
+      toggleMenu();
+    }
+  }
+
+  // Initialize
+  menuToggle.setAttribute('aria-expanded', 'false');
+  menuToggle.addEventListener('click', (e) => toggleMenu(e.currentTarget), false);
+
+  // Close menu when ESC key is pressed
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && nav.classList.contains('main-nav--toggled-on')) {
+      toggleMenu();
+    }
+  });
 }
+
 
 /**
  * Opens a submenu and ensures sibling menus are closed.
