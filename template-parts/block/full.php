@@ -21,32 +21,32 @@ $content_bg = $args['content_bg'] ?? '';
 $image_srcset = $args['image_srcset'] ?? '';
 $is_dark = skeleton_wp()->mytheme_color_is_dark($bg);
 
-array_unshift($classes,'block-full');
-if ( $pad_t ) {
-  $classes[] = 'block-full--pad-top-'.$pad_t;
+array_unshift($classes, 'block-full');
+if ($pad_t) {
+  $classes[] = 'block-full--pad-top-' . $pad_t;
 }
-if ( $pad_b ) {
-  $classes[] = 'block-full--pad-bot-'.$pad_b;
+if ($pad_b) {
+  $classes[] = 'block-full--pad-bot-' . $pad_b;
 }
-if ( $pad_mt ) {
-  $classes[] = 'block-full--pad-mobile-top-'.$pad_mt;
+if ($pad_mt) {
+  $classes[] = 'block-full--pad-mobile-top-' . $pad_mt;
 }
-if ( $pad_mb ) {
-  $classes[] = 'block-full--pad-mobile-bot-'.$pad_mb;
+if ($pad_mb) {
+  $classes[] = 'block-full--pad-mobile-bot-' . $pad_mb;
 }
 
-if ( $bg_image ) {
-  ob_start ();
+if ($bg_image) {
+  ob_start();
   ?>
 
-  <?php get_template_part ('template-parts/block/img', null, [
+  <?php get_template_part('template-parts/block/img', null, [
     'image' => $bg_image,
     'is_cover' => true,
     'is_transparent' => true,
     'classes' => $bg_image_m ? ['desktop'] : [],
     'image_srcset' => $image_srcset
   ]); ?>
-  <?php get_template_part ('template-parts/block/img', null, [
+  <?php get_template_part('template-parts/block/img', null, [
     'image' => $bg_image_m,
     'is_cover' => true,
     'is_transparent' => true,
@@ -55,28 +55,33 @@ if ( $bg_image ) {
 
   <?= $content_bg ?>
   <?php
-  $content_bg = ob_get_clean ();
+  $content_bg = ob_get_clean();
 }
 
-if ( $bg ) {
-  $classes[] = 'block-full--bg-'.$bg;
+if ($bg) {
+  $classes[] = 'block-full--bg-' . $bg;
 }
-if ( $bg_grad ) {
+if ($bg_grad) {
   $classes[] = 'block-full--bg-grad-top';
 }
-if ( $content_bg ) {
+if ($content_bg) {
   $classes[] = 'block-full--with-bg';
 }
 
-?><section <?= $id ? 'id="'.$id.'"' : '' ?> class="<?= join(' ', $classes) ?>">
+?>
+<section
+  <?= $id ? 'id="' . $id . '"' : '' ?>
+  class="<?= join(' ', $classes) ?>"
+  data-scroll-section
+>
 
-  <?php if ( $content_bg ): ?>
+  <?php if ($content_bg): ?>
     <div class="block-full__bg">
       <?= $content_bg ?>
     </div>
   <?php endif; ?>
 
-  <?php if ( $content ): ?>
+  <?php if ($content): ?>
     <div class="block-full__content">
       <?= $content ?>
     </div>

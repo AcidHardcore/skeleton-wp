@@ -422,27 +422,35 @@ class Component implements Component_Interface, Templating_Component_Interface {
     return false;
   }
 
-  public function handle_attributes( $attrs ) {
-    $reducer = [];
+  public function handle_attributes($attrs) {
 
-    if ( ! empty( $attrs ) && is_array( $attrs ) ) {
-
-      foreach ( $attrs as $key => $value ) {
-        $tail = '';
-        if ( is_array( $value ) ) {
-          if ( ! empty( $value ) ) {
-            $tail = '="' . esc_attr( json_encode( $value ) ) . '"';
-          }
-        } else {
-          $tail = $value !== null ? '="' . $value . '"' : '';
-        }
-        $reducer[] = $key . $tail;
-      }
-
-      return implode( ' ', $reducer );
+    if (!is_array($attrs)) {
+      return '';
     }
 
-    return false;
+    $attribute_strings = [];
+
+    foreach ($attrs as $key => $value) {
+
+      $key = sanitize_key($key);
+
+      if ($value === false) {
+        continue;
+      }
+
+      if ($value === true || $value === null) {
+        $attribute_strings[] = $key;
+        continue;
+      }
+
+      if (is_array($value)) {
+        $value = wp_json_encode($value);
+      }
+
+      $attribute_strings[] = sprintf('%s="%s"', $key, esc_attr($value));
+    }
+
+    return implode(' ', $attribute_strings);
   }
 
   public function current_url() {

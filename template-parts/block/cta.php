@@ -13,6 +13,7 @@ if ( $link ) {
 $classes  = $args['classes'] ?? [];
 $type     = $args['type'] ?? '';
 $position = $args['position'] ?? '';
+$attr = $args['attrs'] ?? [];
 
 if ( $type != 'link' ) {
   array_unshift( $classes, 'as-b' );
@@ -31,8 +32,6 @@ if ( $type == 'modal' ) {
   $classes[] =  'js-pop-open-pdf';
 }
 
-
-
 if ( $position ) {
   $classes[] = 'as-b--' . $position;
 }
@@ -41,6 +40,7 @@ if ( $link ): ?>
   <a href="<?php echo esc_url( $link_url ); ?>"
      class="<?= join( ' ', $classes ) ?>"
      target="<?php echo esc_attr( $link_target ); ?>"
+    <?= skeleton_wp()->handle_attributes($attr) ?>
   >
     <?php echo esc_html( $link_title ); ?></a>
 <?php endif; ?>

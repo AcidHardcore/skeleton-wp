@@ -14,6 +14,7 @@ $classes = $args['classes'] ?? [];
 $size = $args['size'] ?? 'full';
 $image_args = $args['args'] ?? [];
 $image_srcset = $args['image_srcset'] ?? '';
+$attr = $args['attrs'] ?? [];
 
 array_unshift($classes,'image-wrap');
 if ( $is_cover ) {
@@ -39,7 +40,10 @@ if($image_srcset) {
 }
 
 if ( $image ): ?>
-	<figure class="<?= join(' ', $classes ) ?>">
+	<figure
+    class="<?= join(' ', $classes ) ?>"
+    <?= skeleton_wp()->handle_attributes($attr) ?>
+  >
 		<?= wp_get_attachment_image($image, $size, false, $image_args) ?>
 	</figure>
 <?php endif;
