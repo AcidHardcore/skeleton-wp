@@ -4,220 +4,191 @@
  *
  * Handles toggling the navigation menu for small screens and enables TAB key
  * navigation support for dropdown menus.
+ *
+ * This refactored version includes:
+ * - A generic initialization function to reduce code duplication.
+ * - Modern forEach loops for better readability.
+ * - Improved submenu closing logic using 'focusout' for better accessibility and reliability.
+ * - Enhanced accessibility with `aria-controls`.
+ * - Refactored toggleSubMenu function for better clarity and maintainability.
  */
 
 const KEYMAP = {
-	TAB: 9,
+  TAB: 9,
 };
 
-if ('loading' === document.readyState) {
-	// The DOM has not yet been loaded.
-	document.addEventListener('DOMContentLoaded', initNavigation);
-} else {
-	// The DOM has already been loaded.
-	initNavigation();
-}
-
-// Initiate the menus when the DOM loads.
-function initNavigation() {
-	initNavToggleSubmenus();
-	initNavToggleSmall();
-}
-
 /**
- * Initiate the script to process all
- * navigation menus with submenu toggle enabled.
+ * Run the initialization functions when the DOM is ready.
  */
-function initNavToggleSubmenus() {
-	const navTOGGLE = document.querySelectorAll('.main-nav--toggle-sub');
-
-	// No point if no navs.
-	if (!navTOGGLE.length) {
-		return;
-	}
-
-	for (let i = 0; i < navTOGGLE.length; i++) {
-		initEachNavToggleSubmenu(navTOGGLE[i]);
-	}
+if ('loading' === document.readyState) {
+  // The DOM has not yet been loaded.
+  document.addEventListener('DOMContentLoaded', init);
+} else {
+  // The DOM has already been loaded.
+  init();
 }
 
 /**
- * Initiate the script to process submenu
- * navigation toggle for a specific navigation menu.
- * @param {Object} nav Navigation element.
+ * Main initialization function.
+ */
+function init() {
+  initAllNavs('.main-nav--toggle-sub', initEachNavToggleSubmenu);
+  initAllNavs('.main-nav--toggle-small', initEachNavToggleSmall);
+}
+
+/**
+ * A generic helper function to initialize all navigation elements matching a selector.
+ * @param {string} selector - The CSS selector for the navigation containers.
+ * @param {Function} callback - The function to call for each found navigation element.
+ */
+function initAllNavs(selector, callback) {
+  const navs = document.querySelectorAll(selector);
+  navs.forEach(nav => callback(nav));
+}
+
+/**
+ * Initiate the script to process submenu navigation toggle for a specific navigation menu.
+ * @param {HTMLElement} nav - The navigation element.
  */
 function initEachNavToggleSubmenu(nav) {
-	// Get the submenus.
-	const SUBMENUS = nav.querySelectorAll('.menu ul');
+  const submenus = nav.querySelectorAll('.menu ul');
+  if (!submenus.length) {
+    return;
+  }
 
-	// No point if no submenus.
-	if (!SUBMENUS.length) {
-		return;
-	}
+  // Add a focusout listener to the entire navigation menu for robust closing.
+  nav.addEventListener('focusout', (e) => {
+    // If the element that is receiving focus is NOT inside this nav, close all submenus.
+    if (!nav.contains(e.relatedTarget)) {
+      nav.querySelectorAll('.menu-item--toggled-on').forEach(item => {
+        closeSubMenu(item);
+      });
+    }
+  });
 
-	for (let i = 0; i < SUBMENUS.length; i++) {
-		const parentMenuItem = SUBMENUS[i].parentNode;
-		let dropdown = parentMenuItem.querySelector('.dropdown-toggle');
+  submenus.forEach((submenu, i) => {
+    const parentMenuItem = submenu.parentNode;
+    const dropdownToggle = parentMenuItem.querySelector('.dropdown-toggle');
+    const menuLink = parentMenuItem.querySelector('a');
 
-		// Toggle the submenu when we click the dropdown button.
-		dropdown.addEventListener('click', (e) => {
-			toggleSubMenu(e.target.closest('li'), true);
-		});
+    // Assign a unique ID to the submenu if it doesn't have one, for aria-controls.
+    if (!submenu.id) {
+      submenu.id = `submenu-${nav.className.split(' ')[0]}-${i}`;
+    }
+    dropdownToggle.setAttribute('aria-controls', submenu.id);
 
-		// Clean up the toggle if a mouse takes over from keyboard.
-		parentMenuItem.addEventListener('mouseleave', (e) => {
-			toggleSubMenu(e.target, false);
-		});
+    // Toggle the submenu when we click the dropdown button.
+    dropdownToggle.addEventListener('click', () => {
+      toggleSubMenu(parentMenuItem);
+    });
 
-		// When we focus on a menu link, make sure all siblings are closed.
-		parentMenuItem.querySelector('a').addEventListener('focus', (e) => {
-			const parentMenuItemsToggled = e.target.parentNode.parentNode.querySelectorAll('li.menu-item--toggled-on');
-			for (let j = 0; j < parentMenuItemsToggled.length; j++) {
-				toggleSubMenu(parentMenuItemsToggled[j], false);
-			}
-		});
+    // When we focus on a menu link, make sure all sibling submenus are closed.
+    menuLink.addEventListener('focus', () => {
+      const parentContainer = parentMenuItem.parentNode;
+      parentContainer.querySelectorAll('.menu-item--toggled-on').forEach(item => {
+        if (item !== parentMenuItem) {
+          closeSubMenu(item);
+        }
+      });
+    });
 
-		// Handle keyboard accessibility for traversing menu.
-		SUBMENUS[i].addEventListener('keydown', (e) => {
-			// These specific selectors help us only select items that are visible.
-			const focusSelector = 'ul.toggle-show > li > a, ul.toggle-show > li > button';
+    // Handle keyboard accessibility for traversing the submenu.
+    submenu.addEventListener('keydown', (e) => {
+      if (KEYMAP.TAB !== e.keyCode) {
+        return;
+      }
 
-			if (KEYMAP.TAB === e.keyCode) {
-				if (e.shiftKey) {
-					// Means we're tabbing out of the beginning of the submenu.
-					if (isfirstFocusableElement(e.target, document.activeElement, focusSelector)) {
-						toggleSubMenu(e.target.parentNode, false);
-					}
-					// Means we're tabbing out of the end of the submenu.
-				} else if (islastFocusableElement(e.target, document.activeElement, focusSelector)) {
-					toggleSubMenu(e.target.parentNode, false);
-				}
-			}
-		});
+      // Get all focusable elements within the current open submenu.
+      const focusableElements = submenu.querySelectorAll('a, button');
+      const firstFocusable = focusableElements[0];
+      const lastFocusable = focusableElements[focusableElements.length - 1];
 
-		SUBMENUS[i].parentNode.classList.add('menu-item--has-toggle');
-	}
+      // If shift-tabbing from the first element, close the submenu.
+      if (e.shiftKey && document.activeElement === firstFocusable) {
+        closeSubMenu(parentMenuItem);
+      }
+
+      // If tabbing from the last element, close the submenu.
+      if (!e.shiftKey && document.activeElement === lastFocusable) {
+        closeSubMenu(parentMenuItem);
+      }
+    });
+
+    parentMenuItem.classList.add('menu-item--has-toggle');
+  });
 }
 
 /**
- * Initiate the script to process all
- * navigation menus with small toggle enabled.
- */
-function initNavToggleSmall() {
-	const navTOGGLE = document.querySelectorAll('.main-nav--toggle-small');
-
-	// No point if no navs.
-	if (!navTOGGLE.length) {
-		return;
-	}
-
-	for (let i = 0; i < navTOGGLE.length; i++) {
-		initEachNavToggleSmall(navTOGGLE[i]);
-	}
-}
-
-/**
- * Initiate the script to process small
- * navigation toggle for a specific navigation menu.
- * @param {Object} nav Navigation element.
+ * Initiate the script to process the small navigation toggle for a specific navigation menu.
+ * @param {HTMLElement} nav - The navigation element.
  */
 function initEachNavToggleSmall(nav) {
-	const menuTOGGLE = nav.querySelector('.main-nav__toggle');
+  const menuToggle = nav.querySelector('.main-nav__toggle');
   const siteHeader = document.querySelector('.site-header');
-	// Return early if MENUTOGGLE is missing.
-	if (!menuTOGGLE) {
-		return;
-	}
 
-	// Add an initial values for the attribute.
-	menuTOGGLE.setAttribute('aria-expanded', 'false');
+  if (!menuToggle) {
+    return;
+  }
 
-	menuTOGGLE.addEventListener('click', (e) => {
-		nav.classList.toggle('main-nav--toggled-on');
+  menuToggle.setAttribute('aria-expanded', 'false');
+
+  menuToggle.addEventListener('click', (e) => {
+    nav.classList.toggle('main-nav--toggled-on');
     siteHeader.classList.toggle('site-header--menu-open');
-		menuTOGGLE.classList.toggle('burger--close');
-		e.target.setAttribute('aria-expanded', 'false' === e.target.getAttribute('aria-expanded') ? 'true' : 'false');
-	}, false);
+    menuToggle.classList.toggle('burger--close');
+    const isExpanded = 'true' === e.currentTarget.getAttribute('aria-expanded');
+    e.currentTarget.setAttribute('aria-expanded', !isExpanded);
+  }, false);
 }
 
 /**
- * Toggle submenus open and closed, and tell screen readers what's going on.
- * @param {Object} parentMenuItem Parent menu element.
- * @param {boolean} forceToggle Force the menu toggle.
- * @return {void}
+ * Opens a submenu and ensures sibling menus are closed.
+ * @param {HTMLElement} parentMenuItem - The parent li element of the submenu to open.
  */
-function toggleSubMenu(parentMenuItem, forceToggle) {
-	const toggleButton = parentMenuItem.querySelector('.dropdown-toggle'),
-		subMenu = parentMenuItem.querySelector('ul');
-	let parentMenuItemToggled = parentMenuItem.classList.contains('menu-item--toggled-on');
+function openSubMenu(parentMenuItem) {
+  // Close any sibling menus that are open.
+  const parentContainer = parentMenuItem.parentNode;
+  parentContainer.querySelectorAll('.menu-item--toggled-on').forEach(item => {
+    if (item !== parentMenuItem) {
+      closeSubMenu(item);
+    }
+  });
 
-	// Will be true if we want to force the toggle on, false if force toggle close.
-	if (undefined !== forceToggle && 'boolean' === (typeof forceToggle)) {
-		parentMenuItemToggled = !forceToggle;
-	}
+  const toggleButton = parentMenuItem.querySelector('.dropdown-toggle');
+  const subMenu = parentMenuItem.querySelector('ul');
 
-
-	// Toggle aria-expanded status.
-	toggleButton.setAttribute('aria-expanded', (!parentMenuItemToggled).toString());
-	/*
-	 * Steps to handle during toggle:
-	 * - Let the parent menu item know we're toggled on/off.
-	 * - Toggle the ARIA label to let screen readers know will expand or collapse.
-	 */
-	if (parentMenuItemToggled) {
-
-		// Toggle "off" the submenu.
-		parentMenuItem.classList.remove('menu-item--toggled-on');
-		subMenu.classList.remove('toggle-show');
-		toggleButton.setAttribute('aria-label', skeletonWpScreenReaderText.expand);
-		// Make sure all children yare closed.
-		const subMenuItemsToggled = parentMenuItem.querySelectorAll('.menu-item--toggled-on');
-		for (let i = 0; i < subMenuItemsToggled.length; i++) {
-			toggleSubMenu(subMenuItemsToggled[i], false);
-		}
-	} else {
-
-		// Make sure siblings are closed.
-		const parentMenuItemsToggled = parentMenuItem.parentNode.querySelectorAll('li.menu-item--toggled-on');
-		for (let i = 0; i < parentMenuItemsToggled.length; i++) {
-			toggleSubMenu(parentMenuItemsToggled[i], false);
-		}
-
-		// Toggle "on" the submenu.
-		parentMenuItem.classList.add('menu-item--toggled-on');
-		subMenu.classList.add('toggle-show');
-		toggleButton.setAttribute('aria-label', skeletonWpScreenReaderText.collapse);
-	}
+  parentMenuItem.classList.add('menu-item--toggled-on');
+  subMenu.classList.add('toggle-show');
+  toggleButton.setAttribute('aria-expanded', 'true');
+  toggleButton.setAttribute('aria-label', skeletonWpScreenReaderText.collapse);
 }
 
 /**
- * Returns true if element is the
- * first focusable element in the container.
- * @param {Object} container
- * @param {Object} element
- * @param {string} focusSelector
- * @return {boolean} whether or not the element is the first focusable element in the container
+ * Closes a submenu and any of its open children.
+ * @param {HTMLElement} parentMenuItem - The parent li element of the submenu to close.
  */
-function isfirstFocusableElement(container, element, focusSelector) {
-	const focusableElements = container.querySelectorAll(focusSelector);
-	if (0 < focusableElements.length) {
-		return element === focusableElements[0];
-	}
-	return false;
+function closeSubMenu(parentMenuItem) {
+  const toggleButton = parentMenuItem.querySelector('.dropdown-toggle');
+  const subMenu = parentMenuItem.querySelector('ul');
+
+  parentMenuItem.classList.remove('menu-item--toggled-on');
+  subMenu.classList.remove('toggle-show');
+  toggleButton.setAttribute('aria-expanded', 'false');
+  toggleButton.setAttribute('aria-label', skeletonWpScreenReaderText.expand);
+
+  // Ensure all children submenus are also closed.
+  parentMenuItem.querySelectorAll('.menu-item--toggled-on').forEach(item => closeSubMenu(item));
 }
 
 /**
- * Returns true if element is the
- * last focusable element in the container.
- * @param {Object} container
- * @param {Object} element
- * @param {string} focusSelector
- * @return {boolean} whether or not the element is the last focusable element in the container
+ * Toggles a submenu's state, dispatching to open or close functions.
+ * @param {HTMLElement} parentMenuItem - The parent menu item element.
  */
-function islastFocusableElement(container, element, focusSelector) {
-	const focusableElements = container.querySelectorAll(focusSelector);
-	if (0 < focusableElements.length) {
-		return element === focusableElements[focusableElements.length - 1];
-	}
-	return false;
+function toggleSubMenu(parentMenuItem) {
+  const isToggledOn = parentMenuItem.classList.contains('menu-item--toggled-on');
+  if (isToggledOn) {
+    closeSubMenu(parentMenuItem);
+  } else {
+    openSubMenu(parentMenuItem);
+  }
 }
