@@ -155,10 +155,10 @@ function initEachNavToggleSmall(nav) {
     });
 
     gsap.set(menuItems, {
-      opacity: 0,
-      y: -20,
-      rotationX: -90,
-      transformOrigin: '50% 0%',
+      opacity: 0.5,
+      x: -20,
+      rotationY: -90,
+      transformOrigin: '0% 50%',
     });
 
     menuTimeline = gsap.timeline({ paused: true })
@@ -171,8 +171,8 @@ function initEachNavToggleSmall(nav) {
       })
       .to(menuItems, {
         opacity: 1,
-        y: 0,
-        rotationX: 0,
+        x: 0,
+        rotationY: 0,
         duration: 0.5,
         ease: 'power3.out',
         stagger: 0.08
