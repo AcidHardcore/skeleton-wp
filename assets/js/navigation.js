@@ -178,7 +178,6 @@ function initEachNavToggleSmall(nav) {
         stagger: 0.08
       }, '<0.2');
 
-    menuTimeline.reverse(0);
   }
 
   function toggleMenu(toggleButton = menuToggle) {
@@ -194,17 +193,35 @@ function initEachNavToggleSmall(nav) {
 
       if (isExpanding) {
         menuTimeline.play();
-        // Add click outside listener when menu opens
         document.addEventListener('click', handleClickOutside);
       } else {
-        gsap.delayedCall(0.1, () => {
-          menuTimeline.reverse();
-          // Remove click outside listener when menu closes
-          document.removeEventListener('click', handleClickOutside);
-        });
+        menuTimeline.reverse();
+        document.removeEventListener('click', handleClickOutside);
       }
     }
+
   }
+  function handleViewportChange(e) {
+    if (e.matches) {
+      initializeGsapAnimation();
+    } else {
+      if (menuTimeline) {
+        menuTimeline.kill();
+        menuTimeline = null; // Set it to null so it can be re-initialized.
+      }
+
+      gsap.set([menuContainer, menuItems], { clearProps: "all" });
+
+      nav.classList.remove('main-nav--toggled-on');
+      siteHeader.classList.remove('site-header--menu-open');
+      menuToggle.classList.remove('burger--close');
+      menuToggle.setAttribute('aria-expanded', 'false');
+    }
+  }
+
+  handleViewportChange(mediaQuery);
+
+  mediaQuery.addEventListener('change',  handleViewportChange );
 
   function handleClickOutside(event) {
     // Check if click is outside the nav and menu is open
