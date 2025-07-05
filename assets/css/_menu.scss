@@ -111,13 +111,7 @@
   & .menu {
     display: none;
     background-color: $white;
-
-    overflow: hidden; // Needed for height animation
     will-change: height, opacity; // Improves performance
-
-    &:not(.main-nav--toggled-on) {
-      pointer-events: none;
-    }
 
     @include media-breakpoint-up($menu-desktop-width) {
       display: flex;
