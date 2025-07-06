@@ -52,7 +52,7 @@ function initAllNavs(selector, callback) {
  * @param {HTMLElement} nav - The navigation element.
  */
 function initEachNavToggleSubmenu(nav) {
-  const submenus = nav.querySelectorAll('.menu ul');
+  const submenus = nav.querySelectorAll('.menu-item-has-children .sub-menu');
   if (!submenus.length) {
     return;
   }
