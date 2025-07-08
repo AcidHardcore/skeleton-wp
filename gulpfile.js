@@ -55,8 +55,8 @@ const sass = require('gulp-sass')(require('sass'));
 const sourcemaps = require('gulp-sourcemaps');
 const postcss = require('gulp-postcss');
 const prefix = require('autoprefixer');
+let tailwindcss = require('tailwindcss');
 const minify = require('cssnano');
-const mqpacker = require("css-mqpacker");
 
 // BrowserSync
 const browserSync = require('browser-sync');
@@ -120,15 +120,10 @@ const buildStyles = () => src(paths.styles.input)
 		outputStyle: 'expanded',
 		sourceComments: true
 	}))
-	.pipe(postcss([
-		prefix({
-			cascade: true,
-			remove: true
-		}),
-		mqpacker({
-			sort: true
-		}),
-	]))
+  .pipe(postcss([
+    tailwindcss,
+    prefix,
+  ]))
 	.pipe(sourcemaps.write({ includeContent: false }))
 	.pipe(dest(paths.styles.output))
 	.pipe(rename({ suffix: '.min' }))
@@ -150,9 +145,6 @@ const buildBlockStyles = () => src(paths.blockStyles.input)
 		prefix({
 			cascade: true,
 			remove: true
-		}),
-		mqpacker({
-			sort: true
 		}),
 	]))
 	.pipe(dest(paths.blockStyles.output))

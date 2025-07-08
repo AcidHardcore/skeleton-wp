@@ -13,18 +13,17 @@
           justify-content: center;
   position: relative;
 }
+@media screen and (max-width: 1023px) {
+  .head {
+    min-height: 0;
+  }
+}
 .head .block-full-content {
   -webkit-box-flex: 1;
       -ms-flex: 1;
           flex: 1;
 }
-.head.block-full--first {
-  margin-top: em(-150);
-}
 @media screen and (max-width: 1023px) {
-  .head {
-    min-height: 0;
-  }
   .head .block-full-content {
     min-height: 25em;
     display: -webkit-box;
@@ -37,6 +36,11 @@
         -ms-flex-pack: center;
             justify-content: center;
   }
+}
+.head.block-full--first {
+  margin-top: em(-150);
+}
+@media screen and (max-width: 1023px) {
   .head.block-full--first {
     margin-top: em(-90);
   }
