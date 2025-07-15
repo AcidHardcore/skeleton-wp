@@ -8,203 +8,287 @@
 namespace Skeleton_WP\Skeleton_WP\Load_More;
 
 use Skeleton_WP\Skeleton_WP\Component_Interface;
-use function add_action;
 use WP_Query;
-use function ob_start;
-use function ob_get_clean;
-use function get_template_part;
-use function max;
-use function paginate_links;
-use function strpos;
-use function str_replace;
-use function wp_send_json_success;
 use WP_REST_Server;
 use WP_REST_Request;
-use function json_decode;
-//use function json_encode;
 use WP_Error;
+use WP_REST_Response;
+use function Skeleton_WP\Skeleton_WP\skeleton_wp;
 
 /**
- * Class for AJAX load more post and pagination
- *
- * @link https://rudrastyh.com/wordpress/load-more-posts-ajax.html
+ * Class for AJAX load more post and pagination via the REST API.
  */
 class Component implements Component_Interface {
 
-	/**
-	 * Associative array of $_POST super array.
-	 *
-	 * @var array
-	 */
-	protected object $input;
+  /**
+   * The validated and sanitized query arguments.
+   * @var array
+   */
+  private array $query_args = [];
 
-	/**
-	 * WP_Query instance.
-	 *
-	 * @var object
-	 */
-	protected object $query;
+  /**
+   * Gets the unique identifier for the theme component.
+   *
+   * @return string Component slug.
+   */
+  public function get_slug(): string {
+    return 'load_more';
+  }
 
-	/**
-	 * Gets the unique identifier for the theme component.
-	 *
-	 * @return string Component slug.
-	 */
-	public function get_slug(): string {
-		return 'load_more';
-	}
+  /**
+   * Adds the action and filter hooks to integrate with WordPress.
+   */
+  public function initialize() {
+    add_action( 'rest_api_init', array( $this, 'register_rest_route' ) );
+    add_action('wp_enqueue_scripts', [$this, 'enqueue_scripts']);
+  }
 
-	/**
-	 * Adds the action and filter hooks to integrate with WordPress.
-	 */
-	public function initialize() {
-		add_action('rest_api_init', array($this, 'custom_route'));
-	}
+  public function enqueue_scripts() {
+    $script_handle = 'skeleton-wp-load-more';
 
-	/**
-	 * Add a custom route the the WP REST API
-	 */
-	public function custom_route() {
-		register_rest_route('load-more/v1', '/posts/', array(
-			'methods' => WP_REST_Server::READABLE,
-			'callback' => array($this, 'custom_response'),
-			'args' => array(
-				'data' => array(
-					'type' => 'string',
-					'required' => true,
-					'validate_callback' => function($param, $request, $key) {
-						return is_object( json_decode($param) );
-					}
-				),
-			),
-			'permission_callback' => '__return_true'
-		));
-	}
+    wp_register_script(
+      $script_handle,
+      get_theme_file_uri( '/assets/js/load-more.min.js' ),
+      array(),
+      skeleton_wp()->get_asset_version( get_theme_file_path( '/assets/js/load-more.min.js' ) ),
+      array(
+        'strategy'  => 'defer',
+        'in_footer' => true
+      )
+    );
 
-	/**
-	 * Validate object items
-	 *
-	 * @param string $data
-	 */
-		public function validate_input(string $data) {
+    wp_localize_script(
+      $script_handle,
+      'load_more_vars',
+      [
+        'nonce'   => wp_create_nonce('wp_rest'),
+        'api_url' => esc_url_raw(rest_url('load-more/v1/posts')),
+      ]
+    );
+  }
 
-		//convert a string to  an object after JSON.stringify
-		$this->input = json_decode($data);
+  /**
+   * Registers the custom REST API route.
+   */
+  public function register_rest_route() {
+    register_rest_route( 'load-more/v1', '/posts', [
+      'methods'             => WP_REST_Server::CREATABLE,
+      'callback'            => [ $this, 'handle_rest_request' ],
+      'permission_callback' => '__return_true',
+      'args'                => [
+        'query_args'  => [
+          'required'          => true,
+          'validate_callback' => [ $this, 'validate_query_args_structure' ],
+          'sanitize_callback' => [ $this, 'sanitize_query_args_recursively' ],
+        ],
+        'current_url' => [
+          'required'          => true,
+          'type'              => 'string',
+          'validate_callback' => 'wp_http_validate_url',
+          'sanitize_callback' => 'esc_url_raw',
+        ],
+      ],
+    ] );
+  }
 
-		$this->input->paged = !empty($this->input->paged) ? esc_attr($this->input->paged) : 0;
-		$this->input->post_type = !empty($this->input->post_type) ? esc_attr($this->input->post_type) : 0;
-		$this->input->orderby = !empty($this->input->orderby) ? esc_attr($this->input->orderby) : 0;
-		$this->input->order = !empty($this->input->order) ? esc_attr($this->input->order) : 0;
-		$this->input->posts_per_page = !empty($this->input->posts_per_page) ? esc_attr($this->input->posts_per_page) : 0;
-//		$this->input->category = !empty($this->input->category) ? array_map('esc_attr', $this->input->category) : array();
-		$this->input->load_more_type = !empty($this->input->load_more_type) ? esc_attr($this->input->load_more_type) : 0;
-		$this->input->current_url = !empty($this->input->current_url) ? esc_attr($this->input->current_url) : 0;
-	}
+  /**
+   * Handles the incoming REST API request.
+   * The parameters are already validated and sanitized by the REST API.
+   *
+   * @param WP_REST_Request $request The request object.
+   *
+   * @return WP_REST_Response|WP_Error
+   */
+  public function handle_rest_request( WP_REST_Request $request ): WP_REST_Response|WP_Error {
+    $query_args  = $request->get_param( 'query_args' );
+    $current_url = $request->get_param( 'current_url' );
 
-	/**
-	 * Retrieve posts
-	 *
-	 * @return false|string
-	 */
+    $response_data = $this->retrieve_posts( $query_args, $current_url );
 
-	public function retrieve_posts($data) {
+    return new WP_REST_Response( $response_data, 200 );
+  }
 
-		$this->validate_input($data);
+  /**
+   * Retrieves posts and pagination based on the sanitized query arguments.
+   *
+   * @param array $query_args The sanitized query arguments.
+   * @param string $current_url The sanitized current URL for pagination.
+   *
+   * @return array An array containing the rendered posts HTML and query metadata.
+   */
+  private function retrieve_posts( array $query_args, string $current_url ): array {
+    $query = new WP_Query( $query_args );
 
-//		error_log(print_r($this->input, true));
-		$args = array(
-			'post_type' => $this->input->post_type,
-			'post_status' => 'publish',
-			'posts_per_page' => $this->input->posts_per_page,
-			'order' => $this->input->order,
-			'orderby' => $this->input->orderby,
-			'paged' => $this->input->paged,
-		);
+    $posts_html = '';
+    if ( $query->have_posts() ) {
+      ob_start();
+      while ( $query->have_posts() ) {
+        $query->the_post();
+        get_template_part( 'template-parts/content/entry' );
+      }
+      $posts_html = ob_get_clean();
+    }
+    wp_reset_postdata();
 
-		if(!empty($this->input->cat)) {
-			$args['cat'] = intval($this->input->cat);
-		}
+    return [
+      'posts_html'  => $posts_html,
+      'pagination'  => $this->render_pagination_html( $query->max_num_pages, $query_args['paged'] ?? 1, $current_url ),
+      'maxNumPages' => $query->max_num_pages,
+      'foundPosts'  => $query->found_posts,
+    ];
+  }
+
+  /**
+   * Validation callback for the 'query_args' REST API parameter.
+   *
+   * @param mixed $value The value of the parameter.
+   * @param WP_REST_Request $request The request object.
+   * @param string $param The name of the parameter.
+   *
+   * @return true|WP_Error True if the value is valid, WP_Error otherwise.
+   */
+  public function validate_query_args_structure( $value, $request, $param ) {
+    if ( ! is_array( $value ) ) {
+      return new WP_Error( 'invalid_param', sprintf( '%s must be an object.', $param ), [ 'status' => 400 ] );
+    }
+
+    if ( empty( $value['post_type'] ) ) {
+      return new WP_Error( 'missing_required_param', sprintf( '%s must contain a "post_type".', $param ), [ 'status' => 400 ] );
+    }
+
+    $post_types = is_array( $value['post_type'] ) ? $value['post_type'] : [ $value['post_type'] ];
+    foreach ( $post_types as $pt ) {
+      if ( ! post_type_exists( $pt ) ) {
+        return new WP_Error( 'invalid_post_type', sprintf( 'Post type "%s" does not exist.', esc_html( $pt ) ), [ 'status' => 400 ] );
+      }
+    }
+
+    return true;
+  }
+
+  /**
+   * Sanitization callback for the 'query_args' REST API parameter.
+   *
+   * @param array $query_args The raw query_args object.
+   *
+   * @return array The sanitized query_args array.
+   */
+  public function sanitize_query_args_recursively( array $query_args ): array {
+    $allowed_params = [
+      'paged'            => [ 'type' => 'int', 'default' => 1 ],
+      'post_type'        => [ 'type' => 'string_list', 'default' => 'post' ],
+      'orderby'          => [ 'type' => 'string', 'default' => 'date' ],
+      'order'            => [ 'type' => 'string', 'default' => 'DESC' ],
+      's'                => [ 'type' => 'string', 'default' => null ],
+      'posts_per_page'   => [ 'type' => 'int', 'default' => 10 ],
+      'cat'              => [ 'type' => 'int_list', 'default' => null ],
+      'tag'              => [ 'type' => 'string', 'default' => null ],
+      'category__in'     => [ 'type' => 'int_list', 'default' => null ],
+      'category__not_in' => [ 'type' => 'int_list', 'default' => null ],
+      'tag__in'          => [ 'type' => 'int_list', 'default' => null ],
+      'tag__not_in'      => [ 'type' => 'int_list', 'default' => null ],
+      'tax_query'        => [ 'type' => 'tax_query', 'default' => null ],
+      'meta_query'       => [ 'type' => 'meta_query', 'default' => null ],
+    ];
+
+    $sanitized_args = [];
+    foreach ( $allowed_params as $param => $config ) {
+      $value = $query_args[ $param ] ?? $config['default'];
+      if ( $value !== null ) {
+        $sanitized_args[ $param ] = $this->sanitize_query_var( $value, $config['type'] );
+      }
+    }
+
+    return $sanitized_args;
+  }
+
+  /**
+   * Sanitize a single WP_Query parameter based on its expected type.
+   *
+   * @param mixed $value The raw value from the input.
+   * @param string $type The expected data type.
+   *
+   * @return mixed The sanitized value.
+   */
+  private function sanitize_query_var( $value, string $type ) {
+    switch ( $type ) {
+      case 'int':
+        return absint( $value );
+      case 'string':
+        return sanitize_key( $value );
+      case 'int_list':
+        $items = is_array( $value ) ? $value : explode( ',', $value );
+
+        return array_map( 'absint', $items );
+      case 'string_list':
+        $items = is_array( $value ) ? $value : explode( ',', $value );
+
+        return array_map( 'sanitize_key', $items );
+      case 'tax_query':
+      case 'meta_query':
+        return is_array( $value ) ? $this->recursively_sanitize_query_array( $value ) : null;
+      default:
+        return null;
+    }
+  }
+
+  /**
+   * Recursively walk through a nested array and sanitize every key and value.
+   *
+   * @param array $array The array to sanitize.
+   *
+   * @return array The sanitized array.
+   */
+  private function recursively_sanitize_query_array( array $array ): array {
+    $sanitized_array = [];
+    foreach ( $array as $key => $value ) {
+      $sanitized_key = sanitize_key( $key );
+      if ( is_array( $value ) ) {
+        $sanitized_array[ $sanitized_key ] = $this->recursively_sanitize_query_array( $value );
+      } else {
+        $sanitized_array[ $sanitized_key ] = sanitize_text_field( $value );
+      }
+    }
+
+    return $sanitized_array;
+  }
+
+  /**
+   * Update pagination
+   *
+   * @return null|string
+   */
+  public function render_pagination_html( $total_pages, $current_page, $current_url ) {
+
+    if ( $total_pages <= 1 ) {
+      return null;
+    }
+
+    $args = array(
+      'base'      => strtok( $current_url, '?' ) . '%_%',
+      'format'    => '?pages="%#%"',
+      'mid_size'  => 2,
+      'prev_next' => true,
+      'prev_text' => __( 'prev', 'skeleton_wp' ),
+      'next_text' => __( 'next', 'skeleton_wp' ),
+      'current'   => $current_page,
+      'total'     => $total_pages,
+    );
+
+    $links = skeleton_wp()->paginate_links_data( $args );
 
 
-		$this->query = new WP_Query($args);
+    if ( empty( $links ) ) {
+      return null;
+    }
 
-		if($this->query->have_posts()) {
-			ob_start();
+    ob_start();
 
-			while($this->query->have_posts()): $this->query->the_post();
+    get_template_part( 'template-parts/content/pagination', null, [
+      'links' => $links
+    ] );
 
-				if($this->input->post_type == 'post') {
-					get_template_part('template-parts/content/entry');
-				}
-
-			endwhile;
-
-			return ob_get_clean();
-
-		} else {
-			return false;
-		}
-	}
-
-
-	/**
-	 * Update pagination
-	 *
-	 * @return false|string
-	 */
-	public function pagination() {
-		$this->input->total_pages = $this->query->max_num_pages;
-
-		$this->input->current_page = max(1, $this->input->paged);
-
-		$args = array(
-			'base' => $this->input->current_url,
-			'format' => '/page/%#%/',
-			'mid_size' => 2,
-			'show_all' => false, //show all pages links
-			'prev_next' => true,
-			'prev_text' => __('Previous', 'understrap'),
-			'next_text' => __('Next', 'understrap'),
-			'screen_reader_text' => __('Posts navigation', 'understrap'),
-			'type' => 'array',
-			'current' => $this->input->current_page,
-			'total' => $this->input->total_pages,
-		);
-
-		$links = paginate_links($args);
-
-		ob_start();
-
-		foreach($links as $key => $link) {
-			?>
-			<li class="<?php echo strpos($link, 'current') ? 'active' : ''; ?>">
-				<?php echo str_replace('page-numbers', 'page-link', $link); ?>
-			</li>
-			<?php
-		}
-
-		return ob_get_clean();
-
-	}
-
-	public function custom_response(WP_REST_Request $request) {
-
-		$info = array();
-		$info['posts'] = $this->retrieve_posts($request['data']);
-		if($this->input->load_more_type === 'pagination') {
-			$info['pagination'] = $this->pagination();
-		}
-    $info['maxPage'] = $this->query->max_num_pages;
-    $info['found'] = $this->query->found_posts;
-
-		if(!empty($info)) {
-			$response = rest_ensure_response($info);
-			$response->set_status(200);
-		} else {
-			$response = new WP_Error('no_posts', "Invalid data", array('status' => 404));
-		}
-
-		return $response;
-	}
-
+    return ob_get_clean();
+  }
 }
+

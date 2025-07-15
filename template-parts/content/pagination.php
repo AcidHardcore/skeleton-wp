@@ -7,11 +7,22 @@
 
 namespace Skeleton_WP\Skeleton_WP;
 
-the_posts_pagination(
-	array(
-		'mid_size'           => 2,
-		'prev_text'          => _x( 'Previous', 'previous set of search results', 'skeleton-wp' ),
-		'next_text'          => _x( 'Next', 'next set of search results', 'skeleton-wp' ),
-		'screen_reader_text' => __( 'Page navigation', 'skeleton-wp' ),
-	)
-);
+$links = $args['links'] ?? null;
+
+if ( ! empty( $links ) ) : ?>
+
+  <ul class="pagination" aria-label="<?php esc_attr_e( 'Pagination', 'skeleton_wp' ); ?>">
+    <?php foreach ( $links as $link ) : ?>
+      <li class="pagination__item">
+        <?php if ( $link->is_dots ) : ?>
+          <span><?= $link->link_text ?></span>
+        <?php elseif ( $link->is_current ) : ?>
+          <strong class="pagination__current"><?= $link->link_text ?></strong>
+        <?php else : ?>
+          <a class="pagination__link" href="<?= esc_attr( $link->url ) ?>"><?= wp_kses_post( $link->link_text ) ?></a>
+        <?php endif; ?>
+      </li>
+    <?php endforeach; ?>
+  </ul>
+
+<?php endif; ?>

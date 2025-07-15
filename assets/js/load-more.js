@@ -35,6 +35,9 @@ class Filter {
     this.visualFilters = $('.gform_wrapper__resources.gform_wrapper.gravity-theme .form-custom .chosen-container .chosen-single')
 
 
+    // Stores the currently active taxonomy filters, e.g., { 'industry': ['education'], 'category': ['news'] }
+    this.activeFilters = {};
+
     this.filtersHandler()
     this.searchHandler()
     this.paginationHandler()
@@ -46,8 +49,9 @@ class Filter {
     this.$filters.on('change', (e) => {
       const $that = $(e.currentTarget)
       const filter = $that.data('filter')
-      args[filter] = $that.val()
-      args.paged = 1
+      const term = $that.val()
+
+      this.buildQueryArgs(filter, term)
 
       this.params.delete('pages')
       this.setURLParam(filter)
@@ -65,6 +69,32 @@ class Filter {
       this.updateFilterBackground($that)
 
     })
+  }
+
+  buildQueryArgs (filter, term) {
+
+    args.paged = 1
+
+    if (term) {
+      this.activeFilters[filter] = [term];
+    } else {
+      delete this.activeFilters[filter];
+    }
+
+    const taxQuery = Object.entries(this.activeFilters).map(([taxonomy, terms]) => {
+      return {
+        taxonomy: taxonomy,
+        field: 'slug',
+        terms: terms,
+      };
+    });
+
+    if (taxQuery.length > 0) {
+      args.tax_query = {
+        relation: 'AND',
+        ...taxQuery
+      };
+    }
   }
 
   searchHandler () {
@@ -190,53 +220,72 @@ class Filter {
   }
 
   /**
+   * Fetches posts from the REST API using modern vanilla JavaScript.
    *
-   * @param args object
-   * @param $mainBox
-   * @param $pagination
+   * @param {object} args - The WP_Query arguments object.
+   * @param {HTMLElement} mainBoxEl - The DOM element to insert posts into.
+   * @param {HTMLElement} paginationEl - The DOM element for pagination.
+   * @param {HTMLElement|boolean} [scrollTarget=false] - The element to scroll to after loading.
    */
-  getNews (args, $mainBox, $pagination, scrollTarget=false) {
-    $.ajax({
+  async getNews(args, mainBoxEl, paginationEl, scrollTarget = false) {
+    mainBoxEl.classList.add('is-loading');
+    paginationEl.style.display = 'block';
 
-      url: `${this.url.protocol}//${this.url.hostname}/wp-json/load-more/v1/posts/?data=${JSON.stringify(args)}`,
-      method: 'GET',
-      dataType: 'JSON',
-      beforeSend: () => {
-        $mainBox.animate({ opacity: 0.5 }, 300)
-        $pagination.show()
-      },
-      success: (response) => {
+    try {
+      const response = await fetch(load_more_vars.api_url, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          // A load_more_vars located in the Load_More component
+          'X-WP-Nonce': load_more_vars.nonce
+        },
+        body: JSON.stringify({
+          query_args: args,
+          current_url: window.location.href
+        })
+      });
 
-        if (response && response.posts) {
-
-          $mainBox.html(response.posts).animate({ opacity: 1 }, 300) // insert new posts
-          $pagination.html(response.pagination).animate({ opacity: 1 }, 300)
-          this.hideShowFilters(response)
-        } else {
-          $mainBox.html('<div class=""><h3>No matching results.</h3></div>').animate({ opacity: 1 }, 300)
-          $pagination.hide()
-        }
-      },
-      error: (error) => {
-        $mainBox.html(`<div class=""><h3>${error.message}</h3></div>`).animate({ opacity: 1 }, 300)
-        $pagination.hide()
-      },
-      complete: () => {
-        this.$pagination = $('.pagination')
-        this.$pageLinks = $pagination.find('.page-numbers')
-
-        this.paginationHandler()
-
-        this.$head.addClass('block-full--pad')
-        this.$sep.removeClass('hidden')
-
-        this.$featured.addClass('hidden')
-
-        if(scrollTarget) {
-          this.scrollToTarget(scrollTarget)
-        }
+      if (!response.ok) {
+        // Throw an error to be caught by the catch block
+        throw new Error(`HTTP error! Status: ${response.status}`);
       }
-    })
+
+      const data = await response.json();
+
+      if (data && data.posts_html) {
+        mainBoxEl.innerHTML = data.posts_html;
+        paginationEl.innerHTML = data.pagination;
+        this.hideShowFilters(data);
+      } else {
+        mainBoxEl.innerHTML = '<div class=""><h3>No matching results.</h3></div>';
+        paginationEl.style.display = 'none';
+      }
+
+    } catch (error) {
+      console.error('Failed to fetch posts:', error);
+      mainBoxEl.innerHTML = `<div class=""><h3>Error: ${error.message}</h3></div>`;
+      paginationEl.style.display = 'none';
+
+    } finally {
+      // This block runs after the try or catch has completed.
+      mainBoxEl.classList.remove('is-loading');
+
+      // Re-cache DOM elements and re-attach handlers
+      this.paginationEl = document.querySelector('.pagination');
+      if (this.paginationEl) {
+        this.pageLinks = this.paginationEl.querySelectorAll('.page-numbers');
+        this.paginationHandler();
+      }
+
+      // Assuming these are class properties holding DOM elements
+      if (this.headEl) this.headEl.classList.add('block-full--pad');
+      if (this.sepEl) this.sepEl.classList.remove('hidden');
+      if (this.featuredEl) this.featuredEl.classList.add('hidden');
+
+      if (scrollTarget) {
+        this.scrollToTarget(scrollTarget);
+      }
+    }
   }
 
   getTitles (args, $mainBox, $searchInput) {
