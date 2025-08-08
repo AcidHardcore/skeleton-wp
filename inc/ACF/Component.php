@@ -48,7 +48,6 @@ class Component implements Component_Interface, Templating_Component_Interface {
 		add_filter('block_categories_all', array($this, 'action_block_category'), 10, 2);
 		add_action('acf/init', array($this, 'action_load_blocks'), 5);
 		add_action('acf/init', array($this, 'action_register_acf_option_page'));
-		add_filter( 'should_load_separate_core_block_assets', '__return_true' );
     //    add ID to the block
     add_filter( 'acf/pre_save_block',
       function( $attributes ) {
