@@ -2,8 +2,8 @@
  *
  */
 const browserSyncOptions = {
-	proxy: "skeleton-wp",
-	notify: false,
+  proxy: "skeleton-wp",
+  notify: false,
   open: "local"
 };
 
@@ -13,27 +13,27 @@ const browserSyncOptions = {
  */
 
 const paths = {
-	php: '**/*.php',
-	scripts: {
-		input: ['assets/js/*.js', '!assets/js/*.min.js'],
-		output: 'assets/js/'
-	},
-	libs: {
-		input: 'assets/js/libs/*',
-		output: 'assets/js/'
-	},
-	styles: {
-		input: 'assets/css/**/*.{scss,sass}',
-		output: 'assets/css/'
-	},
-	blockStyles: {
-		input: 'blocks/**/*.{scss,sass}',
-		output: 'blocks/'
-	},
-	blockScripts: {
-		input: ['blocks/**/script.js', '!blocks/**/script.min.js'],
-		output: 'blocks/'
-	},
+  php: '**/*.php',
+  scripts: {
+    input: ['assets/js/*.js', '!assets/js/*.min.js'],
+    output: 'assets/js/'
+  },
+  libs: {
+    input: 'assets/js/libs/*',
+    output: 'assets/js/'
+  },
+  styles: {
+    input: 'assets/css/**/*.{scss,sass}',
+    output: 'assets/css/'
+  },
+  blockStyles: {
+    input: 'blocks/**/*.{scss,sass}',
+    output: 'blocks/'
+  },
+  blockScripts: {
+    input: ['blocks/**/script.js', '!blocks/**/script.min.js'],
+    output: 'blocks/'
+  },
 };
 
 /**
@@ -45,7 +45,7 @@ const {gulp, src, dest, watch, series, parallel} = require('gulp');
 const rename = require('gulp-rename');
 const plumber = require('gulp-plumber');
 const notify = require('gulp-notify');
-
+const path = require('path');
 
 // Scripts
 const uglify = require('gulp-terser');
@@ -65,11 +65,11 @@ const browserSync = require('browser-sync');
  * Error handler for gulp tasks
  */
 const handleError = (err) => {
-	notify.onError({
-		title: 'Gulp Error',
-		message: 'Error: <%= error.message %>'
-	})(err);
-	this.emit('end');
+  notify.onError({
+    title: 'Gulp Error',
+    message: 'Error: <%= error.message %>'
+  })(err);
+  this.emit('end');
 };
 
 /**
@@ -81,13 +81,9 @@ const handleError = (err) => {
  * @param done
  */
 const startServer = (done) => {
-
-  // Initialize BrowserSync
   browserSync.init(browserSyncOptions);
-
   // Signal completion
   done();
-
 };
 
 /**
@@ -99,77 +95,109 @@ const reloadBrowser = (done) => {
   done();
 };
 
-// Lint, minify, and concatenate scripts
-const buildScripts = () => src(paths.scripts.input)
-	.pipe(plumber({ errorHandler: handleError }))
-	.pipe(rename({ suffix: '.min' }))
-	.pipe(uglify())
-	.pipe(dest(paths.scripts.output));
+/**
+ * Generic script builder
+ * @param {string|string[]} input - Source file(s) pattern
+ * @param {string|function} output - Destination path or function
+ * @returns {Stream}
+ */
+const buildScriptsTask = (input, output) => {
+  return src(input)
+    .pipe(plumber({ errorHandler: handleError }))
+    .pipe(rename({ suffix: '.min' }))
+    .pipe(uglify())
+    .pipe(dest(output));
+};
 
-const buildBlockScripts = () => src(paths.blockScripts.input)
-	.pipe(plumber({ errorHandler: handleError }))
-	.pipe(rename({ suffix: '.min' }))
-	.pipe(uglify())
-	.pipe(dest(paths.blockScripts.output));
+/**
+ * Generic style builder
+ * @param {string|string[]} input - Source file(s) pattern
+ * @param {string|function} output - Destination path or function
+ * @param {boolean} useTailwind - Whether to include Tailwind CSS
+ * @returns {Stream}
+ */
+const buildStylesTask = (input, output, useTailwind = false) => {
+  const postcssPlugins = useTailwind
+    ? [tailwindcss, prefix]
+    : [prefix({ cascade: true, remove: true })];
 
-// Process, lint, and minify Sass files
-const buildStyles = () => src(paths.styles.input)
-	.pipe(plumber({ errorHandler: handleError }))
-	.pipe(sourcemaps.init())
-	.pipe(sass({
-		outputStyle: 'expanded',
-		sourceComments: true
-	}))
-  .pipe(postcss([
-    tailwindcss,
-    prefix,
-  ]))
-	.pipe(sourcemaps.write({ includeContent: false }))
-	.pipe(dest(paths.styles.output))
-	.pipe(rename({ suffix: '.min' }))
-	.pipe(postcss([
-		minify({
-			preset: ["default", { discardComments: { removeAll: true } }],
-		})
-	]))
-	.pipe(dest(paths.styles.output));
+  return src(input)
+    .pipe(plumber({ errorHandler: handleError }))
+    .pipe(sourcemaps.init())
+    .pipe(sass({
+      outputStyle: 'expanded',
+      sourceComments: true
+    }))
+    .pipe(postcss(postcssPlugins))
+    .pipe(sourcemaps.write({ includeContent: false }))
+    .pipe(dest(output))
+    .pipe(rename({ suffix: '.min' }))
+    .pipe(postcss([
+      minify({
+        preset: ["default", { discardComments: { removeAll: true } }],
+      })
+    ]))
+    .pipe(dest(output));
+};
 
-const buildBlockStyles = () => src(paths.blockStyles.input)
-	.pipe(plumber({ errorHandler: handleError }))
-	.pipe(sourcemaps.init())
-	.pipe(sass({
-		outputStyle: 'expanded',
-		sourceComments: true
-	}))
-	.pipe(postcss([
-		prefix({
-			cascade: true,
-			remove: true
-		}),
-	]))
-	.pipe(dest(paths.blockStyles.output))
-	.pipe(rename({ suffix: '.min' }))
-	.pipe(postcss([
-		minify({
-			preset: ["default", { discardComments: { removeAll: true } }],
-		})
-	]))
-	.pipe(sourcemaps.write({ includeContent: false }))
-	.pipe(dest(paths.blockStyles.output));
+const buildSingleScript = (file) => {
+  const dir = path.dirname(file);
+  return buildScriptsTask(file, dir);
+};
+
+const buildSingleStyle = (file, useTailwind = false) => {
+  const dir = path.dirname(file);
+  return buildStylesTask(file, dir, useTailwind);
+};
+
+const buildScripts = () => buildScriptsTask(
+  paths.scripts.input,
+  paths.scripts.output
+);
+
+const buildBlockScripts = () => buildScriptsTask(
+  paths.blockScripts.input,
+  (file) => file.base
+);
+
+const buildStyles = () => buildStylesTask(
+  paths.styles.input,
+  paths.styles.output,
+  true // Use Tailwind
+);
+
+const buildBlockStyles = () => buildStylesTask(
+  paths.blockStyles.input,
+  (file) => file.base,
+  false // No Tailwind
+);
 
 const copyJSLibs = () => src(paths.libs.input)
-	.pipe(plumber({ errorHandler: handleError }))
-	.pipe(dest(paths.libs.output));
+  .pipe(plumber({ errorHandler: handleError }))
+  .pipe(dest(paths.libs.output));
 
-// Watch for changes
 const watchSource = (done) => {
-	watch(paths.scripts.input, series(buildScripts, reloadBrowser));
-	watch(paths.blockScripts.input, series(buildBlockScripts, reloadBrowser));
-	watch(paths.libs.input, series(copyJSLibs, reloadBrowser));
-	watch(paths.styles.input, series(buildStyles, reloadBrowser));
-	watch(paths.blockStyles.input, series(buildBlockStyles, reloadBrowser));
-	watch(paths.php, reloadBrowser);
-	done();
+  watch(paths.scripts.input, series(buildScripts, reloadBrowser));
+
+  watch(paths.blockScripts.input).on('change', (file) => {
+    buildSingleScript(file).on('end', () => {
+      browserSync.reload();
+    });
+  });
+
+  watch(paths.libs.input, series(copyJSLibs, reloadBrowser));
+
+  watch(paths.styles.input, series(buildStyles, reloadBrowser));
+
+  watch(paths.blockStyles.input).on('change', (file) => {
+    buildSingleStyle(file, false).on('end', () => {
+      browserSync.reload();
+    });
+  });
+
+  watch(paths.php, reloadBrowser);
+
+  done();
 };
 
 
@@ -177,42 +205,26 @@ const watchSource = (done) => {
  * Export Tasks
  */
 
-// Default task
-// gulp
 exports.default = series(
-	parallel(
-		buildScripts,
-		buildStyles,
-		buildBlockStyles,
-		buildBlockScripts,
-		copyJSLibs
-	)
+  parallel(
+    buildScripts,
+    buildStyles,
+    buildBlockStyles,
+    buildBlockScripts,
+    copyJSLibs
+  )
 );
 
-// Watch and reload
-// gulp watch
 exports.watch = series(
-	exports.default,
-	startServer,
-	watchSource
+  exports.default,
+  startServer,
+  watchSource
 );
 
-//Build and link scripts
 exports.scripts = buildScripts;
-//Build and link block scripts
 exports.blockScripts = buildBlockScripts;
 
-//Compile styles
 exports.styles = buildStyles;
-//Compile Block styles
 exports.blockStyles = buildBlockStyles;
 
-//Copy Libs
 exports.copyJSLibs = copyJSLibs;
-
-
-
-
-
-
-
