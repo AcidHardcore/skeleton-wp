@@ -1,3 +1,6 @@
+@use "variables" as *;
+@use "mixins/mixins" as *;
+
 .main-nav {
   display: grid;
   grid-row-gap: 4rem;
@@ -93,7 +96,7 @@
 
       & a {
         @include media-breakpoint-up($menu-desktop-width) {
-          width: rem(218);
+          width: to-rem(218);
           background: none;
         }
       }
@@ -101,7 +104,7 @@
 
     & a {
       @include media-breakpoint-up($menu-desktop-width) {
-        width: rem(200);
+        width: to-rem(200);
       }
     }
   }

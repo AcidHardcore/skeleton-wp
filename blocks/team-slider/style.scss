@@ -1,5 +1,6 @@
 @use "sass:math";
-@import "../../assets/css/mixins/mixins";
+@use "../../assets/css/variables" as *;
+@use "../../assets/css/mixins/mixins" as *;
 
 $w1024: 'screen and (max-width: 1023px)';
 $color-white: #FFFBF6;

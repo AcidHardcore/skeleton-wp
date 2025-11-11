@@ -1,11 +1,13 @@
+@use "variables" as *;
+@use "mixins/mixins" as *;
 .close {
   display: inline-block;
   position: relative;
   z-index: 1;
-  width: rem(30);
+  width: to-rem(30);
   border: none;
   padding: 0;
-  line-height: rem(30);
+  line-height: to-rem(30);
   background: transparent;
   user-select: none;
   cursor: pointer;
@@ -45,8 +47,8 @@
 
   //   $toggler-part-height:     1px;
 
-  //   width: rem(30);
-  //   line-height: rem(30);
+  //   width: to-rem(30);
+  //   line-height: to-rem(30);
 
   //   span {
   //     width: 60%;

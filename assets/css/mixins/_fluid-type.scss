@@ -1,6 +1,4 @@
-@function strip-unit($value) {
-  @return $value / ($value * 0 + 1);
-}
+@use "strip-unit" as *;
 
 @mixin fluid-type($min-vw, $max-vw, $min-font-size, $max-font-size) {
   $u1: unit($min-vw);

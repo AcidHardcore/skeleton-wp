@@ -1,3 +1,7 @@
+@use "variables" as *;
+@use "mixins/mixins" as *;
+@use "sass:color";
+
 .btn {
 
   $block-name: &; // #{$block-name}__element
@@ -27,8 +31,10 @@
   &:focus {
     text-decoration: none;
     color: $text-color;
-    background-color: darken($gray-900, 10%);
-    border-color: darken($gray-800, 12%);
+    background-color: color.adjust($gray-900, $lightness: -10%);
+
+
+    border-color: color.adjust($gray-800, $lightness: -12%);
   }
 
   &:active,
@@ -63,8 +69,9 @@
     &:hover,
     &:focus {
       color: #fff;
-      background-color: darken($color-main, 10%);
-      border-color: darken($color-main, 12%);
+
+      background-color: color.adjust($color-main, $lightness: -10%);
+      border-color: color.adjust($color-main, $lightness: -12%);
     }
 
   }
@@ -96,6 +103,6 @@
   }
 
   &--big {
-    padding: rem(14) rem(36);
+    padding: to-rem(14) to-rem(36);
   }
 }

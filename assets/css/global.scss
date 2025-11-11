@@ -1,19 +1,24 @@
-@import "variables";
-@import "fonts";
-@import "mixins/mixins";
-@import "mixins/display";
-@import "normilize";
-@import "accessibility";
-@import "typo";
-@import "site";
-@import "site-header";
-@import "menu";
-@import "logo";
-@import "burger";
-@import "site-footer";
-@import "btn";
+@forward "variables";
+@forward "mixins/mixins";
+@forward "mixins/display";
+
+@use "fonts";
+@use "normalize";
+@use "accessibility";
+@use "typo";
+@use "site";
+@use "site-header";
+@use "menu";
+@use "logo";
+@use "burger";
+@use "site-footer";
+@use "btn";
+
+// Import forwarded items for use in this file
+@use "variables" as *;
+@use "mixins/mixins" as *;
+@use "mixins/grid-mixins" as gridMixins;
 
 .container {
-	@include container();
+  @include gridMixins.container();
 }
-

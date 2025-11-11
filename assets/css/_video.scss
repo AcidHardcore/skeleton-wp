@@ -1,3 +1,6 @@
+@use "variables" as *;
+@use "mixins/mixins" as *;
+
 .video {
 	position: relative;
 	width: 100%;

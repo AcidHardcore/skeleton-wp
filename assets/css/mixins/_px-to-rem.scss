@@ -1,6 +1,10 @@
 @use "sass:math";
-$browser-context: 16 !default;
 
-@function rem($pixels, $context: $browser-context) {
-  @return math.div($pixels,$context) * 1rem;
+$browser-context-rem: 16;
+
+@function to-rem($pixels, $context: null) {
+  @if $context == null {
+    $context: $browser-context-rem;
+  }
+  @return math.div($pixels, $context) * 1rem;
 }

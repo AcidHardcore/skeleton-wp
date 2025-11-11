@@ -1,3 +1,6 @@
+@use "variables" as *;
+@use "mixins/mixins" as *;
+
 .burger {
 
 	$block-name: &; // #{$block-name}__element
@@ -6,8 +9,8 @@
 	z-index: 1;
 	display: flex;
 	align-items: center;
-	width: rem(30);
-	height: rem(30);
+	width: to-rem(30);
+	height: to-rem(30);
 	user-select: none;
 	cursor: pointer;
 

@@ -1,4 +1,6 @@
 @use "sass:math";
+@use "../variables" as *;
+@use "breakpoints" as *;
 
 $screen-xs: 0 !default;
 $screen-sm: 480px !default;
@@ -8,15 +10,15 @@ $screen-xl: 1200px !default;
 $screen-xxl: 1440px !default;
 $screen-xxxl: 1800px !default;
 
-$container-sm: 100% !default;
-$container-md: 100% !default;
-$container-lg: ($screen-lg - 30) !default;
-$container-xl: ($screen-xl - 30) !default;
-$container-xxl: ($screen-xxl - 70) !default;
-$container-xxxl: ($screen-xxxl - 70) !default;
+//$container-sm: 100% !default;
+//$container-md: 100% !default;
+//$container-lg: ($screen-lg - 30) !default;
+//$container-xl: ($screen-xl - 30) !default;
+//$container-xxl: ($screen-xxl - 70) !default;
+//$container-xxxl: ($screen-xxxl - 70) !default;
 
-$grid-columns: 12 !default;
-$grid-gutter-width: 30px !default;
+//$grid-columns: 12 !default;
+//$grid-gutter-width: 30px !default;
 
 
 //------------------------------------------------------------------------------

@@ -1,3 +1,6 @@
+@use "variables" as *;
+@use "mixins/mixins" as *;
+
 .field-select {
 
   $block-name:                &; // #{$block-name}__element
@@ -94,10 +97,10 @@
   &:after {
     content: '';
     position: absolute;
-    top: rem(7);
+    top: to-rem(7);
     right: 1rem;
-    width: rem(14);
-    height: rem(14);
+    width: to-rem(14);
+    height: to-rem(14);
     border-left: 1px solid $border-color;
     border-bottom: 1px solid $border-color;
     pointer-events: none;

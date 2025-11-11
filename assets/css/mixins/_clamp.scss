@@ -1,19 +1,24 @@
 @use "sass:math";
-@function strip-unit($value) {
-  @return math.div($value, $value * 0 + 1);
-}
+@use "sass:list";
+@use "strip-unit" as *;
+@use "../variables" as *;
 
 @function clamp-slope($min-vw, $max-vw, $min-font-size, $max-font-size) {
-  $u1: unit($min-vw);
-  $u2: unit($max-vw);
-  $u3: unit($min-font-size);
-  $u4: unit($max-font-size);
+  // Convert all values to unitless numbers for calculation
+  $min-vw-unitless: strip-unit($min-vw);
+  $max-vw-unitless: strip-unit($max-vw);
+  $min-font-size-unitless: strip-unit($min-font-size);
+  $max-font-size-unitless: strip-unit($max-font-size);
 
-  @if $u1 == $u2 and $u1 == $u3 and $u1 == $u4 {
-    $slope : math.div(strip-unit($max-font-size - $min-font-size), strip-unit($max-vw - $min-vw));
-    $yAxisIntersection : -(strip-unit($min-vw)) * $slope + strip-unit($min-font-size);
-    @return clamp(#{$min-font-size}, #{$yAxisIntersection}rem + #{$slope * 100}vw, #{$max-font-size});
-  }
+  // Calculate slope using proper division
+  $slope: math.div(
+      $max-font-size-unitless - $min-font-size-unitless,
+      $max-vw-unitless - $min-vw-unitless
+  );
+
+  // Calculate y-axis intersection
+  $yAxisIntersection: (-1 * $min-vw-unitless * $slope) + $min-font-size-unitless;
+
+  // Return clamp function with proper units
+  @return clamp(#{$min-font-size}, #{$yAxisIntersection}rem + #{$slope * 100}vw, #{$max-font-size});
 }
-
-// example of using:  margin-top: clamp-slope($font-scale-start, $font-scale-end, $font-size-h1-mobile, $font-size-h1 );

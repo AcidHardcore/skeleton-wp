@@ -1,4 +1,6 @@
-@import '../variables';
+@use "../variables" as *;
+@use "../mixins/mixins" as *;
+
 @at-root {
   :root {
   --swiper-pagination-color: var(--swiper-theme-color);

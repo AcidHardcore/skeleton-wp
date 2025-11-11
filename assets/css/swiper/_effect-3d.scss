@@ -1,8 +1,11 @@
+@use "../variables" as *;
+@use "../mixins/mixins" as *;
+
 /* 3D Effects */
 .swiper-3d {
 	&,
 	&.swiper-css-mode .swiper-wrapper {
-		perspective: rem(1200);
+		perspective: to-rem(1200);
 	}
 	.swiper-wrapper,
 	.swiper-slide,

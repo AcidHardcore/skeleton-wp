@@ -1,3 +1,6 @@
+@use "variables" as *;
+@use "mixins/mixins" as *;
+
 .table-responsive {
   width: 100%;
   margin-top: $typo-margin-vertical;

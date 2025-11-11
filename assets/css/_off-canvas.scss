@@ -1,4 +1,7 @@
-$off-canvas-width:            rem(250) !default;
+@use "variables" as *;
+@use "mixins/mixins" as *;
+
+$off-canvas-width:            to-rem(250) !default;
 
 .off-canvas {
 
@@ -59,15 +62,15 @@ $off-canvas-width:            rem(250) !default;
   &__menu-item {
 
     &--separator {
-      padding-bottom: rem(10);
+      padding-bottom: to-rem(10);
       border-bottom: 1px solid $gray-500;
-      margin-bottom: rem(10);
+      margin-bottom: to-rem(10);
     }
   }
 
   &__menu-link {
     display: block;
-    padding: rem(8) rem(14);
+    padding: to-rem(8) to-rem(14);
     line-height: 1.2;
     color: inherit;
     text-decoration: none;

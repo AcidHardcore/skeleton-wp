@@ -1,3 +1,6 @@
+@use "variables" as *;
+@use "mixins/mixins" as *;
+
 .breadcrumbs {
   list-style: none;
   margin-top: $typo-margin-vertical;

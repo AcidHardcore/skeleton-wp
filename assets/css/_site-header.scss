@@ -1,3 +1,6 @@
+@use "variables" as *;
+@use "mixins/mixins" as *;
+
 .site-header {
   background-color: $white;
 
@@ -12,14 +15,14 @@
 
   &__grid {
     display: grid;
-    height: rem($header_mobile_height);
+    height: to-rem($header_mobile_height);
     align-items: center;
     transition: height 0.3s, background-color 0.3s, box-shadow 0.3s;
 
     @include media-breakpoint-up($menu-desktop-width) {
       grid-template-columns: auto 1fr;
       grid-column-gap: 1rem;
-      height: rem($header_top_height);
+      height: to-rem($header_top_height);
     }
   }
 }
@@ -41,10 +44,10 @@
 }
 
 .site-header-pad {
-  height: rem($header_mobile_height);
+  height: to-rem($header_mobile_height);
 
   @include media-breakpoint-up(md) {
-    height: rem($header_top_height);
+    height: to-rem($header_top_height);
   }
 }
 
@@ -57,7 +60,7 @@
 }
 
 .body--header-smaller .site-header--sticky:not(.site-header--menu-open) .site-header__grid {
-  height: rem($header_top_height) -  2rem;
+  height: to-rem($header_top_height) -  2rem;
 }
 
 

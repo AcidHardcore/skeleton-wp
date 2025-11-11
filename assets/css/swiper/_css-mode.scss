@@ -1,3 +1,6 @@
+@use "../variables" as *;
+@use "../mixins/mixins" as *;
+
 /* CSS Mode */
 .swiper-css-mode {
 	> .swiper-wrapper {
