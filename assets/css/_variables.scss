@@ -1,5 +1,5 @@
-@use "mixins/px-to-rem" as trem;
-@use "mixins/px-to-em" as tem;
+@use "mixins/px-to-rem" as *;
+@use "mixins/px-to-em" as *;
 @use "sass:color";
 @use "sass:map";
 
@@ -37,24 +37,24 @@ $border-color: $gray-800;
 //$browser-context: 16;
 
 //works with the font-fluid mixin
-$font-size: trem.to-rem(20);
-$font-size-h1: trem.to-rem(54);
-$font-size-h2: trem.to-rem(40);
-$font-size-h3: trem.to-rem(32);
-$font-size-h4: trem.to-rem(24);
-$font-size-h5: trem.to-rem(22);
-$font-size-h6: trem.to-rem(20);
+$font-size: to-rem(20);
+$font-size-h1: to-rem(54);
+$font-size-h2: to-rem(40);
+$font-size-h3: to-rem(32);
+$font-size-h4: to-rem(24);
+$font-size-h5: to-rem(22);
+$font-size-h6: to-rem(20);
 
-$font-size-mobile: trem.to-rem(16);
-$font-size-h1-mobile: trem.to-rem(40);
-$font-size-h2-mobile: trem.to-rem(32);
-$font-size-h3-mobile: trem.to-rem(24);
-$font-size-h4-mobile: trem.to-rem(20);
-$font-size-h5-mobile: trem.to-rem(18);
-$font-size-h6-mobile: trem.to-rem(16);
+$font-size-mobile: to-rem(16);
+$font-size-h1-mobile: to-rem(40);
+$font-size-h2-mobile: to-rem(32);
+$font-size-h3-mobile: to-rem(24);
+$font-size-h4-mobile: to-rem(20);
+$font-size-h5-mobile: to-rem(18);
+$font-size-h6-mobile: to-rem(16);
 
-$font-scale-start: trem.to-rem(576);
-$font-scale-end: trem.to-rem(1440);
+$font-scale-start: to-rem(576);
+$font-scale-end: to-rem(1440);
 
 $font-size-sm: 0.75em;
 
@@ -69,20 +69,20 @@ $font-family--headings: $font-family;
 
 $grid-breakpoints: (
         xs: 0,
-        sm: trem.to-rem(576),
-        md: trem.to-rem(768),
-        lg: trem.to-rem(992),
-        xl: trem.to-rem(1200),
-        xxl: trem.to-rem(1440),
-		xxxl: trem.to-rem(1800)
+        sm: to-rem(576),
+        md: to-rem(768),
+        lg: to-rem(992),
+        xl: to-rem(1200),
+        xxl: to-rem(1440),
+		xxxl: to-rem(1800)
 );
 
 $container-sm: 100%;
 $container-md: 100%;
 $container-lg: (map.get($grid-breakpoints, "lg") - 2rem);
 $container-xl: (map.get($grid-breakpoints, "xl") - 4rem);
-$container-xxl: (map.get($grid-breakpoints, "xxl") - trem.to-rem(140));
-$container-xxxl: (map.get($grid-breakpoints, "xxxl") - trem.to-rem(360));
+$container-xxl: (map.get($grid-breakpoints, "xxl") - to-rem(140));
+$container-xxxl: (map.get($grid-breakpoints, "xxxl") - to-rem(360));
 
 
 $grid-columns: 12;
@@ -103,7 +103,7 @@ $toggler-part-bg-color: $black;
 
 $z-index-modal: 100;
 
-$off-canvas-width: trem.to-rem(250);
+$off-canvas-width: to-rem(250);
 
 $displays: none, inline, inline-block, block, flex, inline-flex;
 
