@@ -13,16 +13,10 @@ use WP_Block_Editor_Context;
 use function add_action;
 use function add_filter;
 use function acf_register_block_type;
-use function array_merge;
 use function Skeleton_WP\Skeleton_WP\skeleton_wp;
-use function wp_enqueue_style;
-use function wp_enqueue_script;
-use function wp_localize_script;
-use function get_template_directory;
-use function get_template_directory_uri;
 use function acf_add_options_page;
 use function acf_add_options_sub_page;
-use function admin_url;
+
 
 /**
  * Class for managing ACF.

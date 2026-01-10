@@ -198,8 +198,10 @@ if ( $post_type == 'product' || is_page( 'Products' )) {
 	$js_args['group']    = isset( $_REQUEST['group'] ) ? explode( ',', $_REQUEST['group'] ) : [];
 }
 
-wp_localize_script( 'skeleton-wp-load-more', 'args', $js_args );
-wp_localize_script( 'skeleton-wp-filter-aside', 'args', $js_args );
+$inline_script = 'const args = ' . wp_json_encode( $js_args ) . ';';
+
+wp_add_inline_script( 'skeleton-wp-load-more', $inline_script, 'before' );
+wp_add_inline_script( 'skeleton-wp-filter-aside', $inline_script, 'before' );
 
 ?>
 

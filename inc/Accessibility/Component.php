@@ -16,8 +16,7 @@ use function wp_enqueue_script;
 use function get_theme_file_uri;
 use function get_theme_file_path;
 use function wp_script_add_data;
-use function wp_localize_script;
-
+use function wp_add_inline_script;
 /**
  * Class for improving accessibility among various core features.
  */
@@ -46,25 +45,26 @@ class Component implements Component_Interface {
 	 * Enqueues a script that improves navigation menu accessibility.
 	 */
 	public function action_enqueue_navigation_script() {
+    $script_handle = 'skeleton-wp-navigation';
 
-		// Enqueue the navigation script.
 		wp_enqueue_script(
-			'skeleton-wp-navigation',
+			$script_handle,
 			get_theme_file_uri( '/assets/js/navigation.min.js' ),
 			array(),
 			skeleton_wp()->get_asset_version( get_theme_file_path( '/assets/js/navigation.min.js' ) ),
 			false
 		);
-		wp_script_add_data( 'skeleton-wp-navigation', 'async', true );
-		wp_script_add_data( 'skeleton-wp-navigation', 'precache', true );
-		wp_localize_script(
-			'skeleton-wp-navigation',
-			'skeletonWpScreenReaderText',
-			array(
-				'expand'   => __( 'Expand child menu', 'skeleton-wp' ),
-				'collapse' => __( 'Collapse child menu', 'skeleton-wp' ),
-			)
-		);
+		wp_script_add_data( $script_handle, 'async', true );
+		wp_script_add_data( $script_handle, 'precache', true );
+
+    $script_data = array(
+      'expand'   => __( 'Expand child menu', 'skeleton-wp' ),
+      'collapse' => __( 'Collapse child menu', 'skeleton-wp' ),
+    );
+
+    $inline_script = 'const skeletonWpScreenReaderText = ' . wp_json_encode($script_data) . ';';
+
+    wp_add_inline_script( $script_handle, $inline_script, 'before' );
 	}
 
 	/**
