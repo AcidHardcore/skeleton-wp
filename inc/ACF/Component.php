@@ -155,6 +155,9 @@ class Component implements Component_Interface, Templating_Component_Interface {
 		$version = get_option( 'skeleton-wp_blocks_version' );
 		if ( empty( $blocks ) || version_compare( skeleton_wp()->get_asset_version($this->set_file_path()), $version )) {
 			$blocks = scandir( $this->set_file_path() );
+
+      if(empty($blocks)) return null;
+
 			$blocks = array_values( array_diff( $blocks, array( '..', '.', '.DS_Store', 'block' ) ) );
 
 			update_option( 'skeleton-wp_blocks', $blocks );
