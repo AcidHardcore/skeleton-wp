@@ -99,29 +99,40 @@ class Component implements Component_Interface, Templating_Component_Interface {
 	 *
 	 * @return false|string
 	 */
-	public function inline_svg( $id, $comment=false ) {
-		if ( $id ) {
-			static $i = 0;
-			$i ++;
-			$path = wp_get_original_image_path( $id );
-			$svg  = file_get_contents( $path );
-			$svg  = preg_replace( '#^.*<svg#si', '<svg', $svg );
-			if ( preg_match_all( '#id="([^"]+)"#si', $svg, $m ) ) {
-				foreach ( $m[1] as $id ) {
-					$id_new = $id . '--' . $i;
-					$svg    = str_replace( $id, $id_new, $svg );
-				}
-			}
+  public function inline_svg( $id, $comment = false ) {
+    if ( ! $id ) {
+      return false;
+    }
 
-			if($comment) {
-				$svg = '<!-- inline SVG ' . $path . ' -->' . PHP_EOL . $svg;
-			}
+    static $i = 0;
+    $i++;
 
-			return $svg;
-		} else {
-			return false;
-		}
-	}
+    $path = wp_get_original_image_path( $id );
+
+    if ( ! $path || ! file_exists( $path ) ) {
+      return false;
+    }
+
+    $svg = file_get_contents( $path );
+
+    if ( ! $svg ) {
+      return false;
+    }
+
+    $svg = preg_replace( '#^.*<svg#si', '<svg', $svg );
+    if ( preg_match_all( '#id="([^"]+)"#si', $svg, $m ) ) {
+      foreach ( $m[1] as $id_attr ) {
+        $id_new = $id_attr . '--' . $i;
+        $svg    = str_replace( $id_attr, $id_new, $svg );
+      }
+    }
+
+    if ( $comment ) {
+      $svg = '' . PHP_EOL . $svg;
+    }
+
+    return $svg;
+  }
 
 	/**
 	 * @param string $post_type
