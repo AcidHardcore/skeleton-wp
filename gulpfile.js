@@ -55,7 +55,6 @@ const sass = require('gulp-sass')(require('sass'));
 const sourcemaps = require('gulp-sourcemaps');
 const postcss = require('gulp-postcss');
 const prefix = require('autoprefixer');
-let tailwindcss = require('tailwindcss');
 const minify = require('cssnano');
 
 // BrowserSync
@@ -113,14 +112,9 @@ const buildScriptsTask = (input, output) => {
  * Generic style builder
  * @param {string|string[]} input - Source file(s) pattern
  * @param {string|function} output - Destination path or function
- * @param {boolean} useTailwind - Whether to include Tailwind CSS
  * @returns {Stream}
  */
-const buildStylesTask = (input, output, useTailwind = false) => {
-  const postcssPlugins = useTailwind
-    ? [tailwindcss, prefix]
-    : [prefix({ cascade: true, remove: true })];
-
+const buildStylesTask = (input, output) => {
   return src(input)
     .pipe(plumber({ errorHandler: handleError }))
     .pipe(sourcemaps.init())
@@ -128,7 +122,7 @@ const buildStylesTask = (input, output, useTailwind = false) => {
       outputStyle: 'expanded',
       sourceComments: true
     }))
-    .pipe(postcss(postcssPlugins))
+    .pipe(postcss([prefix({ cascade: true, remove: true })]))
     .pipe(sourcemaps.write({ includeContent: false }))
     .pipe(dest(output))
     .pipe(rename({ suffix: '.min' }))
@@ -145,9 +139,9 @@ const buildSingleScript = (file) => {
   return buildScriptsTask(file, dir);
 };
 
-const buildSingleStyle = (file, useTailwind = false) => {
+const buildSingleStyle = (file) => {
   const dir = path.dirname(file);
-  return buildStylesTask(file, dir, useTailwind);
+  return buildStylesTask(file, dir);
 };
 
 const buildScripts = () => buildScriptsTask(
@@ -162,14 +156,12 @@ const buildBlockScripts = () => buildScriptsTask(
 
 const buildStyles = () => buildStylesTask(
   paths.styles.input,
-  paths.styles.output,
-  true // Use Tailwind
+  paths.styles.output
 );
 
 const buildBlockStyles = () => buildStylesTask(
   paths.blockStyles.input,
-  (file) => file.base,
-  false // No Tailwind
+  (file) => file.base
 );
 
 const copyJSLibs = () => src(paths.libs.input)
@@ -190,7 +182,7 @@ const watchSource = (done) => {
   watch(paths.styles.input, series(buildStyles, reloadBrowser));
 
   watch(paths.blockStyles.input).on('change', (file) => {
-    buildSingleStyle(file, false).on('end', () => {
+    buildSingleStyle(file).on('end', () => {
       browserSync.reload();
     });
   });
