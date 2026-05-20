@@ -227,7 +227,6 @@ class Component implements Component_Interface, Templating_Component_Interface {
     if(has_blocks($post->post_content)) {
       $blocks = parse_blocks($post->post_content);
       $first_block_attrs = $blocks[0]['attrs'];
-//      error_log(print_r($blocks[0], true));
       if(array_key_exists('id', $first_block_attrs)) {
         return $first_block_attrs['id'];
       }
@@ -248,10 +247,10 @@ class Component implements Component_Interface, Templating_Component_Interface {
    */
   public function json_load_paths( $paths ) {
 
-    $paths[] = $this->plugin_path . '/acf-json/field-groups';
-    $paths[] = $this->plugin_path . '/acf-json/options-pages';
-    $paths[] = $this->plugin_path . '/acf-json/post-types';
-    $paths[] = $this->plugin_path . '/acf-json/taxonomies';
+    $paths[] = get_theme_file_path('/acf-json/field-groups');
+    $paths[] = get_theme_file_path('/acf-json/options-pages');
+    $paths[] = get_theme_file_path('/acf-json/post-types');
+    $paths[] = get_theme_file_path('/acf-json/taxonomies');
     return $paths;
   }
 
@@ -266,19 +265,19 @@ class Component implements Component_Interface, Templating_Component_Interface {
    * @since 0.1.1
    */
   public function json_save_path_post_types() {
-    return $this->plugin_path . '/acf-json/post-types';
+    return get_theme_file_path('/acf-json/post-types');
   }
 
   public function json_save_path_field_groups() {
-    return $this->plugin_path . '/acf-json/field-groups';
+    return get_theme_file_path('/acf-json/field-groups');
   }
 
   public function json_save_path_taxonomies() {
-    return $this->plugin_path . '/acf-json/taxonomies';
+    return get_theme_file_path('/acf-json/taxonomies');
   }
 
   public function json_save_path_option_pages() {
-    return $this->plugin_path . '/acf-json/options-pages';
+    return get_theme_file_path('/acf-json/options-pages');
   }
 
   /**
