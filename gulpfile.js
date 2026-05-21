@@ -2,7 +2,7 @@
  *
  */
 const browserSyncOptions = {
-  proxy: "skeleton-wp",
+  proxy: "skeleton-wp.local",
   notify: false,
   open: "local"
 };
