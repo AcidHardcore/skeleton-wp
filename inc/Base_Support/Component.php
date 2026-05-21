@@ -85,8 +85,7 @@ class Component implements Component_Interface
         'comment-list',
         'gallery',
         'caption',
-        'style',
-        'script',
+        'style'
       )
     );
 

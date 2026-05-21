@@ -95,7 +95,7 @@ function initEachNavToggleSubmenu(nav) {
 
     // Handle keyboard accessibility for traversing the submenu.
     submenu.addEventListener('keydown', (e) => {
-      if (KEYMAP.TAB !== e.keyCode) {
+      if (KEYMAP.TAB !== e.key) {
         return;
       }
 
