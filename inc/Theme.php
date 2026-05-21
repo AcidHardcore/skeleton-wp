@@ -8,7 +8,6 @@
 namespace Skeleton_WP\Skeleton_WP;
 
 use InvalidArgumentException;
-use function is_plugin_active;
 
 /**
  * Main class for the theme.
@@ -22,14 +21,14 @@ class Theme {
 	 *
 	 * @var array
 	 */
-	protected $components = array();
+	protected array $components = array();
 
 	/**
 	 * The template tags instance, providing access to all available template tags.
 	 *
 	 * @var Template_Tags
 	 */
-	protected $template_tags;
+	protected Template_Tags $template_tags;
 
 	/**
 	 * Constructor.
@@ -81,7 +80,8 @@ class Theme {
 	 *
 	 * This method must only be called once in the request lifecycle.
 	 */
-	public function initialize() {
+	public function initialize(): void
+  {
 		array_walk(
 			$this->components,
 			function( Component_Interface $component ) {
@@ -136,7 +136,8 @@ class Theme {
 	 *
 	 * @access public
 	 */
-	public function action_admin_notice_missing_required_plugin() {
+	public function action_admin_notice_missing_required_plugin(): void
+  {
 
 
 		$message = sprintf(
@@ -176,7 +177,8 @@ class Theme {
 			new Emoji\Component(),
 			new Shortcodes\Component(),
 			new Enqueue\Component(),
-			new Header\Component()
+			new Header\Component(),
+			new Custom_Code\Component()
 		);
 
 		if ( defined( 'JETPACK__VERSION' ) ) {
