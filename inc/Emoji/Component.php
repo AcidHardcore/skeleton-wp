@@ -34,13 +34,19 @@ class Component implements Component_Interface {
 	/**
 	 * Adds the action and filter hooks to integrate with WordPress.
 	 */
-	public function initialize() {
+	public function initialize(): void
+  {
 		add_action('init', [$this, 'disable_emoji_feature']);
 		add_filter( 'option_use_smilies', '__return_false' );
 	}
 
-
-	function disable_emoji_feature() {
+  /**
+   * Disables emoji
+   *
+   * @return void
+   */
+	function disable_emoji_feature(): void
+  {
 		// Prevent Emoji from loading on the front-end
 		remove_action( 'wp_head', 'print_emoji_detection_script', 7 );
 		remove_action( 'wp_print_styles', 'print_emoji_styles' );
@@ -69,7 +75,13 @@ class Component implements Component_Interface {
 		add_filter( 'option_use_smilies', '__return_false' );
 	}
 
-	public function filter_disable_emojis_tinymce( $plugins ) {
+  /**
+   * Disables the TinyMCE emoji plugin.
+   *
+   * @param $plugins
+   * @return array
+   */
+	public function filter_disable_emojis_tinymce( $plugins ):array {
 		if( is_array($plugins) ) {
 			$plugins = array_diff( $plugins, array( 'wpemoji' ) );
 		}
