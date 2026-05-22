@@ -29,14 +29,16 @@ class Component implements Component_Interface {
 	/**
 	 * Adds the action and filter hooks to integrate with WordPress.
 	 */
-	public function initialize() {
+	public function initialize(): void
+  {
 		add_shortcode('year', array($this, 'year_shortcode'));
 	}
 
 	/**
 	 * Year short code function
 	 */
-	public function year_shortcode() {
+	public function year_shortcode(): string
+  {
 		return date('Y');
 	}
 }

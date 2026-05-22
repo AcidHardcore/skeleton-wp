@@ -41,7 +41,8 @@ class Component implements Component_Interface, Templating_Component_Interface {
 	/**
 	 * Adds the action and filter hooks to integrate with WordPress.
 	 */
-	public function initialize() {
+	public function initialize(): void
+  {
 		add_action('after_setup_theme', array($this, 'action_register_nav_menus'));
 		add_filter('walker_nav_menu_start_el', array($this, 'filter_primary_nav_menu_dropdown_symbol'), 10, 4);
 //		li classes
@@ -72,7 +73,8 @@ class Component implements Component_Interface, Templating_Component_Interface {
 	/**
 	 * Registers the navigation menus.
 	 */
-	public function action_register_nav_menus() {
+	public function action_register_nav_menus(): void
+  {
 		register_nav_menus(
 			array(
 				static::PRIMARY_NAV_MENU_SLUG => esc_html__('Primary', 'skeleton-wp'),
@@ -120,7 +122,7 @@ class Component implements Component_Interface, Templating_Component_Interface {
 	 * @return bool True if the primary navigation menu is active, false otherwise.
 	 */
   public function is_nav_menu_active($slug): bool {
-    return (bool)has_nav_menu($slug);
+    return has_nav_menu($slug);
   }
 
 	/**
@@ -129,7 +131,8 @@ class Component implements Component_Interface, Templating_Component_Interface {
 	 * @param array $args Optional. Array of arguments. See `wp_nav_menu()` documentation for a list of supported
 	 *                    arguments.
 	 */
-  public function display_nav_menu(array $args = array()) {
+  public function display_nav_menu(array $args = array()): void
+  {
     if(!isset($args['container'])) {
       $args['container'] = '';
     }
@@ -149,7 +152,8 @@ class Component implements Component_Interface, Templating_Component_Interface {
 	 * @return array
 	 *
 	 */
-	public function filter_nav_menu_css_classes($classes, $item, $args, $depth) {
+	public function filter_nav_menu_css_classes($classes, $item, $args, $depth): array
+  {
 		if($args->theme_location === static::PRIMARY_NAV_MENU_SLUG && $depth == 0) {
 //			$classes[] = 'main-nav__item';
 
@@ -167,7 +171,8 @@ class Component implements Component_Interface, Templating_Component_Interface {
 	 * @param int $depth Depth of menu item. Used for padding.
 	 * @return array
 	 */
-	function filter_submenu_classes($classes, $args, $depth) {
+	function filter_submenu_classes(array $classes, stdClass $args, int $depth): array
+  {
 		if($args->theme_location === static::PRIMARY_NAV_MENU_SLUG) {
 //		$classes[] = 'main-nav__dropdown';
 		}
@@ -180,7 +185,8 @@ class Component implements Component_Interface, Templating_Component_Interface {
 	 * @param $args
 	 * @return mixed|string
 	 */
-	public function filter_main_menu($items, $args) {
+	public function filter_main_menu($items, $args): mixed
+  {
 		if ($args->theme_location === static::PRIMARY_NAV_MENU_SLUG) {
 //			ob_start();
 //			get_template_part('template-parts/header/branding');
@@ -190,8 +196,13 @@ class Component implements Component_Interface, Templating_Component_Interface {
 		return $items;
 	}
 
-	function populate_children($menu_array, $menu_item)
-	{
+  /**
+   * @param $menu_array
+   * @param $menu_item
+   * @return array
+   */
+	function populate_children($menu_array, $menu_item): array
+  {
 		$children = array();
 		if (!empty($menu_array)){
 			foreach ($menu_array as $k=>$m) {
@@ -209,7 +220,13 @@ class Component implements Component_Interface, Templating_Component_Interface {
 		return $children;
 	}
 
-	public function wp_get_menu_array($current_menu='primary') {
+  /**
+   *
+   * @param $current_menu
+   * @return array
+   */
+	public function wp_get_menu_array($current_menu='primary'): array
+  {
 
 		$menu_array = wp_get_nav_menu_items($current_menu);
 
@@ -238,7 +255,8 @@ class Component implements Component_Interface, Templating_Component_Interface {
 	 * @param $depth
 	 * @return string
 	 */
-	public function filter_nav_menu_item_title( $title, $item, $args, $depth ) {
+	public function filter_nav_menu_item_title( $title, $item, $args, $depth ): string
+  {
 
 //		if($args->theme_location === static::PRIMARY_NAV_MENU_SLUG) {
 //			$title = '<span>' . $title . '</span><b>' . $title . '</b>';

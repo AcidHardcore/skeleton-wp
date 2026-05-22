@@ -48,14 +48,14 @@ class Component implements Component_Interface
       new Asset(
         handle: 'skeleton-wp-swiper',
         url: get_theme_file_uri('/assets/js/swiper-bundle.js'),
-        path: skeleton_wp()->get_asset_version(get_theme_file_path('/assets/js/swiper-bundle.js')),
+        path: get_theme_file_path('/assets/js/swiper-bundle.js'),
         args: ['strategy' => 'defer', 'in_footer' => true],
         enqueue: false
       ),
       new Asset(
         handle: 'skeleton-wp-slick',
         url: get_theme_file_uri('/assets/js/slick.min.js'),
-        path: skeleton_wp()->get_asset_version(get_theme_file_path('/assets/js/slick.min.js')),
+        path: get_theme_file_path('/assets/js/slick.min.js'),
         dependencies: ['jquery'],
         args: ['strategy' => 'defer', 'in_footer' => true],
         enqueue: false
@@ -63,14 +63,14 @@ class Component implements Component_Interface
       new Asset(
         handle: 'skeleton-wp-gsap',
         url: get_theme_file_uri('/assets/js/gsap.min.js'),
-        path: skeleton_wp()->get_asset_version(get_theme_file_path('/assets/js/gsap.min.js')),
+        path: get_theme_file_path('/assets/js/gsap.min.js'),
         args: ['strategy' => 'defer', 'in_footer' => true],
         enqueue: false
       ),
       new Asset(
         handle: 'skeleton-wp-ScrollTrigger',
         url: get_theme_file_uri('/assets/js/ScrollTrigger.min.js'),
-        path: skeleton_wp()->get_asset_version(get_theme_file_path('/assets/js/ScrollTrigger.min.js')),
+        path: get_theme_file_path('/assets/js/ScrollTrigger.min.js'),
         dependencies: ['skeleton-wp-gsap'],
         args: ['strategy' => 'defer', 'in_footer' => true],
         enqueue: false
@@ -78,7 +78,7 @@ class Component implements Component_Interface
       new Asset(
         handle: 'skeleton-wp-SplitText',
         url: get_theme_file_uri('/assets/js/SplitText.min.js'),
-        path: skeleton_wp()->get_asset_version(get_theme_file_path('/assets/js/gsap-client.min.js')),
+        path: get_theme_file_path('/assets/js/gsap-client.min.js'),
         dependencies: ['skeleton-wp-gsap'],
         args: ['strategy' => 'defer', 'in_footer' => true],
         enqueue: false
@@ -86,7 +86,7 @@ class Component implements Component_Interface
       new Asset(
         handle: 'skeleton-wp-gsap-client',
         url: get_theme_file_uri('/assets/js/gsap-client.min.js'),
-        path: skeleton_wp()->get_asset_version(get_theme_file_path('/assets/js/gsap-client.min.js')),
+        path: get_theme_file_path('/assets/js/gsap-client.min.js'),
         dependencies: [
           'skeleton-wp-gsap',
           'skeleton-wp-ScrollTrigger',
@@ -109,7 +109,7 @@ class Component implements Component_Interface
       new Asset(
         handle: 'skeleton-wp-swiper',
         url: get_theme_file_uri('/assets/css/swiper.css'),
-        path: skeleton_wp()->get_asset_version(get_theme_file_path('/assets/css/swiper.css')),
+        path: get_theme_file_path('/assets/css/swiper.css'),
         enqueue: false
       ),
     ];
@@ -130,7 +130,7 @@ class Component implements Component_Interface
         $asset->handle,
         $asset->url,
         $asset->dependencies ?? [],
-        filemtime($asset->path),
+        skeleton_wp()->get_asset_version($asset->path),
         $asset->args ?? []
       );
     }
@@ -142,7 +142,7 @@ class Component implements Component_Interface
         $asset->handle,
         $asset->url,
         $asset->dependencies ?? [],
-        filemtime($asset->path)
+        skeleton_wp()->get_asset_version($asset->path)
       );
     }
   }

@@ -20,31 +20,35 @@ use function add_filter;
  * * `skeleton_wp()->is_primary_nav_menu_active()`
  * * `skeleton_wp()->display_primary_nav_menu( array $args = array() )`
  */
-class Component implements Component_Interface {
+class Component implements Component_Interface
+{
 
-	/**
-	 * Gets the unique identifier for the theme component.
-	 *
-	 * @return string Component slug.
-	 */
-	public function get_slug(): string {
-		return 'header';
-	}
+  /**
+   * Gets the unique identifier for the theme component.
+   *
+   * @return string Component slug.
+   */
+  public function get_slug(): string
+  {
+    return 'header';
+  }
 
-	/**
-	 * Adds the action and filter hooks to integrate with WordPress.
-	 */
-	public function initialize() {
+  /**
+   * Adds the action and filter hooks to integrate with WordPress.
+   */
+  public function initialize(): void
+  {
 
     add_action('wp_enqueue_scripts', array($this, 'action_enqueue_header_script'));
-	}
+  }
 
   /**
    * Enqueues a script that adding classes on scroll to manipulate a header.
    */
-  public function action_enqueue_header_script() {
+  public function action_enqueue_header_script(): void
+  {
     $sticky_header = get_theme_mod('sticky_header');
-    if($sticky_header) {
+    if ($sticky_header) {
       // Enqueue the navigation script.
       wp_enqueue_script(
         'skeleton-wp-header',

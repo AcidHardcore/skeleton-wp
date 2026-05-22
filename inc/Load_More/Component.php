@@ -40,13 +40,13 @@ class Component implements Component_Interface
   /**
    * Adds the action and filter hooks to integrate with WordPress.
    */
-  public function initialize()
+  public function initialize(): void
   {
     add_action('rest_api_init', array($this, 'register_rest_route'));
     add_action('wp_enqueue_scripts', [$this, 'enqueue_scripts']);
   }
 
-  public function enqueue_scripts()
+  public function enqueue_scripts(): void
   {
     $script_handle = 'skeleton-wp-load-more';
 
@@ -74,7 +74,7 @@ class Component implements Component_Interface
   /**
    * Registers the custom REST API route.
    */
-  public function register_rest_route()
+  public function register_rest_route(): void
   {
     register_rest_route('load-more/v1', '/posts', [
       'methods' => WP_REST_Server::CREATABLE,
@@ -154,7 +154,7 @@ class Component implements Component_Interface
    *
    * @return true|WP_Error True if the value is valid, WP_Error otherwise.
    */
-  public function validate_query_args_structure($value, $request, $param)
+  public function validate_query_args_structure($value, $request, $param): true|WP_Error
   {
     if (!is_array($value)) {
       return new WP_Error('invalid_param', sprintf('%s must be an object.', $param), ['status' => 400]);
@@ -217,9 +217,9 @@ class Component implements Component_Interface
    * @param mixed $value The raw value from the input.
    * @param string $type The expected data type.
    *
-   * @return mixed The sanitized value.
+   * @return string|int|array|null The sanitized value.
    */
-  private function sanitize_query_var($value, string $type)
+  private function sanitize_query_var($value, string $type): string|int|array|null
   {
     switch ($type) {
       case 'int':
@@ -269,7 +269,7 @@ class Component implements Component_Interface
    *
    * @return null|string
    */
-  public function render_pagination_html($total_pages, $current_page, $current_url)
+  public function render_pagination_html($total_pages, $current_page, $current_url): ?string
   {
 
     if ($total_pages <= 1) {

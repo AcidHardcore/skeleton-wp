@@ -9,7 +9,6 @@ namespace Skeleton_WP\Skeleton_WP\Sidebars;
 
 use Skeleton_WP\Skeleton_WP\Component_Interface;
 use Skeleton_WP\Skeleton_WP\Templating_Component_Interface;
-use function add_action;
 use function add_filter;
 use function register_sidebar;
 use function esc_html__;
@@ -41,7 +40,8 @@ class Component implements Component_Interface, Templating_Component_Interface {
 	/**
 	 * Adds the action and filter hooks to integrate with WordPress.
 	 */
-	public function initialize() {
+	public function initialize(): void
+  {
 //		add_action( 'widgets_init', array( $this, 'action_register_sidebars' ) );
 		add_filter( 'body_class', array( $this, 'filter_body_classes' ) );
 	}
@@ -63,7 +63,8 @@ class Component implements Component_Interface, Templating_Component_Interface {
 	/**
 	 * Registers the sidebars.
 	 */
-	public function action_register_sidebars() {
+	public function action_register_sidebars(): void
+  {
 		register_sidebar(
 			array(
 				'name'          => esc_html__( 'Sidebar', 'skeleton-wp' ),
@@ -107,7 +108,8 @@ class Component implements Component_Interface, Templating_Component_Interface {
 	/**
 	 * Displays the primary sidebar.
 	 */
-	public function display_primary_sidebar() {
+	public function display_primary_sidebar(): void
+  {
 		dynamic_sidebar( static::PRIMARY_SIDEBAR_SLUG );
 	}
 }
