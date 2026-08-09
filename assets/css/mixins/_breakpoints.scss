@@ -22,7 +22,11 @@
   @if not $n {
     @error "breakpoint `#{$name}` not found in `#{$breakpoints}`";
   }
-  @return if($n < length($breakpoint-names), nth($breakpoint-names, $n + 1), null);
+  @if $n < length($breakpoint-names) {
+    @return nth($breakpoint-names, $n + 1);
+  } @else {
+    @return null;
+  }
 }
 
 // Minimum breakpoint width. Null for the smallest (first) breakpoint.
@@ -31,7 +35,11 @@
 //    576px
 @function breakpoint-min($name, $breakpoints: $grid-breakpoints) {
   $min: map.get($breakpoints, $name);
-  @return if($min != 0, $min, null);
+  @if $min != 0 {
+    @return $min;
+  } @else {
+    @return null;
+  }
 }
 
 // Maximum breakpoint width.
@@ -45,7 +53,11 @@
 //    767.98px
 @function breakpoint-max($name, $breakpoints: $grid-breakpoints) {
   $max: map.get($breakpoints, $name);
-  @return if($max and $max > 0, $max - .02, null);
+  @if $max and $max > 0 {
+    @return $max - .02;
+  } @else {
+    @return null;
+  }
 }
 
 // Returns a blank string if smallest breakpoint, otherwise returns the name with a dash in front.
@@ -56,7 +68,11 @@
 //    >> breakpoint-infix(sm, (xs: 0, sm: 576px, md: 768px, lg: 992px, xl: 1200px))
 //    "-sm"
 @function breakpoint-infix($name, $breakpoints: $grid-breakpoints) {
-  @return if(breakpoint-min($name, $breakpoints) == null, "", "-#{$name}");
+  @if breakpoint-min($name, $breakpoints) == null {
+    @return "";
+  } @else {
+    @return "-#{$name}";
+  }
 }
 
 // Media of at least the minimum breakpoint width. No query for the smallest breakpoint.

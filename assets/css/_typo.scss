@@ -23,7 +23,7 @@ body {
 	text-align: left;
 	color: $text-color;
 	background-color: $body-bg;
-
+  box-sizing: border-box;
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
 }
@@ -160,14 +160,14 @@ figure {
 	margin-right: 0;
 }
 
-p {
-	// http://clagnut.com/blog/2395
-	hyphens: auto;
-	hyphenate-limit-chars: 6 3 3;
-	hyphenate-limit-lines: 2;
-	hyphenate-limit-last: always;
-	hyphenate-limit-zone: 8%;
-}
+//p {
+//	// http://clagnut.com/blog/2395
+//	hyphens: auto;
+//	hyphenate-limit-chars: 6 3 3;
+//	hyphenate-limit-lines: 2;
+//	hyphenate-limit-last: always;
+//	hyphenate-limit-zone: 8%;
+//}
 
 address {
 	font-style: normal;
